@@ -14,6 +14,7 @@
 /// Main name space for the OpenKL library
 namespace openkl {
 
+    // only forward declaration here, actually types in interface/universal/posit/posit_definitions.hpp
     using posit32= sw::unum::posit<32, 2>; // or something else   
 
     class object_id; 
