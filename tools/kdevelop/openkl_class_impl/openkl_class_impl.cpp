@@ -10,32 +10,28 @@
 
 
 
-#include <iostream>
+#include <{% for n in namespaces %}{{n}}/{% endfor %}{{ name }}.hpp>
 
 
 
-#include <openkl/operations/io/test_ostream.hpp>
+{% for n in namespaces %}namespace {{n}} { 
+{% endfor %}
 
 
 
-#include <openkl/testing/check_equal.hpp>
-
-
-
-using openkl::io::tout;
-using openkl::check_equal;
-
-
-
-
-int main()
+class {{ name }}
 {
-   
-    
-    
 
-    
-    return 0;
-}
 
+  public:
+
+
+
+  private:
+
+};
+
+
+
+{% for n in namespaces %}}{% endfor %} // namespace {% for n in namespaces %}{{n}}{% if not forloop.last %}::{% endif %}{% endfor %}
 
