@@ -18,15 +18,34 @@
 namespace openkl {
 
 /// Get information on the object with \p id in \p os.
-inline void object_info(object_id id, std::ostream& os)
+struct object_info_t
 {
-    object_repo[id]->info(os);
-}
+    explicit object_info_t(object_id id) : id{id} {}
+    object_id id; 
+};
 
-/// Get information on the object with \p id in std::cout.
-inline void object_info(object_id id)
+// Get information on the object with \p id.
+inline object_info_t object_info(object_id id)
 {
-    object_info(id, std::cout);
+    return object_info_t{id}; 
 }
+    
+std::ostream& operator<<(std::ostream& os, object_info_t oi)
+{
+    object_repo[oi.id]->info(os);
+    return os;
+}
+    
+// /// Get information on the object with \p id in \p os.
+// inline void object_info(object_id id, std::ostream& os)
+// {
+//     object_repo[id]->info(os);
+// }
+// 
+// /// Get information on the object with \p id in std::cout.
+// inline void object_info(object_id id)
+// {
+//     object_info(id, std::cout);
+// }
 
 } // namespace openkl

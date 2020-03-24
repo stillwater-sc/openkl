@@ -13,6 +13,9 @@
 #include <openkl/interface/universal/posit/posit_definitions.hpp>
 #include <openkl/utilities/object_id.hpp>
 #include <openkl/utilities/object_info.hpp>
+#include <openkl/testing/check_object_output.hpp>
+
+#define MTL5_VERBOSE_TESTS // to see the output
 
 #include <mtl/vec/dense_vector.hpp>
 #include <mtl/operations/io/test_ostream.hpp>
@@ -27,9 +30,10 @@ int main()
     
     mtl::vec::dense_vector<posit32> v{2.3, 4.1, 6.1};
     object_id v_id= create_dense_vector(size(v), v[0]);
-    std::cout << "The id of my object is " << v_id.id() << "\n";
-    object_info(v_id);
-    std::cout << "\n";
+    tout << "The id of my object is " << v_id.id() << "\n";
+    tout << object_info(v_id) << "\n";
+    
+    check_object_output(v_id, "vector with 3 entries", "create_dense_vector");
 
     return 0;
 }
