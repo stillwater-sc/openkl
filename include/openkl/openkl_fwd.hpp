@@ -26,6 +26,5 @@ namespace openkl {
         struct update_minus;
         
     }        
-}
 
 } // namespace openkl
