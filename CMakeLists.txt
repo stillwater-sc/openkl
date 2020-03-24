@@ -162,7 +162,7 @@ else()
     message(FATAL_ERROR "Not supported system type. Options: UNIX or WIN32.")
 endif()
 
-add_subdirectory("blas")
-add_subdirectory("applications")
-add_subdirectory("tests")
+add_subdirectory("applications/krylov")
+add_subdirectory("demos")
+add_subdirectory("tests/posit")
 
