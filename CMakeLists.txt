@@ -97,22 +97,27 @@ endif()
 if (POLICY CMP0074)
     cmake_policy(SET CMP0074 NEW)
 endif(POLICY CMP0074)
-find_package(Boost)
-message(STATUS "Boost_FOUND " ${Boost_FOUND})
-if (Boost_FOUND)
-	message(STATUS "Including Boost_INCLUDE_DIR " ${Boost_INCLUDE_DIR})
-	include_directories(${Boost_INCLUDE_DIR})
-endif (Boost_FOUND)
 
-cmake_policy(SET CMP0054 NEW)
-find_package(MTL REQUIRED)
-include_directories(${MTL_INCLUDE_DIRS})
-add_definitions(${MTL_CXX_DEFINITIONS})
-message(STATUS "MTL INCLUDE DIR " ${MTL_INCLUDE_DIRS})
+# Let's try without Boost if possible
+# find_package(Boost)
+# message(STATUS "Boost_FOUND " ${Boost_FOUND})
+# if (Boost_FOUND)
+# 	message(STATUS "Including Boost_INCLUDE_DIR " ${Boost_INCLUDE_DIR})
+# 	include_directories(${Boost_INCLUDE_DIR})
+# endif (Boost_FOUND)
+
+# And without MTL for the moment
+# cmake_policy(SET CMP0054 NEW)
+# find_package(MTL REQUIRED)
+# include_directories(${MTL_INCLUDE_DIRS})
+# add_definitions(${MTL_CXX_DEFINITIONS})
+# message(STATUS "MTL INCLUDE DIR " ${MTL_INCLUDE_DIRS})
 
 # Set posit include directory
-find_package(UNIVERSAL REQUIRED)
+#find_package(UNIVERSAL REQUIRED) # where do I get the package?
+set(UNIVERSAL_INCLUDE_DIRS "" CACHE PATH "The include directory for the Universal number library")
 include_directories(${UNIVERSAL_INCLUDE_DIRS})
+    
 message(STATUS "UNIVERSAL INCLUDE DIR " ${UNIVERSAL_INCLUDE_DIRS})
 
 # Set openkl include directory
@@ -162,7 +167,6 @@ else()
     message(FATAL_ERROR "Not supported system type. Options: UNIX or WIN32.")
 endif()
 
-add_subdirectory("blas")
-add_subdirectory("applications")
-add_subdirectory("tests")
+# add_subdirectory("source")
+# add_subdirectory("tests")
 
