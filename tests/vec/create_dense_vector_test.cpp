@@ -11,6 +11,8 @@
 
 #include <openkl/openkl_fwd.hpp>
 #include <openkl/mtl5_shim.hpp>
+#include <openkl/utilities/object_id.hpp>
+
 // #include <openkl/vec/create_dense_vector.hpp>
 
 #include <universal/posit/posit.hpp>
@@ -27,7 +29,8 @@ int main()
     using namespace openkl;
     
     mtl::vec::dense_vector<posit32> v{2.3, 4.1, 6.1};
-    // create_dense_vector(size(v), &v[0]);
+    object_id v_id= create_dense_vector(size(v), v[0]);
+    std::cout << "Id of my object is " << v_id.id() << std::endl;
 
     return 0;
 }
