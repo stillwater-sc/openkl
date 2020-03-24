@@ -107,6 +107,7 @@ endif(POLICY CMP0074)
 # endif (Boost_FOUND)
 
 # And without MTL for the moment
+# MTL5 is used in the tests but for the moment not in the implementation
 # cmake_policy(SET CMP0054 NEW)
 # find_package(MTL REQUIRED)
 # include_directories(${MTL_INCLUDE_DIRS})
@@ -118,12 +119,12 @@ endif(POLICY CMP0074)
 set(UNIVERSAL_INCLUDE_DIRS "" CACHE PATH "The include directory for the Universal number library")
 include_directories(${UNIVERSAL_INCLUDE_DIRS})
     
-message(STATUS "UNIVERSAL INCLUDE DIR " ${UNIVERSAL_INCLUDE_DIRS})
+message(STATUS "The UNIVERSAL INCLUDE DIR is " ${UNIVERSAL_INCLUDE_DIRS})
 
 # Set openkl include directory
 set(OPENKL_INCLUDE_DIR "./include")
 include_directories(${OPENKL_INCLUDE_DIR})
-message(STATUS "OPENKL INCLUDE DIR " ${OPENKL_INCLUDE_DIR})
+message(STATUS "The OPENKL INCLUDE DIR is " ${OPENKL_INCLUDE_DIR})
 
 ####
 # Configure the compiler options
