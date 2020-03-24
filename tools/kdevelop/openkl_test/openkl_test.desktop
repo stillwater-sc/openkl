@@ -71,6 +71,6 @@ Name[uk]=Реалізація
 Name[x-test]=xxImplementationxx
 Name[zh_CN]=实现
 Name[zh_TW]=實作
-File=openkl_test_test.cpp
+File=openkl_test.cpp
 OutputFile={{ name }}.cpp
 
