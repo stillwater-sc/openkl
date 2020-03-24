@@ -1,4 +1,4 @@
 file (GLOB SOURCES "./*_test.cpp")
 
-compile_all("true" "operations" "${SOURCES}")
+compile_all("true" "operations" "Tests/operations" "${SOURCES}")
 
