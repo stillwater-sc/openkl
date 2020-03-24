@@ -1,5 +1,5 @@
 {% load kdev_filters %}
-// {{ name }}.cpp
+// {{ name }}.hpp
 // Created: {% now "yyyy-MM-dd" %}
 //
 // Copyright (C) 2020-present: Stillwater Supercomputing, Inc. & SimuNova UG
@@ -10,32 +10,29 @@
 
 
 
-#include <iostream>
+
+#pragma once
+
+
+{% for n in namespaces %}namespace {{n}} { 
+{% endfor %}
 
 
 
-#include <openkl/operations/io/test_ostream.hpp>
-
-
-
-#include <openkl/testing/check_equal.hpp>
-
-
-
-using openkl::io::tout;
-using openkl::check_equal;
-
-
-
-
-int main()
+class {{ name }}
 {
-   
-    
-    
 
-    
-    return 0;
-}
+
+  public:
+
+
+
+  private:
+
+};
+
+
+{% for n in namespaces %}}{% endfor %} // namespace {% for n in namespaces %}{{n}}{% if not forloop.last %}::{% endif %}{% endfor %}
+
 
 
