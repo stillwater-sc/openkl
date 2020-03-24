@@ -1,34 +1,21 @@
-// Software License for MTL5
+// openkl.hpp
+// Created: 2020-03-24
 //
-// Copyright (c) 2017 SimuNova UG, www.simunova.com.
-// All rights reserved.
-// Author: Peter Gottschling (peter.gottschling@simunova.com)
+// Copyright (C) 2020-present: Stillwater Supercomputing, Inc. & SimuNova UG
 //
-// This file is part of the Matrix Template Library 5
-//
-// See also tools/license/license.mtl.txt in the distribution.
-//
-// File: driver.hpp
-// Date: 2020-03-23
+// This file is part of the OpenKL project, which is released under an MIT Open Source license.
+// Authors: Peter Gottschling (peter.gottschling@simunova.com)
+//          Theodore Omtzigt (theo@stillwater-sc.com)
 
-#ifndef MTL_INTERFACE_KPU_DRIVER_H
-#define MTL_INTERFACE_KPU_DRIVER_H
+#pragma once
 
-#include <mtl/interface/universal/posit/posit_fwd.hpp>
+#include <cstddef>
 
-#include <mtl/scalar/update.hpp>
+#include <openkl/openkl_fwd.hpp>
 
-#include <mtl/mat/irows.hpp>
+namespace openkl {
 
-
-namespace mtl {
-namespace interface {
-namespace kpu {
-
-using posit32= sw::unum::posit<32, 2>; // or something else    
-
-class object_id {}; // TBD  
-    
+        
 /// Create dense (column) vector of size \p s and get data from address \p data and following
 object_id create_dense_vector(size_t s, const posit32& data);
 
@@ -92,10 +79,8 @@ void crs_matrix_vector_product(object_id u, object_id A, object_id v, Updater);
     }
 }
 #endif
+    
+
+} // namespace openkl
 
 
-
-
-}}} // namespace mtl::interface::kpu
-
-#endif // MTL_INTERFACE_KPU_DRIVER_H
