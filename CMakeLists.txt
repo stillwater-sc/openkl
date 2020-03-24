@@ -170,4 +170,6 @@ endif()
 
 # add_subdirectory("source")
 add_subdirectory("tests")
+add_subdirectory("applications/krylov")
+add_subdirectory("demos")
 
