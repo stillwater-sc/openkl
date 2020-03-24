@@ -11,11 +11,21 @@
 
 #include <openkl/interface/universal/posit/posit_fwd.hpp>
 
+/// Main name space for the OpenKL library
 namespace openkl {
 
-using posit32= sw::unum::posit<32, 2>; // or something else   
+    using posit32= sw::unum::posit<32, 2>; // or something else   
 
-class object_id; 
+    class object_id; 
 
+    /// Namespace for scalar operations (can be used in container classes).
+    namespace scalar {
+    
+        struct update_store;
+        struct update_plus;
+        struct update_minus;
+        
+    }        
+}
 
 } // namespace openkl
