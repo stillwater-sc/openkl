@@ -1,4 +1,4 @@
-// create_dense_vector.cpp
+// object_info.hpp
 // Created: 2020-03-24
 //
 // Copyright (C) 2020-present: Stillwater Supercomputing, Inc. & SimuNova UG
@@ -7,24 +7,26 @@
 // Authors: Peter Gottschling (peter.gottschling@simunova.com)
 //          Theodore Omtzigt (theo@stillwater-sc.com)
 
-#include <openkl/openkl_fwd.hpp>
-#include <openkl/mtl5_shim.hpp>
+#pragma once
+
+#include <ostream>
 
 #include <openkl/utilities/object_id.hpp>
 #include <openkl/utilities/object_repo.hpp>
 
-#include <openkl/vec/dense_vector.hpp>
 
 namespace openkl {
 
-    
-object_id create_dense_vector(size_t s, const posit32& data)
+/// Get information on the object with \p id in \p os.
+inline void object_info(object_id id, std::ostream& os)
 {
-    object_id oi;
-    object_repo[oi]= new dense_vector{s, data};
-    return oi;
-}    
-    
+    object_repo[id]->info(os);
+}
 
+/// Get information on the object with \p id in std::cout.
+inline void object_info(object_id id)
+{
+    object_info(id, std::cout);
+}
 
 } // namespace openkl

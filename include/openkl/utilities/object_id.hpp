@@ -29,4 +29,6 @@ class object_id
     // object& o;
 };
 
+inline bool operator<(object_id o1, object_id o2) { return o1.id() < o2.id(); }
+
 } // namespace openkl
