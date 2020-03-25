@@ -24,7 +24,7 @@ struct object_info_t
     object_id id; 
 };
 
-// Get information on the object with \p id.
+/// Get information on the object with \p id.
 inline object_info_t object_info(object_id id)
 {
     return object_info_t{id}; 
