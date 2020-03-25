@@ -5,6 +5,7 @@ include_directories(${MTL_INCLUDE_DIRS})
 message(STATUS "The MTL5 INCLUDE DIR is " ${MTL_INCLUDE_DIRS})
 
 add_subdirectory("utilities")
+add_subdirectory("testing")
 
 add_subdirectory("posit")
 
