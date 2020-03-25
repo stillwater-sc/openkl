@@ -3,6 +3,8 @@
 #include <iostream>
 #include <openkl/openkl.hpp>
 
+#include <universal/posit/posit>
+
 int main(int argc, char* argv[])
 try {
 	// first step: enumerate the target devices our program could use
@@ -27,6 +29,10 @@ try {
 			<< " memory size : " << devices[i].memory << " MBytes"
 			<< std::endl;
 	}
+
+	std::cout << "posit<32,2> epsilon : " << std::numeric_limits< sw::unum::posit<32, 2> >::epsilon() << std::endl;
+	std::cout << "posit<32,2> minpos  : " << sw::unum::minpos<32, 2>() << std::endl;
+
 }
 catch(const char* msg) {
 	std::cerr << "caught exception: " << msg << std::endl;
