@@ -36,4 +36,13 @@ struct bad_down_cast : runtime_error
       : runtime_error("Bad down cast: " + s) {}
 };
 
+/// Exception for tests when an expected exception wasn't thrown.
+struct missing_exception : runtime_error
+{
+    /// Error can be specified more precisely in constructor if desired.
+    explicit missing_exception(const std::string& s= "") 
+      : runtime_error("Expected exception wasn't thrown: " + s) {}
+};
+
+    
 } // namespace openkl
