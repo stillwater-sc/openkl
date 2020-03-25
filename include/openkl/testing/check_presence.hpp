@@ -1,4 +1,4 @@
-// check_type.hpp
+// check_presence.hpp
 // Created: 2020-03-25
 //
 // Copyright (C) 2020-present: Stillwater Supercomputing, Inc. & SimuNova UG
@@ -15,23 +15,19 @@
 
 namespace openkl {
 
-/// Throws \ref bad_down_cast if object referred by \p oi cannot be downcasted to type \p Target.
-template <typename Target>
-void check_type(object_id oi)
+/// Throws \ref missing_object if object referred by \p oi isn't stored in object_repo.
+void check_presence(object_id oi)
 {
-    Target* tp= dynamic_cast<Target*>(object_repo[oi]); 
-    if (tp == nullptr)
-        throw bad_down_cast{};
+    if (object_repo.count(oi) == 0)
+        throw missing_object{};
 }
 
-/// Throws \ref bad_down_cast in debug mode if object referred by \p oi cannot be downcasted to type \p Target.
-template <typename Target>
-void check_type_debug(object_id oi)
+/// Throws \ref missing_object in debug mode if object referred by \p oi isn't stored in object_repo.
+void check_presence_debug(object_id oi)
 {
   #ifndef NDEBUG
-    check_type<Target>(oi);
+    check_presence(oi);
   #endif
 }
-
 
 } // namespace openkl
