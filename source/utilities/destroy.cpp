@@ -1,6 +1,5 @@
-{% load kdev_filters %}
-// {{ name }}.cpp
-// Created: {% now "yyyy-MM-dd" %}
+// destroy.cpp
+// Created: 2020-03-25
 //
 // Copyright (C) 2020-present: Stillwater Supercomputing, Inc. & SimuNova UG
 //
@@ -8,34 +7,23 @@
 // Authors: Peter Gottschling (peter.gottschling@simunova.com)
 //          Theodore Omtzigt (theo@stillwater-sc.com)
 
-
-
 #include <openkl/openkl_fwd.hpp>
 #include <openkl/mtl5_shim.hpp>
 
+#include <openkl/utilities/object_id.hpp>
+#include <openkl/utilities/object_repo.hpp>
 
-
-#include <openkl/{{ name }}.hpp>
-
+#include <openkl/testing/check_presence.hpp>
 
 
 namespace openkl {
 
-
-
-class {{ name }}
+void destroy(object_id oi)
 {
-
-
-  public:
-
-
-
-  private:
-
-};
-
+    check_presence( oi ); 
+    delete object_repo[oi];
+    object_repo.erase(oi);
+}
 
 
 } // namespace openkl
-
