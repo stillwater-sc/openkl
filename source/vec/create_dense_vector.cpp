@@ -17,14 +17,15 @@
 
 namespace openkl {
 
-    
-object_id create_dense_vector(size_t s, const posit32& data)
+
+template <typename Value>    
+object_id create_dense_vector(size_t s, const Value& data)
 {
     object_id oi;
-    object_repo[oi]= new dense_vector{s, data};
+    object_repo[oi]= new dense_vector<Value>{s, data};
     return oi;
 }    
     
-
+template object_id create_dense_vector<posit32>(size_t, const posit32&);
 
 } // namespace openkl

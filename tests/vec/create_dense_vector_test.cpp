@@ -1,4 +1,5 @@
-// create_dense_vector_test.cpp
+// create_dense_vector_test.cppobject_id create_dense_vector(size_t s, const posit32& data);
+
 // Created: 2020-03-24
 //
 // Copyright (C) 2020-present: Stillwater Supercomputing, Inc. & SimuNova UG

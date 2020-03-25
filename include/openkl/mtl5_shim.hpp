@@ -17,7 +17,8 @@ namespace openkl {
 
     
 /// Create dense (column) vector of size \p s and get data from address \p data and following
-object_id create_dense_vector(size_t s, const posit32& data);
+template <typename Value>    
+object_id create_dense_vector(size_t s, const Value& data);
 
 /// Read data from vector \p v. Error if \p v wasn't created with \ref create_dense_vector.
 void read_dense_vector(object_id v, posit32& data);
