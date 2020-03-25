@@ -28,6 +28,12 @@ struct assertion_not_fulfilled : runtime_error
       : runtime_error("Assertion not fulfilled: " + s) {}
 };
 
-
+/// Exception for down casts where not the correct type is referred.
+struct bad_down_cast : runtime_error
+{
+    /// Error can be specified more precisely in constructor if desired.
+    explicit bad_down_cast(const std::string& s= "") 
+      : runtime_error("Bad down cast: " + s) {}
+};
 
 } // namespace openkl
