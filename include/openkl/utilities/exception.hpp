@@ -44,5 +44,13 @@ struct missing_exception : runtime_error
       : runtime_error("Expected exception wasn't thrown: " + s) {}
 };
 
+/// Exception when no object for object_id is in object_repo.
+struct missing_object : runtime_error
+{
+    /// Error can be specified more precisely in constructor if desired.
+    explicit missing_object(const std::string& s= "") 
+      : runtime_error("No object for object_id is in object_repo: " + s) {}
+};
+
     
 } // namespace openkl

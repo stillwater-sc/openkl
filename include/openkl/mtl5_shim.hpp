@@ -25,7 +25,7 @@ object_id create_dense_vector(size_t s, const Value& data);
 
 /// Write data to vector \p v. Error if \p v wasn't created with \ref create_dense_vector.
 template <typename Value>    
-void write_dense_vector(object_id v, Value& data);
+void write_dense_vector(object_id v, const Value& data);
 
 /// Read data from vector \p v. Error if \p v wasn't created with \ref create_dense_vector.
 template <typename Value>    

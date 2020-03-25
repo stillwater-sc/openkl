@@ -28,7 +28,7 @@ class dense_vector
       
     explicit dense_vector(size_t s, const posit32& other) : dense_vector(s)   
     {
-        std::copy(&other, &other + s, &data[0]);
+        write(other);
     }
       
     virtual void info(std::ostream& os) const noexcept override 
@@ -44,6 +44,11 @@ class dense_vector
         for (size_t i= 1; i < v.s; ++i)
             os << ", " << v.data[i];
         return os << '}';
+    }
+    
+    void write(const Value& other) & noexcept 
+    {
+        std::copy(&other, &other + s, &data[0]);
     }
     
     virtual void content(std::ostream& os) const noexcept override { os << *this; }
