@@ -10,6 +10,7 @@
 #pragma once
 
 #include <memory>
+#include <ostream>
 #include <algorithm>
 
 #include <openkl/utilities/object.hpp>
@@ -24,7 +25,7 @@ template <typename Value>
 class dense_vector
   : public object
 {
-
+    using self= dense_vector<Value>;
   public:
     explicit dense_vector(size_t s) : s{s}, data{new posit32[s]} {}
       
@@ -37,6 +38,18 @@ class dense_vector
     { 
         os << "vector with " << s << " entries";
     }
+    
+    friend std::ostream& operator<<(std::ostream& os, const self& v) noexcept
+    {
+        os << '{';
+        if (v.s > 0)
+            os << v.data[0];
+        for (size_t i= 1; i < v.s; ++i)
+            os << ", " << v.data[i];
+        return os << '}';
+    }
+    
+    virtual void content(std::ostream& os) const noexcept override { os << *this; }
   private:
     size_t s;
     std::unique_ptr<Value[]> data;
