@@ -18,7 +18,7 @@
 #include <openkl/testing/check_object_info_output.hpp>
 #include <openkl/testing/check_object_content_output.hpp>
 
-#define MTL5_VERBOSE_TESTS // to see the output
+// #define MTL5_VERBOSE_TESTS // to see the output
 
 #include <mtl/vec/dense_vector.hpp>
 #include <mtl/operations/io/test_ostream.hpp>
@@ -39,7 +39,7 @@ int main()
     
     write_dense_vector(w_id, v[0]);
     tout << object_content(w_id) << "\n";   
-    check_object_content_output(w_id, "{2.3, 4.1, 6.15}", "write_dense_vector"); // disable with formating issues
+    check_object_content_output(w_id, "{2.3, 4.1, 6.1}", "write_dense_vector"); // disable with formating issues
     
     return 0;
 }

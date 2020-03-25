@@ -51,6 +51,11 @@ class dense_vector
         std::copy(&other, &other + s, &data[0]);
     }
     
+    void read(Value& other) const noexcept 
+    {
+        std::copy(&data[0], &data[s], &other);
+    }
+    
     virtual void content(std::ostream& os) const noexcept override { os << *this; }
   private:
     size_t s;
