@@ -20,6 +20,7 @@
 
 namespace openkl {
 
+template <typename Value>
 class dense_vector
   : public object
 {
@@ -36,7 +37,9 @@ class dense_vector
     }
   private:
     size_t s;
-    std::unique_ptr<posit32[]> data;
+    std::unique_ptr<Value[]> data;
 };
+
+using dense_vector32= dense_vector<posit32>;
 
 } // namespace openkl
