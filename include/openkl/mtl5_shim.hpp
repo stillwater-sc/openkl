@@ -34,9 +34,12 @@ void read_dense_vector(object_id v, Value& data);
 /// \p u up= \p v + \p w; Error if arguments weren't created with \ref create_dense_vector.
 /** up= is either =, += or -= 
  *  We can start with just storing and add the other versions later. **/
-void add_dense_vector(object_id u, object_id v, object_id w, scalar::update_store);
-void add_dense_vector(object_id u, object_id v, object_id w, scalar::update_plus);
-void add_dense_vector(object_id u, object_id v, object_id w, scalar::update_minus);
+template <typename Value, typename Update>
+void add_dense_vector(object_id u, object_id v, object_id w, Update);
+
+// void add_dense_vector(object_id u, object_id v, object_id w, scalar::update_store);
+// void add_dense_vector(object_id u, object_id v, object_id w, scalar::update_plus);
+// void add_dense_vector(object_id u, object_id v, object_id w, scalar::update_minus);
 
 /// \p u up= \p v - \p w; Error if arguments weren't created with \ref create_dense_vector.
 void subtract_dense_vector(object_id u, object_id v, object_id w, scalar::update_store);

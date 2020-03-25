@@ -16,14 +16,14 @@
 namespace openkl {
 
 /// Throws \ref missing_object if object referred by \p oi isn't stored in object_repo.
-void check_presence(object_id oi)
+inline void check_presence(object_id oi)
 {
     if (object_repo.count(oi) == 0)
         throw missing_object{};
 }
 
 /// Throws \ref missing_object in debug mode if object referred by \p oi isn't stored in object_repo.
-void check_presence_debug(object_id oi)
+inline void check_presence_debug(object_id oi)
 {
   #ifndef NDEBUG
     check_presence(oi);
