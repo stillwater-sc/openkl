@@ -12,5 +12,16 @@
 namespace openkl {
 
     object_repo_type object_repo;
+    
+    struct repo_cleaner_t
+    {
+        
+        ~repo_cleaner_t() {
+            for (auto p : object_repo)
+                delete p.second;
+        }
+    };
+    
+    repo_cleaner_t repo_cleaner; // destructor at program end calls delete for all objects
 
 } // namespace openkl
