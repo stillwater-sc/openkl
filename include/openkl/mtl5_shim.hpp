@@ -42,9 +42,8 @@ void add_dense_vector(object_id u, object_id v, object_id w, Update);
 // void add_dense_vector(object_id u, object_id v, object_id w, scalar::update_minus);
 
 /// \p u up= \p v - \p w; Error if arguments weren't created with \ref create_dense_vector.
-void subtract_dense_vector(object_id u, object_id v, object_id w, scalar::update_store);
-void subtract_dense_vector(object_id u, object_id v, object_id w, scalar::update_plus);
-void subtract_dense_vector(object_id u, object_id v, object_id w, scalar::update_minus);
+template <typename Value, typename Update>
+void subtract_dense_vector(object_id u, object_id v, object_id w, Update);
 
 /** Create dense row-major matrix with \p nr rows and \p nc. **/
 template <typename Value>    
