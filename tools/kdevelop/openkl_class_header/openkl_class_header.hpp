@@ -14,8 +14,7 @@
 #pragma once
 
 
-{% for n in namespaces %}namespace {{n}} { 
-{% endfor %}
+namespace openkl {
 
 
 
@@ -32,7 +31,7 @@ class {{ name }}
 };
 
 
-{% for n in namespaces %}}{% endfor %} // namespace {% for n in namespaces %}{{n}}{% if not forloop.last %}::{% endif %}{% endfor %}
+} // namespace openkl
 
 
 

@@ -1,5 +1,5 @@
-// create_dense_vector.cpp
-// Created: 2020-03-24
+// read_dense_vector.cpp
+// Created: 2020-03-25
 //
 // Copyright (C) 2020-present: Stillwater Supercomputing, Inc. & SimuNova UG
 //
@@ -13,29 +13,24 @@
 #include <openkl/utilities/object_id.hpp>
 #include <openkl/utilities/object_repo.hpp>
 
+#include <openkl/testing/check_presence.hpp>
+#include <openkl/testing/check_type.hpp>
+
 #include <openkl/vec/dense_vector.hpp>
 
 namespace openkl {
 
 template <typename Value>    
-object_id create_dense_vector(size_t s)
+void read_dense_vector(object_id v_id, Value& data)
 {
-    object_id oi;
-    object_repo[oi]= new dense_vector<Value>(s);
-    return oi;
-}    
+    using vtype= dense_vector<Value>;
+    check_presence_debug( v_id ); 
+    check_type_debug<vtype>( v_id ); 
+    const vtype* vp= static_cast<vtype*>(object_repo[v_id]);
+    vp->read(data);
+}
 
-
-template <typename Value>    
-object_id create_dense_vector(size_t s, const Value& data)
-{
-    object_id oi;
-    object_repo[oi]= new dense_vector<Value>(s, data);
-    return oi;
-}    
-    
 // explicit instantiations
-template object_id create_dense_vector<posit32>(size_t);
-template object_id create_dense_vector<posit32>(size_t, const posit32&);
+template void read_dense_vector<posit32>(object_id, posit32&);
 
 } // namespace openkl

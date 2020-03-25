@@ -28,6 +28,38 @@ struct assertion_not_fulfilled : runtime_error
       : runtime_error("Assertion not fulfilled: " + s) {}
 };
 
+/// Exception for down casts where not the correct type is referred.
+struct bad_down_cast : runtime_error
+{
+    /// Error can be specified more precisely in constructor if desired.
+    explicit bad_down_cast(const std::string& s= "") 
+      : runtime_error("Bad down cast: " + s) {}
+};
+
+/// Exception for tests when an expected exception wasn't thrown.
+struct missing_exception : runtime_error
+{
+    /// Error can be specified more precisely in constructor if desired.
+    explicit missing_exception(const std::string& s= "") 
+      : runtime_error("Expected exception wasn't thrown: " + s) {}
+};
+
+/// Exception when no object for object_id is in object_repo.
+struct missing_object : runtime_error
+{
+    /// Error can be specified more precisely in constructor if desired.
+    explicit missing_object(const std::string& s= "") 
+      : runtime_error("No object for object_id is in object_repo: " + s) {}
+};
+
+// Exception when objects don't match, e.g., vectors of different size.
+struct incompatible : runtime_error
+{
+    /// Error can be specified more precisely in constructor if desired.
+    explicit incompatible(const std::string& s= "") 
+      : runtime_error("Objects are incompatible: " + s) {}
+};
 
 
+    
 } // namespace openkl

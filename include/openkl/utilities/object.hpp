@@ -17,7 +17,10 @@ namespace openkl {
 class object
 {
   public:
+    /// Informmation about the object
     virtual void info(std::ostream&) const noexcept = 0;
+    /// Content of the object
+    virtual void content(std::ostream&) const noexcept = 0;
     void info() const noexcept { info(std::cout); }
     virtual ~object() {}
 };

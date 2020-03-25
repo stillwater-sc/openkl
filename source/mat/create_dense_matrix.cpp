@@ -1,5 +1,5 @@
-// create_dense_vector.cpp
-// Created: 2020-03-24
+// create_dense_matrix.cpp
+// Created: 2020-03-25
 //
 // Copyright (C) 2020-present: Stillwater Supercomputing, Inc. & SimuNova UG
 //
@@ -13,29 +13,19 @@
 #include <openkl/utilities/object_id.hpp>
 #include <openkl/utilities/object_repo.hpp>
 
-#include <openkl/vec/dense_vector.hpp>
+#include <openkl/mat/dense_matrix.hpp>
 
 namespace openkl {
 
 template <typename Value>    
-object_id create_dense_vector(size_t s)
+object_id create_dense_matrix(size_t nr, size_t nc)
 {
     object_id oi;
-    object_repo[oi]= new dense_vector<Value>(s);
+    object_repo[oi]= new dense_matrix<Value>(nr, nc);
     return oi;
 }    
 
-
-template <typename Value>    
-object_id create_dense_vector(size_t s, const Value& data)
-{
-    object_id oi;
-    object_repo[oi]= new dense_vector<Value>(s, data);
-    return oi;
-}    
-    
 // explicit instantiations
-template object_id create_dense_vector<posit32>(size_t);
-template object_id create_dense_vector<posit32>(size_t, const posit32&);
+template object_id create_dense_matrix<posit32>(size_t, size_t);
 
 } // namespace openkl
