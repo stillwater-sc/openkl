@@ -1,5 +1,5 @@
-// dense_vector.hpp
-// Created: 2020-03-24
+// dense_matrix.hpp
+// Created: 2020-03-25
 //
 // Copyright (C) 2020-present: Stillwater Supercomputing, Inc. & SimuNova UG
 //
@@ -18,40 +18,31 @@
 
 namespace openkl {
 
+// Incomplete !!!
 template <typename Value>
-class dense_vector
+class dense_matrix
   : public object
 {
-    using self= dense_vector<Value>;
-  public:
-    explicit dense_vector(size_t s) : s{s}, data{new posit32[s]} {}
-      
-    explicit dense_vector(size_t s, const posit32& other) : dense_vector(s)   
-    {
-        std::copy(&other, &other + s, &data[0]);
-    }
-      
+    using self= dense_matrix<Value>;
+public:
+    explicit dense_matrix(size_t nr, size_t nc) : nr{nr}, nc{nc}, data{new posit32[nr*nc]} {}
+
     virtual void info(std::ostream& os) const noexcept override 
     { 
-        os << "vector with " << s << " entries";
+        os << "matrix of dimension " << nr << "x" << nc;
     }
     
     friend std::ostream& operator<<(std::ostream& os, const self& v) noexcept
     {
-        os << '{';
-        if (v.s > 0)
-            os << v.data[0];
-        for (size_t i= 1; i < v.s; ++i)
-            os << ", " << v.data[i];
-        return os << '}';
+        return os;
     }
     
     virtual void content(std::ostream& os) const noexcept override { os << *this; }
-  private:
-    size_t s;
+private:
+    size_t nr, nc;
     std::unique_ptr<Value[]> data;
 };
 
-using dense_vector32= dense_vector<posit32>;
+using dense_matrix32= dense_matrix<posit32>;
 
 } // namespace openkl

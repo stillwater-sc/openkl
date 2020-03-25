@@ -23,8 +23,13 @@ object_id create_dense_vector(size_t s);
 template <typename Value>    
 object_id create_dense_vector(size_t s, const Value& data);
 
+/// Write data to vector \p v. Error if \p v wasn't created with \ref create_dense_vector.
+template <typename Value>    
+void write_dense_vector(object_id v, Value& data);
+
 /// Read data from vector \p v. Error if \p v wasn't created with \ref create_dense_vector.
-void read_dense_vector(object_id v, posit32& data);
+template <typename Value>    
+void read_dense_vector(object_id v, Value& data);
 
 /// \p u up= \p v + \p w; Error if arguments weren't created with \ref create_dense_vector.
 /** up= is either =, += or -= 
@@ -38,9 +43,14 @@ void subtract_dense_vector(object_id u, object_id v, object_id w, scalar::update
 void subtract_dense_vector(object_id u, object_id v, object_id w, scalar::update_plus);
 void subtract_dense_vector(object_id u, object_id v, object_id w, scalar::update_minus);
 
+/** Create dense row-major matrix with \p nr rows and \p nc. **/
+template <typename Value>    
+object_id create_dense_matrix(size_t nr, size_t nc);
+
 /** Create dense row-major matrix with \p nr rows and \p nc columns and get data from address 
  *  \p data and following **/
-object_id create_dense_matrix(size_t nr, size_t nc, const posit32& data);
+template <typename Value>    
+object_id create_dense_matrix(size_t nr, size_t nc, const Value& data);
 
 /// Read data from matrix \p A. Error if \p v wasn't created with \ref create_dense_matrix.
 void read_dense_matrix(object_id A, posit32& data);
