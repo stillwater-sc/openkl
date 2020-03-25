@@ -15,6 +15,9 @@
 
 namespace openkl {
 
+/// Create dense (column) vector of size \p s (with uninitialized memory)
+template <typename Value>    
+object_id create_dense_vector(size_t s);
     
 /// Create dense (column) vector of size \p s and get data from address \p data and following
 template <typename Value>    
