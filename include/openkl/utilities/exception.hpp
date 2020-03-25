@@ -52,5 +52,14 @@ struct missing_object : runtime_error
       : runtime_error("No object for object_id is in object_repo: " + s) {}
 };
 
+// Exception when objects don't match, e.g., vectors of different size.
+struct incompatible : runtime_error
+{
+    /// Error can be specified more precisely in constructor if desired.
+    explicit incompatible(const std::string& s= "") 
+      : runtime_error("Objects are incompatible: " + s) {}
+};
+
+
     
 } // namespace openkl

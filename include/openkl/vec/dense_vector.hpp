@@ -12,8 +12,10 @@
 #include <memory>
 #include <ostream>
 #include <algorithm>
+#include <cassert>
 
 #include <openkl/utilities/object.hpp>
+#include <openkl/utilities/exception.hpp>
 #include <openkl/interface/universal/posit/posit_definitions.hpp>
 
 namespace openkl {
@@ -23,6 +25,7 @@ class dense_vector
   : public object
 {
     using self= dense_vector<Value>;
+    void size_check(size_t os) const { assert(s == os); }
   public:
     explicit dense_vector(size_t s) : s{s}, data{new posit32[s]} {}
       
@@ -54,6 +57,14 @@ class dense_vector
     void read(Value& other) const noexcept 
     {
         std::copy(&data[0], &data[s], &other);
+    }
+    
+    template <typename Updater>
+    void add(const self& v, const self& w, Updater) & noexcept
+    {
+        size_check(v.s); size_check(w.s);
+        for (size_t i= 0; i < v.s; ++i)
+            Updater::update(data[i], v.data[i] + w.data[i]);            
     }
     
     virtual void content(std::ostream& os) const noexcept override { os << *this; }
