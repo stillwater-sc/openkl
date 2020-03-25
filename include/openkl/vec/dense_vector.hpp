@@ -67,6 +67,14 @@ class dense_vector
             Updater::update(data[i], v.data[i] + w.data[i]);            
     }
     
+    template <typename Updater>
+    void subtract(const self& v, const self& w, Updater) & noexcept
+    {
+        size_check(v.s); size_check(w.s);
+        for (size_t i= 0; i < v.s; ++i)
+            Updater::update(data[i], v.data[i] - w.data[i]);            
+    }
+    
     virtual void content(std::ostream& os) const noexcept override { os << *this; }
   private:
     size_t s;
