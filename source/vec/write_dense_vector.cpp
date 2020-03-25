@@ -13,15 +13,25 @@
 #include <openkl/utilities/object_id.hpp>
 #include <openkl/utilities/object_repo.hpp>
 
+#include <openkl/testing/check_presence.hpp>
+#include <openkl/testing/check_type.hpp>
+
 #include <openkl/vec/dense_vector.hpp>
 
 namespace openkl {
 
 template <typename Value>    
-void write_dense_vector(object_id v, Value& data)
+void write_dense_vector(object_id v_id, const Value& data)
 {
-    
-    
+    using vtype= dense_vector<Value>;
+    check_presence_debug( v_id ); 
+    check_type_debug<vtype>( v_id ); 
+    vtype* vp= static_cast<vtype*>(object_repo[v_id]);
+    vp->write(data);
 }
 
+// explicit instantiations
+template void write_dense_vector<posit32>(object_id, const posit32&);
+
+    
 } // namespace openkl
