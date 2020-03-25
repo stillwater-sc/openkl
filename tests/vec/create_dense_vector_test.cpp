@@ -32,9 +32,14 @@ int main()
     mtl::vec::dense_vector<posit32> v{2.3, 4.1, 6.1};
     object_id v_id= create_dense_vector(size(v), v[0]);
     tout << "The id of my object is " << v_id.id() << "\n";
-    tout << object_info(v_id) << "\n";
-    
+    tout << object_info(v_id) << "\n";    
     check_object_output(v_id, "vector with 3 entries", "create_dense_vector");
 
+    object_id w_id= create_dense_vector<posit32>(4);
+    tout << "The id of my object is " << w_id.id() << "\n";
+    tout << object_info(w_id) << "\n";    
+    check_object_output(w_id, "vector with 4 entries", "create_dense_vector");
+    
+    
     return 0;
 }

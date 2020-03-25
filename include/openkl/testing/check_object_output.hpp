@@ -24,8 +24,8 @@ void check_object_output(object_id oi, std::string expected_output, std::string 
     std::ostringstream oss;
     oss << object_info(oi);
     if (oss.str() != expected_output) {
-        const std::string message = "In context " + context + ": expected " + expected_output
-        + ", got " + oss.str() + ".";
+        const std::string message = "In context " + context + ": expected output '" + expected_output
+        + "', got '" + oss.str() + "'.";
         std::cerr << message << std::endl;
         throw assertion_not_fulfilled{message};
     }

@@ -36,16 +36,4 @@ std::ostream& operator<<(std::ostream& os, object_info_t oi)
     return os;
 }
     
-// /// Get information on the object with \p id in \p os.
-// inline void object_info(object_id id, std::ostream& os)
-// {
-//     object_repo[id]->info(os);
-// }
-// 
-// /// Get information on the object with \p id in std::cout.
-// inline void object_info(object_id id)
-// {
-//     object_info(id, std::cout);
-// }
-
 } // namespace openkl

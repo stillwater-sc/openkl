@@ -26,7 +26,9 @@ class dense_vector
 {
 
   public:
-    explicit dense_vector(size_t s, const posit32& other) : s{s}, data{new posit32[s]}
+    explicit dense_vector(size_t s) : s{s}, data{new posit32[s]} {}
+      
+    explicit dense_vector(size_t s, const posit32& other) : dense_vector(s)   
     {
         std::copy(&other, &other + s, &data[0]);
     }
