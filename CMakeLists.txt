@@ -13,6 +13,12 @@ cmake_minimum_required(VERSION 3.5)
 if (POLICY CMP0048)
     cmake_policy(SET CMP0048 NEW)
 endif(POLICY CMP0048)
+####
+## Enable package_ROOT variables
+if (POLICY CMP0074)
+    cmake_policy(SET CMP0074 NEW)
+endif(POLICY CMP0074)
+
 
 ############
 # OpenKL: Virtual Machine for Knowledge Processing
@@ -91,12 +97,6 @@ if (OPENKL_ENABLE_TESTS)
     enable_testing()
     # include(Dart)
 endif()
-
-####
-## Enable package_ROOT variables
-if (POLICY CMP0074)
-    cmake_policy(SET CMP0074 NEW)
-endif(POLICY CMP0074)
 
 # Let's try without Boost if possible
 # find_package(Boost)
