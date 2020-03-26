@@ -16,7 +16,11 @@
 #include <openkl/utilities/object_info.hpp>
 #include <openkl/utilities/object_content.hpp>
 #include <openkl/testing/check_object_info_output.hpp>
+#include <openkl/testing/check_object_content_output.hpp>
 
+#define MTL5_VERBOSE_TESTS // to see the output
+
+#include <mtl/mat/dense_matrix.hpp>
 #include <mtl/operations/io/test_ostream.hpp>
 #include <mtl/testing/check_equal.hpp>
 
@@ -26,12 +30,18 @@ using mtl::check_equal;
 int main()
 {
     using namespace openkl;
-    // Incomplete !!!!
 
     object_id a_id= create_dense_matrix<posit32>(2, 3);
     tout << object_info(a_id) << "\n";    
     check_object_info_output(a_id, "matrix of dimension 2x3", "create_matrix_vector");
+    tout << object_content(a_id) << "\n";
     
+    mtl::mat::dense_matrix<posit32> B{{1.1, 2.2, 3.3}, {4.4, 5.5, 6.6}};
+    object_id b_id= create_dense_matrix<posit32>(2, 3, B[0][0]);
+    tout << object_info(b_id) << "\n";    
+    check_object_info_output(b_id, "matrix of dimension 2x3", "create_matrix_vector");
+    tout << object_content(b_id) << "\n";
+    check_object_content_output(b_id, "{{1.1, 2.2, 3.3}, {4.4, 5.5, 6.6}}", "create_matrix_vector");
     
     return 0;
 }

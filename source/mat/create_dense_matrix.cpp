@@ -25,7 +25,17 @@ object_id create_dense_matrix(size_t nr, size_t nc)
     return oi;
 }    
 
+template <typename Value>    
+object_id create_dense_matrix(size_t nr, size_t nc, const Value& other)
+{
+    object_id oi;
+    object_repo[oi]= new dense_matrix<Value>(nr, nc, other);
+    return oi;
+}    
+
 // explicit instantiations
 template object_id create_dense_matrix<posit32>(size_t, size_t);
+
+template object_id create_dense_matrix<posit32>(size_t, size_t, const posit32&);
 
 } // namespace openkl

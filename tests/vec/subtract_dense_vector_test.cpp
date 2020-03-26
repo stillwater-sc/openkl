@@ -37,7 +37,7 @@ void test(object_id u_id, object_id v_id, object_id w_id, Updater updater,
     subtract_dense_vector<posit32>(u_id, v_id, w_id, updater);
     vtype res(3); 
     read_dense_vector(u_id, res[0]); 
-    std::cout << "The result is " << res << '\n';
+    tout << "The result is " << res << '\n';
     check_close(res, expected, "subtract_dense_vector", 1000.0);
 }
 
@@ -51,7 +51,6 @@ int main()
     test(u_id, v_id, w_id, update_store{}, vtype{3.3, 3.3, 3.3});
     test(u_id, v_id, w_id, update_plus{}, vtype{4.3, 4.3, 4.3});
     test(u_id, v_id, w_id, update_minus{}, vtype{-2.3, -2.3, -2.3});
-    
     
     return 0;
 }

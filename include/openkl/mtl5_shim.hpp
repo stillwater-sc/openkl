@@ -37,10 +37,6 @@ void read_dense_vector(object_id v, Value& data);
 template <typename Value, typename Update>
 void add_dense_vector(object_id u, object_id v, object_id w, Update);
 
-// void add_dense_vector(object_id u, object_id v, object_id w, scalar::update_store);
-// void add_dense_vector(object_id u, object_id v, object_id w, scalar::update_plus);
-// void add_dense_vector(object_id u, object_id v, object_id w, scalar::update_minus);
-
 /// \p u up= \p v - \p w; Error if arguments weren't created with \ref create_dense_vector.
 template <typename Value, typename Update>
 void subtract_dense_vector(object_id u, object_id v, object_id w, Update);
@@ -53,6 +49,9 @@ object_id create_dense_matrix(size_t nr, size_t nc);
  *  \p data and following **/
 template <typename Value>    
 object_id create_dense_matrix(size_t nr, size_t nc, const Value& data);
+
+/// Write data to matrix \p A. Error if \p v wasn't created with \ref create_dense_matrix.
+void write_dense_matrix(object_id A, const posit32& data);
 
 /// Read data from matrix \p A. Error if \p v wasn't created with \ref create_dense_matrix.
 void read_dense_matrix(object_id A, posit32& data);
