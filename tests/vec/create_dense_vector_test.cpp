@@ -18,8 +18,6 @@
 #include <openkl/testing/check_object_info_output.hpp>
 #include <openkl/testing/check_object_content_output.hpp>
 
-#define MTL5_VERBOSE_TESTS // to see the output
-
 #include <mtl/vec/dense_vector.hpp>
 #include <mtl/operations/io/test_ostream.hpp>
 #include <mtl/testing/check_equal.hpp>

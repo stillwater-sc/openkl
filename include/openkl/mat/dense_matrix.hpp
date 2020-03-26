@@ -24,16 +24,36 @@ class dense_matrix
   : public object
 {
     using self= dense_matrix<Value>;
+    
+    Value& operator()(size_t r, size_t c) & { return data[r*nc+c]; }
+    const Value& operator()(size_t r, size_t c) const & { return data[r*nc+c]; }
 public:
     explicit dense_matrix(size_t nr, size_t nc) : nr{nr}, nc{nc}, data{new posit32[nr*nc]} {}
+    
+    explicit dense_matrix(size_t nr, size_t nc, const Value& other) : dense_matrix(nr, nc)
+    {
+        write(other);
+    }
 
+    void write(const Value& other) & noexcept 
+    {
+        std::copy(&other, &other + nr*nc, &data[0]);
+    }
+    
     virtual void info(std::ostream& os) const noexcept override 
     { 
         os << "matrix of dimension " << nr << "x" << nc;
     }
     
-    friend std::ostream& operator<<(std::ostream& os, const self& v) noexcept
+    friend std::ostream& operator<<(std::ostream& os, const self& A) noexcept
     {
+        os << '{';
+        for (size_t r= 0; r < A.nr; ++r) {
+            os << '{';
+            for (size_t c= 0; c < A.nc; ++c) 
+                os << A(r, c) << (c + 1 == A.nc ? "}" : ", ");
+            os << (r + 1 == A.nr ? "}" : ", ");
+        }
         return os;
     }
     
