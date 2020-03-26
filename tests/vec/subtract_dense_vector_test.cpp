@@ -35,8 +35,8 @@ void test(object_id u_id, object_id v_id, object_id w_id, Updater updater,
     const vtype ones(3, 1.0); 
     write_dense_vector(u_id, ones[0]); // reset in every test
     subtract_dense_vector<posit32>(u_id, v_id, w_id, updater);
-    vtype res(3);
-    read_dense_vector(u_id, res[0]);
+    vtype res(3); 
+    read_dense_vector(u_id, res[0]); 
     std::cout << "The result is " << res << '\n';
     check_close(res, expected, "subtract_dense_vector", 1000.0);
 }

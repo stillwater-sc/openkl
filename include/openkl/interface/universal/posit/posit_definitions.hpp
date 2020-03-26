@@ -10,6 +10,7 @@
 #pragma once
 
 #include <universal/posit/posit.hpp>
+#include <universal/posit/numeric_limits.hpp>
 
 namespace openkl {
 
