@@ -48,8 +48,11 @@ public:
         os << "matrix of dimension " << nr << "x" << nc;
     }
     
-    Value& operator()(size_t r, size_t c) & { return data[r*nc+c]; }
-    const Value& operator()(size_t r, size_t c) const & { return data[r*nc+c]; }
+    Value& operator()(size_t r, size_t c) & noexcept { return data[r*nc+c]; }
+    const Value& operator()(size_t r, size_t c) const & noexcept { return data[r*nc+c]; }
+    
+    size_t num_rows() const noexcept { return nr; }
+    size_t num_cols() const noexcept { return nc; }
     
     friend std::ostream& operator<<(std::ostream& os, const self& A) noexcept
     {
