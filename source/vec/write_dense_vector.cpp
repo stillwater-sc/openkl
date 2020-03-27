@@ -11,10 +11,7 @@
 #include <openkl/mtl5_shim.hpp>
 
 #include <openkl/utilities/object_id.hpp>
-#include <openkl/utilities/object_repo.hpp>
-
-#include <openkl/testing/check_presence.hpp>
-#include <openkl/testing/check_type.hpp>
+#include <openkl/utilities/get_object.hpp>
 
 #include <openkl/vec/dense_vector.hpp>
 
@@ -24,9 +21,7 @@ template <typename Value>
 void write_dense_vector(object_id v_id, const Value& data)
 {
     using vtype= dense_vector<Value>;
-    check_presence_debug( v_id ); 
-    check_type_debug<vtype>( v_id ); 
-    vtype* vp= static_cast<vtype*>(object_repo[v_id]);
+    vtype* vp= get_object<vtype>(v_id);
     vp->write(data);
 }
 
