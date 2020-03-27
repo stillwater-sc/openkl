@@ -10,7 +10,9 @@
 #include <openkl/openkl_fwd.hpp>
 #include <openkl/mtl5_shim.hpp>
 
+#include <openkl/utilities/object_id.hpp>
 #include <openkl/utilities/get_object.hpp>
+
 #include <openkl/mat/dense_matrix.hpp>
 
 namespace openkl

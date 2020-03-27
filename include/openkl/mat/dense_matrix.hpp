@@ -40,7 +40,7 @@ public:
         std::copy(&other, &other + nr*nc, &data[0]);
     }
     
-    void read(Value& other) & noexcept 
+    void read(Value& other) const noexcept 
     {
         std::copy(&data[0], &data[0] + nr*nc, &other);
     }
