@@ -32,8 +32,7 @@ template <typename Value>
 void read_dense_vector(object_id v, Value& data);
 
 /// \p u up= \p v + \p w; Error if arguments weren't created with \ref create_dense_vector.
-/** up= is either =, += or -= 
- *  We can start with just storing and add the other versions later. **/
+/** up= is either =, += or -=  **/
 template <typename Value, typename Update>
 void add_dense_vector(object_id u, object_id v, object_id w, Update);
 
@@ -58,8 +57,9 @@ void write_dense_matrix(object_id A, const Value& data);
 template <typename Value>    
 void read_dense_matrix(object_id A, Value& data);
 
-/// Dense matrix vector product \p u = \p A * \p v.
-void dense_matrix_vector_product(object_id u, object_id A, object_id v);
+/// Dense matrix vector product \p u up= \p A * \p v.
+template <typename Value, typename Update>
+void dense_matrix_vector_product(object_id u, object_id A, object_id v, Update);
 
 
 /// Destroy object of any kind. 
