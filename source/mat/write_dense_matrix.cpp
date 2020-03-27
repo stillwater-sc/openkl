@@ -10,10 +10,30 @@
 #include <openkl/openkl_fwd.hpp>
 #include <openkl/mtl5_shim.hpp>
 
+#include <openkl/utilities/object_id.hpp>
+#include <openkl/utilities/object_repo.hpp>
+
+#include <openkl/testing/check_presence.hpp>
+#include <openkl/testing/check_type.hpp>
+
+#include <openkl/mat/dense_matrix.hpp>
+
 
 namespace openkl
 {
 
+template <typename Value>    
+void write_dense_matrix(object_id a_id, const Value& data)
+{
+    using mtype= dense_matrix<Value>;
+    check_presence_debug( a_id ); 
+    check_type_debug<mtype>( a_id );
+    mtype* vp= static_cast<mtype*>(object_repo[a_id]);
+    vp->write(data);
+}
+
+// explicit instantiations
+template void write_dense_matrix<posit32>(object_id, const posit32&);
 
 
 } // namespace openkl
