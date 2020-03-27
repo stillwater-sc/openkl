@@ -13,20 +13,18 @@
 #include <ostream>
 #include <algorithm>
 
+#include <openkl/openkl_fwd.hpp>
 #include <openkl/utilities/object.hpp>
 #include <openkl/interface/universal/posit/posit_definitions.hpp>
 
 namespace openkl {
 
-// Incomplete !!!
 template <typename Value>
 class dense_matrix
   : public object
 {
     using self= dense_matrix<Value>;
-    
-    Value& operator()(size_t r, size_t c) & { return data[r*nc+c]; }
-    const Value& operator()(size_t r, size_t c) const & { return data[r*nc+c]; }
+    // using vtype= dense_vector<Value>; // corresponding vector type, hopefully not needed
 public:
     explicit dense_matrix(size_t nr, size_t nc) : nr{nr}, nc{nc}, data{new posit32[nr*nc]} {}
     
@@ -50,6 +48,9 @@ public:
         os << "matrix of dimension " << nr << "x" << nc;
     }
     
+    Value& operator()(size_t r, size_t c) & { return data[r*nc+c]; }
+    const Value& operator()(size_t r, size_t c) const & { return data[r*nc+c]; }
+    
     friend std::ostream& operator<<(std::ostream& os, const self& A) noexcept
     {
         os << '{';
@@ -63,6 +64,7 @@ public:
     }
     
     virtual void content(std::ostream& os) const noexcept override { os << *this; }
+    
 private:
     size_t nr, nc;
     std::unique_ptr<Value[]> data;

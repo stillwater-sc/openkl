@@ -25,7 +25,6 @@ class dense_vector
   : public object
 {
     using self= dense_vector<Value>;
-    void size_check(size_t os) const { assert(s == os); }
   public:
     explicit dense_vector(size_t s) : s{s}, data{new posit32[s]} {}
       
@@ -34,19 +33,11 @@ class dense_vector
         write(other);
     }
       
+    void size_check(size_t os) const { assert(s == os); }
+    
     virtual void info(std::ostream& os) const noexcept override 
     { 
         os << "vector with " << s << " entries";
-    }
-    
-    friend std::ostream& operator<<(std::ostream& os, const self& v) noexcept
-    {
-        os << '{';
-        if (v.s > 0)
-            os << v.data[0];
-        for (size_t i= 1; i < v.s; ++i)
-            os << ", " << v.data[i];
-        return os << '}';
     }
     
     void write(const Value& other) & noexcept 
@@ -59,20 +50,19 @@ class dense_vector
         std::copy(&data[0], &data[s], &other);
     }
     
-    template <typename Updater>
-    void add(const self& v, const self& w, Updater) & noexcept
-    {
-        size_check(v.s); size_check(w.s);
-        for (size_t i= 0; i < v.s; ++i)
-            Updater::update(data[i], v.data[i] + w.data[i]);            
-    }
+    Value& operator[](size_t i) & { return data[i]; }
+    const Value& operator[](size_t i) const & { return data[i]; }
     
-    template <typename Updater>
-    void subtract(const self& v, const self& w, Updater) & noexcept
+    size_t size() const { return s; }
+
+    friend std::ostream& operator<<(std::ostream& os, const self& v) noexcept
     {
-        size_check(v.s); size_check(w.s);
-        for (size_t i= 0; i < v.s; ++i)
-            Updater::update(data[i], v.data[i] - w.data[i]);            
+        os << '{';
+        if (v.s > 0)
+            os << v.data[0];
+        for (size_t i= 1; i < v.s; ++i)
+            os << ", " << v.data[i];
+        return os << '}';
     }
     
     virtual void content(std::ostream& os) const noexcept override { os << *this; }

@@ -20,14 +20,18 @@
 
 namespace openkl {
 
-template <typename Value, typename Update>
-void subtract_dense_vector(object_id u_id, object_id v_id, object_id w_id, Update up)
+template <typename Value, typename Updater>
+void subtract_dense_vector(object_id u_id, object_id v_id, object_id w_id, Updater)
 {
     using vtype= dense_vector<Value>;
-    vtype* u= get_object<vtype>(u_id);
-    const vtype* v= get_object<vtype>(v_id);
-    const vtype* w= get_object<vtype>(w_id);
-    u->subtract(*v, *w, up);
+    vtype& u= *get_object<vtype>(u_id);
+    const vtype& v= *get_object<vtype>(v_id);
+    const vtype& w= *get_object<vtype>(w_id);
+    size_t s= u.size();
+    v.size_check(s); 
+    w.size_check(s);
+    for (size_t i= 0; i < s; ++i)
+        Updater::update(u[i], v[i] - w[i]);
 }
 
 // explicit instantiations

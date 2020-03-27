@@ -27,5 +27,9 @@ namespace openkl {
         struct update_minus;
         
     }        
+    
+    template <typename Value> class dense_vector;
+    
+    template <typename Value> class dense_matrix;
 
 } // namespace openkl
