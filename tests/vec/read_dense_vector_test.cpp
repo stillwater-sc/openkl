@@ -16,6 +16,8 @@
 #include <openkl/utilities/object_info.hpp>
 #include <openkl/utilities/object_content.hpp>
 
+#include <mtl/vec/dense_vector.hpp>
+#include <mtl/operations/io/vector_output.hpp>
 #include <mtl/operations/io/test_ostream.hpp>
 #include <mtl/testing/check_close.hpp>
 

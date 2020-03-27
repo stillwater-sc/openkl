@@ -40,6 +40,11 @@ public:
         std::copy(&other, &other + nr*nc, &data[0]);
     }
     
+    void read(Value& other) & noexcept 
+    {
+        std::copy(&data[0], &data[0] + nr*nc, &other);
+    }
+    
     virtual void info(std::ostream& os) const noexcept override 
     { 
         os << "matrix of dimension " << nr << "x" << nc;
