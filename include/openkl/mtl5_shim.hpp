@@ -33,12 +33,12 @@ void read_dense_vector(object_id v, Value& data);
 
 /// \p u up= \p v + \p w; Error if arguments weren't created with \ref create_dense_vector.
 /** up= is either =, += or -=  **/
-template <typename Value, typename Update>
-void add_dense_vector(object_id u, object_id v, object_id w, Update);
+template <typename Value, typename Updater>
+void add_dense_vector(object_id u, object_id v, object_id w, Updater);
 
 /// \p u up= \p v - \p w; Error if arguments weren't created with \ref create_dense_vector.
-template <typename Value, typename Update>
-void subtract_dense_vector(object_id u, object_id v, object_id w, Update);
+template <typename Value, typename Updater>
+void subtract_dense_vector(object_id u, object_id v, object_id w, Updater);
 
 /** Create dense row-major matrix with \p nr rows and \p nc. **/
 template <typename Value>    
@@ -58,8 +58,8 @@ template <typename Value>
 void read_dense_matrix(object_id A, Value& data);
 
 /// Dense matrix vector product \p u up= \p A * \p v.
-template <typename Value, typename Update>
-void dense_matrix_vector_product(object_id u, object_id A, object_id v, Update);
+template <typename Value, typename Updater>
+void dense_matrix_vector_product(object_id u, object_id A, object_id v, Updater);
 
 
 /// Destroy object of any kind. 
