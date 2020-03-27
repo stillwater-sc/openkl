@@ -10,8 +10,12 @@
 #include <openkl/openkl_fwd.hpp>
 #include <openkl/mtl5_shim.hpp>
 
+#include <openkl/interface/universal/posit/posit_definitions.hpp>
+#include <universal/posit/quire.hpp>
+
 #include <openkl/utilities/object_id.hpp>
 #include <openkl/utilities/get_object.hpp>
+#include <openkl/utilities/quire_type.hpp>
 
 #include <openkl/scalar/update.hpp>
 
@@ -33,10 +37,12 @@ void dense_matrix_vector_product(object_id u_id, object_id a_id, object_id v_id,
     u.size_check(nr);
     v.size_check(nc);
     for (size_t r= 0; r < nr; ++r) {
-        Value accu{0}; // Should be a quire!!!
+        quire_type<Value> accu{0}; // 
         for (size_t c= 0; c < nc; ++c)
             accu+= A(r, c) * v[c];
-        Updater::update(u[r], accu);
+        Value accuv;
+        convert(accu.to_value(), accuv);
+        Updater::update(u[r], accuv);
     }
 }
 
