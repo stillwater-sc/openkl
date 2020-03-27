@@ -51,10 +51,12 @@ template <typename Value>
 object_id create_dense_matrix(size_t nr, size_t nc, const Value& data);
 
 /// Write data to matrix \p A. Error if \p v wasn't created with \ref create_dense_matrix.
-void write_dense_matrix(object_id A, const posit32& data);
+template <typename Value>    
+void write_dense_matrix(object_id A, const Value& data);
 
 /// Read data from matrix \p A. Error if \p v wasn't created with \ref create_dense_matrix.
-void read_dense_matrix(object_id A, posit32& data);
+template <typename Value>    
+void read_dense_matrix(object_id A, Value& data);
 
 /// Dense matrix vector product \p u = \p A * \p v.
 void dense_matrix_vector_product(object_id u, object_id A, object_id v);

@@ -18,6 +18,7 @@
 #include <openkl/testing/check_object_info_output.hpp>
 #include <openkl/testing/check_object_content_output.hpp>
 
+#include <mtl/mat/dense_matrix.hpp>
 #include <mtl/operations/io/test_ostream.hpp>
 #include <mtl/testing/check_equal.hpp>
 
@@ -33,10 +34,10 @@ int main()
     check_object_info_output(a_id, "matrix of dimension 2x3", "write_dense_matrix");
     tout << object_content(a_id) << "\n";
     
-//     mtl::mat::dense_matrix<posit32> A{{1.1, 2.2, 3.3}, {4.4, 5.5, 6.6}};
-//     write_dense_matrix(a_id, A[0][0]);
-//     tout << object_content(b_id) << "\n";
-//     check_object_content_output(b_id, "{{1.1, 2.2, 3.3}, {4.4, 5.5, 6.6}}", "write_dense_matrix");   
+    mtl::mat::dense_matrix<posit32> A{{1.1, 2.2, 3.3}, {4.4, 5.5, 6.6}};
+    write_dense_matrix(a_id, A[0][0]);
+    tout << object_content(a_id) << "\n";
+    check_object_content_output(a_id, "{{1.1, 2.2, 3.3}, {4.4, 5.5, 6.6}}", "write_dense_matrix");   
     
     return 0;
 }
