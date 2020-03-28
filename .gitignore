@@ -37,3 +37,4 @@ build
 # IDE
 *.kdev4
 .kdev4
+.idea

@@ -16,49 +16,86 @@
 
 namespace openkl {
 
+	constexpr size_t OPENKL_MAX_IDENTIFIER_SIZE = 1024;
 
-
-enum klDeviceClass {
-	LOCAL_HOST    = 0,
-	REMOTE_CPU    = 1,
-	REMOTE_DMM    = 2,
-	LOCAL_KPU     = 3,
-	REMOTE_KPU    = 4,
-	REMOTE_DM_KPU = 5
+// compute resource targets
+enum klComputeResourceType {
+	COMPUTE_NOP   = 0,
+	LOCAL_CPU     = 1,
+	REMOTE_CPU    = 2,
+	REMOTE_CPUS   = 3,
+	LOCAL_KPU     = 4,
+	REMOTE_KPU    = 5,
+	REMOTE_KPUS   = 6
 };
 
-const char* klDeviceClassString[] = {
-	"LOCAL_HOST",
+constexpr char* klComputeResourceTypeString[] = {
+	"NOP",
+	"LOCAL_CPU",
 	"REMOTE_CPU",
-	"REMOTE_DMM",
+	"REMOTE_CPUS",
 	"LOCAL_KPU",
 	"REMOTE_KPU",
-	"REMOTE_DM_KPU"
+	"REMOTE_KPUS"
 };
 
-struct klDevice {
-	char          id[1024];
-	klDeviceClass device_class;
-	unsigned long memory; // memory size in MBytes
+// compute resource type: sequential, data-parallel, fine-grain data-flow, coarse-grain data-flow?
+struct klComputeResource {
+	char                    id[OPENKL_MAX_IDENTIFIER_SIZE];
+	klComputeResourceType   resourceType;
+
 };
 
-using klDeviceList = std::vector<klDevice>;
+// Memory resource
+// virtual paged, non-virtual static
+// NUMA?
+// BRAM - SRAM - DRAM - HBM - FLASH - NVMe
+enum klMemoryResourceType {
+	MEMORY_NOP     = 0,
+	STATIC         = 1,
+	VIRTUAL        = 2,
+	NUMA           = 3,
+	DISTRIBUTED    = 4,
+};
 
-struct klDeviceQuery {
-	klDeviceClass deviceType; // type of device we would like to use
-	unsigned long memory; // minimum memory requirement in MBytes
+constexpr char* klMemoryResourceTypeString[] = {
+	"NOP",
+	"STATIC MEMORY",
+	"VIRTUAL MEMORY",
+	"NUMA",
+	"DISTRIBUTED"
+};
+
+struct klMemoryResource {
+	klMemoryResourceType    resourceType;
+	size_t					size;   // memory size in MBytes
+	size_t                  channels; // number of channels of memory
+	size_t                  pageSize; // page size in KBytes
+};
+
+struct klComputeTarget {
+	char					id[OPENKL_MAX_IDENTIFIER_SIZE];
+	klComputeResource	    compute;
+	klMemoryResource        memory;
+};
+
+using klComputeTargets = std::vector<klComputeTarget>;
+
+struct klComputeTargetQuery {
+	klComputeResource computeAttributes; // attributes of compute resource we would like to use
+	klMemoryResource  memoryAttributes;  // attributes of the memory we would like to use
 };
 
 
-int enumerate_devices(klDeviceList& devices, klDeviceQuery& query) {
-	devices.push_back(klDevice{ "Intel i7 7500u", LOCAL_HOST, 1024 * 4 });
-	devices.push_back(klDevice{ "Stillwater KPU T1/512M", LOCAL_KPU, 512 });
-	devices.push_back(klDevice{ "Stillwater KPU T1/2G", REMOTE_KPU, 1024 * 2 });
+int enumerate_targets(klComputeTargets& devices, klComputeTargetQuery& query) {
+	devices.push_back(klComputeTarget{ "SW-LAPTOP-250", klComputeResource{"Intel i7 7500u", LOCAL_CPU}, klMemoryResource{VIRTUAL, 1024 * 4, 2, 4096} });
+	devices.push_back(klComputeTarget{ "SW-LAB-KPU", klComputeResource{"Stillwater KPU T-64x8", LOCAL_KPU}, klMemoryResource{STATIC, 1024 * 2, 2, 4096} });
+	devices.push_back(klComputeTarget{ "SW-CLOUD-KPU", klComputeResource{"Stillwater KPU T-1024x32", REMOTE_KPU}, klMemoryResource{STATIC, 1024 * 32, 32, 4096} });
 
 	return 1;
 } 
 
-int create_context(klDevice& device) {
+int create_context(klComputeTarget& target) {
 
 	return 1;
 }
