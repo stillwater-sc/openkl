@@ -28,7 +28,10 @@ public:
 
 	kpu(size_t processingElements, size_t memSize, size_t nrChannels) {
 		std::stringstream ss;
+		
 		ss << "Stillwater KPU T-" << processingElements << 'x' << nrChannels;
+		
+		/*
 		env.id = ss.str();
 		env.procType = LOCAL_KPU;
 		env.cores    = processingElements;
@@ -37,11 +40,12 @@ public:
 		env.size     = memSize;
 		env.channels = nrChannels;
 		env.pageSize = 4;
+		*/
 	}
 	
-	openkl::klExecutionEnvironment getEnv() const {
-		return env;
-	}
+	//openkl::klExecutionEnvironment getEnv() const {
+	//	return env;
+	//}
 
     friend std::ostream& operator<<(std::ostream& os, const self& dfa) noexcept
     {
@@ -54,7 +58,7 @@ public:
 //    virtual void content(std::ostream& os) const noexcept override { os << *this; }
     
 private:
-	klExecutionEnvironment env;
+	//klExecutionEnvironment env;
     std::unique_ptr<uint8_t> memory;
 };
 

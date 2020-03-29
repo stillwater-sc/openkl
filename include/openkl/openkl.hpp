@@ -104,10 +104,10 @@ int enumerateTargets(const klExecutionEnvironment& query, klComputeTargets& devi
 //	devices.push_back(klComputeTarget{ "SW-CLOUD-KPU", klComputeResource{"Stillwater KPU T-1024x32", REMOTE_KPU}, klMemoryResource{STATIC, 1024 * 32, 32, 4096} });
 
 	// query the OpenKL proxy for the available targets
-	proxy* registry = proxy::getInstance();
-	for (size_t i = 0; i < registry->nrTargets(); ++i) {
-		devices.push_back(registry->getEnv(i));
-	}
+//	proxy* registry = proxy::getInstance();
+//	for (size_t i = 0; i < registry->nrTargets(); ++i) {
+//		devices.push_back(registry->getEnv(i));
+//	}
 	return 1;
 } 
 
