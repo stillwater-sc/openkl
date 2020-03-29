@@ -61,8 +61,7 @@ in cloud, networking, big data, and storage applications—for data in motion an
 accelerate compute-intensive operations.
 						
 
-| Name	      | Segment | Cores | Threads | Core Freq | Peak Freq | L3 Cache | Max Memory | Memory Type | Memory Freq | Nr Memory | PCIe lanes       | USB   | GPIO | UART | TDP |
-| Name	      | Segment | Cores | Threads | [MHz]     | [MHz]     | [MB]     |  [GB]      |             |   [MHz]     | Channels  |                  | ports |      |      | [W] |
+| Name	      | Segment | Cores | Threads | Core Freq [MHz] | Peak Freq [MHz] | L3 Cache [MB] | Max Memory [GB] | Memory Type | Memory Freq [MHz] | Nr Memory Channels | PCIe lanes       | USB   | GPIO | UART | TDP [W] |
 |-------------|---------|-------|---------|-----------|-----------|---------:|-----------:|-------------|------------:|-----------|------------------|-------|------|------|----:|
 | Xeon D-1602 | server  | 2     | 4       | 2500      | 3200      | 3        | 128        | DDR3, DDR4  | 2133        | 2         | 32 PCIe 2.0/3.0  | 8     | yes  | yes  | 27  |
 | Xeon D-1622 | server  | 4     | 8       | 2600      | 3200      | 6        | 128        | DDR3, DDR4  | 2133        | 2         | 32 PCIe 2.0/3.0  | 8     | yes  | yes  | 40  |
@@ -78,8 +77,7 @@ _Table 2: Intel x86 Xeon resource targets_
 Stillwater KPU processors are distributed data flow engines supporting complex fine-grain parallelism, delivering workload optimized performance in
 power and space constrained environments, from embedded processors, the edge and in the cloud data center.
 
-| Product Name   | Market    | Processor | Threads | Core Freq | Peak Freq | Cache | Max Memory | Memory Type | Memory Freq | Memory   | PCIe  | USB   | GPIO | UART | TDP |      
-|                | Segment   | Elements  |         |   [MHz]   |   [MHz]   |  [MB] |  [GB]      | Memory Type |   [MHz]     | Channels | lanes | ports |      |      | [W] |      
+| Product Name   | Segment   | PEs | Threads | Core Freq [MHz] | Peak Freq [MHz] | Cache [MB] | Max Memory [GB] | Memory Type | Memory Freq [MHz] | Memory Channels | PCIe  | USB   | GPIO | UART | TDP [W] |           
 |----------------|----------:|----------:|:-------:|----------:|----------:|------:|-----------:|-------------|------------:|----------|-------|-------|------|------|----:|
 | KPU T-64x8     | sensor    | 64        | 8       | 100       | 500       | 0     | 1          | DDR3,DDR4   | 1200        | 1        | 32    | 4     | yes  | no   | 5   |
 | KPU T-256x8    | embedded  | 256       | 8       | 200       | 500       | 1     | 2          | DDR3,DDR4   | 1200        | 1        | 32    | 4     | yes  | no   | 25  |
