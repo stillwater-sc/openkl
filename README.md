@@ -37,6 +37,7 @@ program that consists of a series of servers that are configured in a pipeline
 |         | Cortex-M0+        |                 |           | 1 (DAC 10 bit)       |						
 |         | 32bit low power	  |								
 |         | ARM MCU			  |						
+
 _Table 1: Arduino resource targets_
 
 ---
@@ -60,12 +61,14 @@ in cloud, networking, big data, and storage applications—for data in motion an
 accelerate compute-intensive operations.
 						
 
-| Name	      | Segment | Cores | Threads | Core Freq [MHz] | Peak Freq [MHz] | L3 Cache [MB]  | Max Memory Size [GB] | Memory Type | Max Memory Freq [MHz] | Nr Memory Channels | PCIe lanes       | USB ports | GPIO | UART | TDP [W] |
-|-------------|---------|-------|---------|-----------------|-----------------|---------------:|---------------------:|-------------|----------------------:|--------------------|------------------|-----------|------|------|--------:|
-| Xeon D-1602 | server  | 2     | 4       | 2500            | 3200            | 3              | 128                  | DDR3, DDR4  | 2133                  | 2                  | 32 PCIe 2.0/3.0  | 8         | yes  | yes  | 27      |
-| Xeon D-1622 | server  | 4     | 8       | 2600            | 3200            | 6              | 128                  | DDR3, DDR4  | 2133                  | 2                  | 32 PCIe 2.0/3.0  | 8         | yes  | yes  | 40      |
-| Xeon D-1637 | server  | 6     | 12      | 2900            | 3200            | 9              | 128                  | DDR3, DDR4  | 2400                  | 2                  | 32 PCIe 2.0/3.0  | 8         | yes  | yes  | 55      |
-| Xeon D-1653 | server  | 8     | 16      | 2800            | 3200            | 12             | 128                  | DDR3, DDR4  | 2400                  | 2                  | 32 PCIe 2.0/3.0  | 8         | yes  | yes  | 65      |
+| Name	      | Segment | Cores | Threads | Core Freq | Peak Freq | L3 Cache | Max Memory | Memory Type | Memory Freq | Nr Memory | PCIe lanes       | USB   | GPIO | UART | TDP |
+| Name	      | Segment | Cores | Threads | [MHz]     | [MHz]     | [MB]     |  [GB]      |             |   [MHz]     | Channels  |                  | ports |      |      | [W] |
+|-------------|---------|-------|---------|-----------|-----------|---------:|-----------:|-------------|------------:|-----------|------------------|-------|------|------|----:|
+| Xeon D-1602 | server  | 2     | 4       | 2500      | 3200      | 3        | 128        | DDR3, DDR4  | 2133        | 2         | 32 PCIe 2.0/3.0  | 8     | yes  | yes  | 27  |
+| Xeon D-1622 | server  | 4     | 8       | 2600      | 3200      | 6        | 128        | DDR3, DDR4  | 2133        | 2         | 32 PCIe 2.0/3.0  | 8     | yes  | yes  | 40  |
+| Xeon D-1637 | server  | 6     | 12      | 2900      | 3200      | 9        | 128        | DDR3, DDR4  | 2400        | 2         | 32 PCIe 2.0/3.0  | 8     | yes  | yes  | 55  |
+| Xeon D-1653 | server  | 8     | 16      | 2800      | 3200      | 12       | 128        | DDR3, DDR4  | 2400        | 2         | 32 PCIe 2.0/3.0  | 8     | yes  | yes  | 65  |
+
 _Table 2: Intel x86 Xeon resource targets_
 
 ---
@@ -75,13 +78,15 @@ _Table 2: Intel x86 Xeon resource targets_
 Stillwater KPU processors are distributed data flow engines supporting complex fine-grain parallelism, delivering workload optimized performance in
 power and space constrained environments, from embedded processors, the edge and in the cloud data center.
 
-| Name           | Segment   | PEs    | Threads | Core Freq [MHz] | Peak Freq [MHz] | Cache [MB]  | Max Memory Size [GB] | Memory Type | Max Memory Freq [MHz] | Nr Memory Channels | PCIe lanes       | USB ports | GPIO | UART | TDP [W] |      
-|----------------|----------:|-------:|:-------:|-----------------|-----------------|------------:|---------------------:|-------------|----------------------:|--------------------|------------------|-----------|------|------|--------:|
-| KPU T-64x8     | sensor    | 64     | 8       | 100             | 500             | 0           | 1                    | DDR3,DDR4   | 1200                  | 1                  | 4                | 4         | yes  | no   | 5       |
-| KPU T-256x8    | embedded  | 256    | 8       | 200             | 500             | 1           | 2                    | DDR3,DDR4   | 1200                  | 1                  | 4                | 4         | yes  | no   | 25      |
-| KPU T-1024x8   | edge      | 1024   | 8       | 500             | 500             | 2           | 4                    | DDR3,DDR4   | 1200                  | 1                  | 4                | 4         | yes  | no   | 75      |
-| KPU T-4096x8   | server    | 4096   | 8       | 500             | 500             | 4           | 16                   | DDR3,DDR4   | 1200                  | 2                  | 4                | 4         | yes  | no   | 150     |
-| KPU T-16kx32   | cloud     | 16384  | 32      | 500             | 500             | 8           | 16                   | DDR3,DDR4   | 1200                  | 4                  | 4                | 4         | yes  | no   | 300     |
+| Product Name   | Market    | Processor | Threads | Core Freq | Peak Freq | Cache | Max Memory | Memory Type | Memory Freq | Memory   | PCIe  | USB   | GPIO | UART | TDP |      
+|                | Segment   | Elements  |         |   [MHz]   |   [MHz]   |  [MB] |  [GB]      | Memory Type |   [MHz]     | Channels | lanes | ports |      |      | [W] |      
+|----------------|----------:|----------:|:-------:|----------:|----------:|------:|-----------:|-------------|------------:|----------|-------|-------|------|------|----:|
+| KPU T-64x8     | sensor    | 64        | 8       | 100       | 500       | 0     | 1          | DDR3,DDR4   | 1200        | 1        | 32    | 4     | yes  | no   | 5   |
+| KPU T-256x8    | embedded  | 256       | 8       | 200       | 500       | 1     | 2          | DDR3,DDR4   | 1200        | 1        | 32    | 4     | yes  | no   | 25  |
+| KPU T-1024x8   | edge      | 1024      | 8       | 500       | 500       | 2     | 4          | DDR3,DDR4   | 1200        | 1        | 32    | 4     | yes  | no   | 75  |
+| KPU T-4096x8   | server    | 4096      | 8       | 500       | 500       | 4     | 16         | DDR3,DDR4   | 1200        | 2        | 32    | 4     | yes  | no   | 150 |
+| KPU T-16kx32   | cloud     | 16384     | 32      | 500       | 500       | 8     | 16         | DDR3,DDR4   | 1200        | 4        | 32    | 4     | yes  | no   | 300 |
+
 _Table 3: Stillwater KPU resource targets_
 
 ---
