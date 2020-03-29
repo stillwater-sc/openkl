@@ -1,12 +1,11 @@
-// cpu_blas.cpp: example of BLAS operators using CPU
-// Created: 2020-03-24
+// cloud_native_dmm.cpp: example of BLAS operators using a cloud-native Distributed Memory Machine
+// Created: 2020-03-29
 //
 // Copyright (C) 2020-present: Stillwater Supercomputing, Inc. & SimuNova UG
 //
 // This file is part of the OpenKL project, which is released under an MIT Open Source license.
 // Authors: Peter Gottschling (peter.gottschling@simunova.com)
 //          Theodore Omtzigt (theo@stillwater-sc.com)
-#include <iostream>
 #include <openkl/openkl.hpp>
 
 #include <universal/posit/posit>
@@ -39,9 +38,9 @@ try {
 	// first step: enumerate the target devices our program could use
 	openkl::klComputeTargets targets;
 	openkl::klComputeTargetQuery query = openkl::klComputeTargetQuery{
-		openkl::klComputeResource{"",openkl::LOCAL_CPU},
-		openkl::klMemoryResource{openkl::MEMORY_NOP,1024,1, 1024}
-	}; 
+		openkl::klComputeResource{"",openkl::CN_DMM},
+		openkl::klMemoryResource{openkl::MEMORY_NOP,1024*1024,1024,1024*4}
+	};
 	// dummy query for the moment. The idea is that we can unify step 1 and 2
 	// to gather the compute target, instead of generating the whole database
 	// and then subselecting.
@@ -59,21 +58,21 @@ try {
 	*/
 
 	// second step: among the compute targets find a compute target matching your need
-	// we are going to look for a LOCAL_CPU target 
+	// we are going to look for a LOCAL_KPU target 
 	openkl::klComputeTarget target;
 	target.compute.resourceType = openkl::COMPUTE_NOP;
 	for (int i = 0; i < targets.size(); ++i) {
-		if (targets[i].compute.resourceType == openkl::LOCAL_CPU) {
+		if (targets[i].compute.resourceType == openkl::LOCAL_KPU) {
 			target = targets[i];
 		}
 	}
 
 	if (target.compute.resourceType == openkl::COMPUTE_NOP) {
-		std::cerr << "Unable to find a LOCAL_CPU compute target: exiting" << std::endl;
+		std::cerr << "Unable to find a LOCAL_KPU compute target: exiting" << std::endl;
 		exit(EXIT_FAILURE);
 	}
 
-	std::cout << "Successfully selected a LOCAL_CPU target\n";
+	std::cout << "Successfully selected a LOCAL_KPU target\n";
 	std::cout << attributes(target) << std::endl;
 
 	// third step: create an execution context on the device of your choice
@@ -88,6 +87,7 @@ try {
 
 	// fifth step: compute
 }
-catch(const char* msg) {
+catch (const char* msg) {
 	std::cerr << "caught exception: " << msg << std::endl;
 }
+
