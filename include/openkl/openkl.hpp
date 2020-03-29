@@ -5,7 +5,7 @@
 //
 // This file is part of the OpenKL project, which is released under an MIT Open Source license.
 // Authors: Peter Gottschling (peter.gottschling@simunova.com)
-//          Theodore Omtzigt (theo@stillwater-sc.com)
+//          Theodore Omtzigt  (theo@stillwater-sc.com)
 
 #pragma once
 
@@ -13,6 +13,7 @@
 #include <vector>
 
 #include <openkl/openkl_fwd.hpp>
+#include <openkl/shims/kpu.hpp>
 
 namespace openkl {
 
@@ -63,20 +64,14 @@ constexpr char* klComputeResourceTypeString[] = {
 	"CN_CGDFM"
 };
 
-struct klComputeResource {
-	char                    id[OPENKL_MAX_IDENTIFIER_SIZE];
-	klComputeResourceType   resourceType;
-
-};
-
 // Memory resource
 // virtual paged, non-virtual static
 // NUMA?
 // BRAM - SRAM - DRAM - HBM - FLASH - NVMe
 enum klMemoryResourceType {
 	MEMORY_NOP     = 0,
-	STATIC         = 1,
-	VIRTUAL        = 2,
+	STATIC_MEM     = 1,
+	VIRTUAL_MEM    = 2,
 	NUMA           = 3,
 	DISTRIBUTED    = 4,
 };
@@ -89,32 +84,30 @@ constexpr char* klMemoryResourceTypeString[] = {
 	"DISTRIBUTED"
 };
 
-struct klMemoryResource {
-	klMemoryResourceType    resourceType;
-	size_t					size;   // memory size in MBytes
+struct klExecutionEnvironment {
+	std::string             id;
+	klComputeResourceType   procType;
+	size_t                  cores;
+	size_t                  threads;
+	size_t                  freq;     // core frequency in MHz
+	klMemoryResourceType    memType;
+	size_t					size;     // memory size in MBytes
 	size_t                  channels; // number of channels of memory
 	size_t                  pageSize; // page size in KBytes
 };
 
-struct klComputeTarget {
-	char					id[OPENKL_MAX_IDENTIFIER_SIZE];
-	klComputeResource	    compute;
-	klMemoryResource        memory;
-};
+using klComputeTargets = std::vector<klExecutionEnvironment>;
 
-using klComputeTargets = std::vector<klComputeTarget>;
+int enumerateTargets(const klExecutionEnvironment& query, klComputeTargets& devices) {
+//	devices.push_back(klComputeTarget{ "SW-LAPTOP-250", klComputeResource{"Intel i7 7500u", LOCAL_CPU}, klMemoryResource{VIRTUAL, 1024 * 4, 2, 4096} });
+//	devices.push_back(klComputeTarget{ "SW-LAB-KPU", klComputeResource{"Stillwater KPU T-64x8", LOCAL_KPU}, klMemoryResource{STATIC, 1024 * 2, 2, 4096} });
+//	devices.push_back(klComputeTarget{ "SW-CLOUD-KPU", klComputeResource{"Stillwater KPU T-1024x32", REMOTE_KPU}, klMemoryResource{STATIC, 1024 * 32, 32, 4096} });
 
-struct klComputeTargetQuery {
-	klComputeResource computeAttributes; // attributes of compute resource we would like to use
-	klMemoryResource  memoryAttributes;  // attributes of the memory we would like to use
-};
-
-
-int enumerateTargets(const klComputeTargetQuery& query, klComputeTargets& devices) {
-	devices.push_back(klComputeTarget{ "SW-LAPTOP-250", klComputeResource{"Intel i7 7500u", LOCAL_CPU}, klMemoryResource{VIRTUAL, 1024 * 4, 2, 4096} });
-	devices.push_back(klComputeTarget{ "SW-LAB-KPU", klComputeResource{"Stillwater KPU T-64x8", LOCAL_KPU}, klMemoryResource{STATIC, 1024 * 2, 2, 4096} });
-	devices.push_back(klComputeTarget{ "SW-CLOUD-KPU", klComputeResource{"Stillwater KPU T-1024x32", REMOTE_KPU}, klMemoryResource{STATIC, 1024 * 32, 32, 4096} });
-
+	// query the OpenKL proxy for the available targets
+	proxy* registry = proxy::getInstance();
+	for (size_t i = 0; i < registry->nrTargets(); ++i) {
+		devices.push_back(registry->getEnv(i));
+	}
 	return 1;
 } 
 
@@ -122,7 +115,7 @@ struct klComputeContext {
 	size_t value;
 };
 
-int createContext(const klComputeTarget& target, klComputeContext& ctx) {
+int createContext(const klExecutionEnvironment& target, klComputeContext& ctx) {
 	ctx.value = 10;
 	return 1;
 }
