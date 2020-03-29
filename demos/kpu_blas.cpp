@@ -76,7 +76,7 @@ try {
 		}
 	}
 
-	if (target.compute.resourceType == openkl::COMPUTE_NOP) {
+	if (target.procType == openkl::COMPUTE_NOP) {
 		std::cerr << "Unable to find a LOCAL_KPU compute target: exiting" << std::endl;
 		exit(EXIT_FAILURE);
 	}
