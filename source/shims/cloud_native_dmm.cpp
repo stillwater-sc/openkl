@@ -1,5 +1,5 @@
-// gpu_blas.cpp: example of BLAS operators using GPU
-// Created: 2020-03-24
+// cloud_native_dmm.cpp: device shim to functionally model a Cloud-Native Distributed Memory Machine cluster
+// Created: 2020-03-29
 //
 // Copyright (C) 2020-present: Stillwater Supercomputing, Inc. & SimuNova UG
 //
@@ -7,10 +7,9 @@
 // Authors: Peter Gottschling (peter.gottschling@simunova.com)
 //          Theodore Omtzigt  (theo@stillwater-sc.com)
 #include <iostream>
+#include <openkl/shims/cloud_native_dmm.hpp>
 
-int main(int argc, char* argv[])
-try {
-}
-catch(const char* msg) {
-	std::cerr << "caught exception: " << msg << std::endl;
-}
+namespace openkl { namespace shim {
+
+} // namespace shim
+} // namespace openkl
