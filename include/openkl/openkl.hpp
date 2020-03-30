@@ -53,7 +53,7 @@ enum klComputeResourceType {
 	CN_CGDFM      = 7    // Cloud-Native Coarse-grain Data Flow Machine
 };
 
-constexpr char* klComputeResourceTypeString[] = {
+constexpr const char* klComputeResourceTypeString[] = {
 	"NOP",
 	"LOCAL_CPU",
 	"REMOTE_CPU",
@@ -76,7 +76,7 @@ enum klMemoryResourceType {
 	DISTRIBUTED    = 4,
 };
 
-constexpr char* klMemoryResourceTypeString[] = {
+constexpr const char* klMemoryResourceTypeString[] = {
 	"NOP",
 	"STATIC MEMORY",
 	"VIRTUAL MEMORY",

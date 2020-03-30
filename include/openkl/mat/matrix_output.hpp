@@ -10,7 +10,7 @@
 #pragma once
 
 #include <cstddef>
-#include <iostream>
+#include <ostream>
 
 namespace openkl {
 
