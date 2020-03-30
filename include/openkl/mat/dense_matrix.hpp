@@ -16,6 +16,7 @@
 #include <openkl/openkl_fwd.hpp>
 #include <openkl/utilities/object.hpp>
 #include <openkl/interface/universal/posit/posit_definitions.hpp>
+#include <openkl/mat/matrix_output.hpp>
 
 namespace openkl {
 
@@ -54,24 +55,18 @@ public:
     size_t num_rows() const noexcept { return nr; }
     size_t num_cols() const noexcept { return nc; }
     
-    friend std::ostream& operator<<(std::ostream& os, const self& A) noexcept
-    {
-        os << '{';
-        for (size_t r= 0; r < A.nr; ++r) {
-            os << '{';
-            for (size_t c= 0; c < A.nc; ++c) 
-                os << A(r, c) << (c + 1 == A.nc ? "}" : ", ");
-            os << (r + 1 == A.nr ? "}" : ", ");
-        }
-        return os;
-    }
-    
     virtual void content(std::ostream& os) const noexcept override { os << *this; }
     
 private:
     size_t nr, nc;
     std::unique_ptr<Value[]> data;
 };
+
+template <typename Value>
+std::ostream& operator<<(std::ostream& os, const dense_matrix<Value>& A) noexcept
+{
+    return matrix_output(os, A);
+}
 
 using dense_matrix32= dense_matrix<posit32>;
 
