@@ -5,7 +5,7 @@
 //
 // This file is part of the OpenKL project, which is released under an MIT Open Source license.
 // Authors: Peter Gottschling (peter.gottschling@simunova.com)
-//          Theodore Omtzigt (theo@stillwater-sc.com)
+//          Theodore Omtzigt  (theo@stillwater-sc.com)
 
 #include <openkl/utilities/object_repo.hpp>
 
