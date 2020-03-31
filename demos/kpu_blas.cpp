@@ -34,15 +34,16 @@ void ShowInventory(openkl::klComputeTargets& targets) {
 	std::cout << std::endl;
 }
 
+openkl::proxy* openkl::proxy::instance = 0;
 
 int main(int argc, char* argv[])
 try {
 	// first step: enumerate the target devices our program could use
 	openkl::klComputeTargets targets;
 	openkl::klExecutionEnvironment query = openkl::klExecutionEnvironment{
-		"local kpu",
-		openkl::LOCAL_KPU,
-		64, 
+		"SW-LAB-KPU",      // search by name
+		openkl::LOCAL_KPU, // search by type
+		64,                // match by size
 		1, //threads
 		100, //freq
 		openkl::STATIC_MEM,
@@ -68,18 +69,13 @@ try {
 
 	// second step: among the compute targets find a compute target matching your need
 	// we are going to look for a LOCAL_KPU target 
-	openkl::klExecutionEnvironment target;
-	target.procType = openkl::COMPUTE_NOP;
-	for (int i = 0; i < targets.size(); ++i) {
-		if (targets[i].procType == openkl::LOCAL_KPU) {
-			target = targets[i];
-		}
-	}
-
-	if (target.procType == openkl::COMPUTE_NOP) {
+	auto isLocalKpu = [](auto& target) { return target.procType == openkl::LOCAL_KPU; };
+	auto it = std::find_if(begin(targets), end(targets), isLocalKpu);
+	if (it == end(targets)) {
 		std::cerr << "Unable to find a LOCAL_KPU compute target: exiting" << std::endl;
 		exit(EXIT_FAILURE);
 	}
+	openkl::klExecutionEnvironment target(*it);
 
 	std::cout << "Successfully selected a LOCAL_KPU target\n";
 	std::cout << attributes(target) << std::endl;

@@ -16,11 +16,9 @@
 
 #include <openkl/openkl_fwd.hpp>
 #include <openkl/utilities/object.hpp>
+#include <openkl/execenv.hpp>
 
 namespace openkl {
-
-	// forward reference
-	struct klExecutionEnvironment;
 
 class proxy {
 public:
@@ -43,7 +41,38 @@ public:
 
 private:
 	static proxy* instance;
-	proxy() { instance = 0; }
+	proxy() {
+		add(klExecutionEnvironment{
+			"Intel i7 7500u",
+			LOCAL_CPU,
+			4,
+			1,
+			2000,
+			openkl::VIRTUAL_MEM, 
+			1024 * 4, 
+			2, 
+			4 });
+		add(klExecutionEnvironment{
+			"Stillwater KPU T-64x8",
+			LOCAL_KPU,
+			64,
+			8,
+			100,
+			openkl::STATIC_MEM,
+			512,
+			1,
+			4 });
+		add(klExecutionEnvironment{
+			"Stillwater KPU T-1024x32",
+			REMOTE_KPU,
+			1024,
+			32,
+			100,
+			openkl::STATIC_MEM,
+			1024 * 32,
+			32,
+			4 });
+	}
 	std::vector<klExecutionEnvironment> resources;
 };
 
