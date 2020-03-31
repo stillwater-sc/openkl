@@ -63,10 +63,10 @@ try {
 	std::cout << "posit<32,2> minpos  : " << sw::unum::minpos<32, 2>() << std::endl;
 	*/
 
+#if 0 // see below
 	// second step: among the compute targets find a compute target matching your need
 	// we are going to look for a LOCAL_CPU target 
 	openkl::klExecutionEnvironment target;
-#if 0 // see below
 	target.compute.resourceType = openkl::COMPUTE_NOP;
 	for (int i = 0; i < targets.size(); ++i) {
 		if (targets[i].compute.resourceType == openkl::LOCAL_CPU) {
@@ -84,7 +84,8 @@ try {
         auto is_cpu= [](auto& target){ return target.compute.resourceType == openkl::LOCAL_CPU; };
         auto it= std::find_if(begin(targets), end(targets), is_cpu);
         if (it == end(targets))
-            openkl::exit("Unable to find a LOCAL_CPU compute target: exiting");        
+            openkl::exit("Unable to find a LOCAL_CPU compute target: exiting"s);  
+        openkl::klExecutionEnvironment target{*it};
 
 	std::cout << "Successfully selected a LOCAL_CPU target\n";
 	std::cout << attributes(target) << std::endl;
@@ -92,7 +93,7 @@ try {
 	// third step: create an execution context on the device of your choice
 	openkl::klComputeContext ctx;
 	if (!openkl::createContext(target, ctx))
-            openkl::exit("Unable to create execution context on device " + target.id);
+            openkl::exit("Unable to create execution context on device "s + target.id);
  
 	// fourth step: allocate resources using the context
 
