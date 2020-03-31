@@ -57,6 +57,10 @@ class crs_matrix
     size_t num_cols() const noexcept { return nc; }
     
     virtual void content(std::ostream& os) const noexcept override { os << *this; }
+    
+    template <typename VValue, typename Updater>
+    friend void crs_matrix_vector_product(object_id u_id, object_id a_id, object_id v_id, Updater);
+
   private:
     size_t                         nr, nc, nnz;
     std::unique_ptr<std::size_t[]> pattern;

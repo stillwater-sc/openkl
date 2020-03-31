@@ -83,7 +83,7 @@ object_id create_crs_matrix(size_t nr, size_t nc, size_t nnz, const size_t& star
 // no read operation as sparse matrices are set up only by MTL
 
 /// CRS matrix vector product \p u up= \p A * \p v.
-template <typename Updater>
+template <typename Value, typename Updater>
 void crs_matrix_vector_product(object_id u, object_id A, object_id v, Updater);
 #if 0
 {
