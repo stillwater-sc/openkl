@@ -76,8 +76,9 @@ void destroy(object_id);
 /** Index data start at \p row_indices and \p column_indices respectively; data at \p data.
  *  Memory needed: (nr+1 + nnz) size_t entries and nnz posit32 entries
  *  see: https://en.wikipedia.org/wiki/Sparse_matrix#Compressed_sparse_row_(CSR,_CRS_or_Yale_format) **/
-object_id create_crs_matrix(size_t nr, size_t nc, size_t nnz, const size_t& row_indices,
-                            const size_t& column_indices, const posit32& data);
+template <typename Value>    
+object_id create_crs_matrix(size_t nr, size_t nc, size_t nnz, const size_t& starts,
+                            const size_t& column_indices, const Value& data);
 
 // no read operation as sparse matrices are set up only by MTL
 
