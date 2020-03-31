@@ -85,18 +85,7 @@ object_id create_crs_matrix(size_t nr, size_t nc, size_t nnz, const size_t& star
 /// CRS matrix vector product \p u up= \p A * \p v.
 template <typename Value, typename Updater>
 void crs_matrix_vector_product(object_id u, object_id A, object_id v, Updater);
-#if 0
-{
-    // something like:
-    for (size_t r : mat::irows(A)) { // iterate over all rows; can be done in parallel
-        Updater::init(u[r]);
-        posit32 accu{0};
-        for (size_t i= A.row_indices[r], end= A.row_indices[r+1]; i < end; ++i)
-            accu+= A.data[i] * v[A.column_indices[i]];
-        Updater::update(accu, u[r]);    
-    }
-}
-#endif
+
 
 } // namespace openkl
 
