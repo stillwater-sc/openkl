@@ -14,6 +14,6 @@
 
 namespace openkl {
 
-proxy* proxy::instance= nullptr;
+std::unique_ptr<proxy> proxy::instance{new proxy};
 
 } // namespace openkl

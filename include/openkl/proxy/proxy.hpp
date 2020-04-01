@@ -13,6 +13,7 @@
 #include <sstream>
 #include <vector>
 #include <algorithm>
+#include <memory>
 
 #include <openkl/openkl_fwd.hpp>
 #include <openkl/utilities/object.hpp>
@@ -23,8 +24,7 @@ namespace openkl {
 class proxy {
 public:
 	static proxy* getInstance() {
-		if (!instance) instance = new proxy;
-		return instance;
+            return instance.get();
 	}
 
 	void add(klExecutionEnvironment target) {
@@ -40,7 +40,7 @@ public:
 	}
 
 private:
-	static proxy* instance;
+	static std::unique_ptr<proxy> instance;
 	proxy() {
 		add(klExecutionEnvironment{
 			"Intel i7 7500u",
