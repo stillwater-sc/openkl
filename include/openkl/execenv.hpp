@@ -9,6 +9,8 @@
 
 #pragma once
 
+#include <string>
+
 #include <openkl/openkl_fwd.hpp>
 
 namespace openkl {
