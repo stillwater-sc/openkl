@@ -7,6 +7,7 @@
 // Authors: Peter Gottschling (peter.gottschling@simunova.com)
 //          Theodore Omtzigt  (theo@stillwater-sc.com)
 #include <openkl/openkl.hpp>
+#include <openkl/utilities/exit.hpp>
 
 #include <universal/posit/posit>
 //#include <universal/posit/posit.hpp>
@@ -69,21 +70,17 @@ try {
 	// we are going to look for a LOCAL_KPU target 
 	auto isLocalKpu = [](auto& target) { return target.procType == openkl::LOCAL_KPU; };
 	auto it = std::find_if(begin(targets), end(targets), isLocalKpu);
-	if (it == end(targets)) {
-		std::cerr << "Unable to find a LOCAL_KPU compute target: exiting" << std::endl;
-		exit(EXIT_FAILURE);
-	}
-	openkl::klExecutionEnvironment target(*it);
+	if (it == end(targets))
+            openkl::exit("Unable to find a LOCAL_KPU compute target: exiting");
+	openkl::klExecutionEnvironment target{*it};
 
 	std::cout << "Successfully selected a LOCAL_KPU target\n";
 	std::cout << attributes(target) << std::endl;
 
 	// third step: create an execution context on the device of your choice
 	openkl::klComputeContext ctx;
-	if (!openkl::createContext(target, ctx)) {
-		std::cerr << "unable to create execution context on device " << target.id << std::endl;
-		exit(EXIT_FAILURE);
-	}
+	if (!openkl::createContext(target, ctx))
+            openkl::exit("Unable to create execution context on device " + target.id);
 
 	// fourth step: allocate resources using the context
 

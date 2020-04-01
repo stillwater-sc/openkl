@@ -93,7 +93,7 @@ try {
 	// third step: create an execution context on the device of your choice
 	openkl::klComputeContext ctx;
 	if (!openkl::createContext(target, ctx))
-            openkl::exit("Unable to create execution context on device "s + target.id);
+            openkl::exit("Unable to create execution context on device " + target.id);
  
 	// fourth step: allocate resources using the context
 
