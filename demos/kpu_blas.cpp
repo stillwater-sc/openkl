@@ -34,8 +34,6 @@ void ShowInventory(openkl::klComputeTargets& targets) {
 	std::cout << std::endl;
 }
 
-openkl::proxy* openkl::proxy::instance = 0;
-
 int main(int argc, char* argv[])
 try {
 	// first step: enumerate the target devices our program could use
