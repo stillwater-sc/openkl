@@ -109,6 +109,49 @@ void C_calling_sequence() {
 	}
 }
 
+void ComputeVectorAngles(openkl::klComputeContext& localKPU) {
+	// allocate memory blocks
+	openkl::object_id a_v, b_v, c_v, d_v;
+	openkl::object_id alpha, d;
+
+	using DataType = float;
+	size_t DataSize = sizeof(DataType);
+
+	// allocate a vector of size N of type Data
+	size_t N = 32;
+	a_v = localKPU.claim(N * DataSize);
+	b_v = localKPU.claim(N * DataSize);
+	c_v = localKPU.claim(N * DataSize);
+	d_v = localKPU.claim(N * DataSize);
+
+	// allocate a scalar
+	alpha = localKPU.claim(DataSize);
+	d = localKPU.claim(DataSize);
+
+	// copy or create data on the target
+	// how do we assign 2.5 literal to alpha?
+
+	// compute
+	openkl::klInstruction cmd;
+	cmd.scale(b_v, alpha, a_v);
+	localKPU.execute(cmd);
+	cmd.add(d_v, b_v, c_v);
+	localKPU.execute(cmd);
+	cmd.fdp(d, b_v, c_v);  // if a and c are at 45 degrees and the same length, b and c will be 90 degrees and dot product will be 0
+	localKPU.execute(cmd);
+
+	// do we want to introduce the cmd queue here?
+	// we can also create a 'program' by writing instructions in a block of memory
+	// and writing that to the accelerator.
+
+	// QUESTION: cmd queue vs program memory block
+	// pros cmd queue: simple, sequential execution, natural state boundaries
+	// pros program mem: can create a looping structure, for example to orchestrate CG
+
+	// wait for completion
+	// execute is blocking by default, so we have all state updated we need at this point
+}
+
 int main(int argc, char* argv[])
 try {
 	// bind this application to the OpenKL environment
@@ -120,33 +163,7 @@ try {
 		openkl::exit("unable to find a LOCAL_KPU compute target to bind to: exiting");
 	}
 
-	// allocate memory blocks
-	openkl::object_id a_v, b_v, c_v;
-	openkl::object_id alpha, d;
-
-	using DataType = float;
-	size_t DataSize = sizeof(DataType);
-	// allocate a vector of size N of type Data
-	size_t N = 32;
-	a_v = localKPU.claim(N * DataSize);
-	b_v = localKPU.claim(N * DataSize);
-	c_v = localKPU.claim(N * DataSize);
-
-	// allocate a scalar
-	alpha = localKPU.claim(DataSize);
-	d     = localKPU.claim(DataSize);
-
-	// copy or create data on the target
-	// how do we assign 2.5 literal to alpha?
-
-	// compute
-	openkl::klInstruction cmd;
-	cmd.scale(a_v, alpha, a_v);
-	localKPU.execute(cmd);
-	cmd.add(c_v, a_v, b_v);
-	localKPU.execute(cmd);
-	cmd.fdp(d, c_v, a_v);  // if a and b are at 45 degrees and the same length, c and a will be 90 degrees and dot product will be 0
-	localKPU.execute(cmd);
+	ComputeVectorAngles(localKPU);
 
 	// --- step: unbind a compute target
 	if (!env.release(localKPU)) {
