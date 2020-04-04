@@ -1,4 +1,4 @@
-// smp_8way_kpu.cpp: device shim to functionally model a system consisting of a multi-core CPU, memory, with 8 KPU hardware accelerators attached
+// remote_kpu.cpp: device shim to functionally model a remote system consisting of a multi-core CPU, memory, with 8 KPU hardware accelerators attached
 // Created: 2020-03-29
 //
 // Copyright (C) 2020-present: Stillwater Supercomputing, Inc. & SimuNova UG
@@ -7,7 +7,7 @@
 // Authors: Peter Gottschling (peter.gottschling@simunova.com)
 //          Theodore Omtzigt  (theo@stillwater-sc.com)
 #include <iostream>
-#include <openkl/shims/smp_8way_kpu.hpp>
+#include <openkl/shims/rkpu/remote_kpu.hpp>
 
 namespace openkl {	namespace shim {
 

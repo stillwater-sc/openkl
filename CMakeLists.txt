@@ -143,7 +143,7 @@ macro (compile_all testing prefix folder)
         message(STATUS "Add test ${test_name} from source ${new_source}.")
         add_executable (${test_name} ${new_source})
 	set_target_properties(${test_name} PROPERTIES FOLDER ${folder})
-	target_link_libraries(${test_name} openkl_lib)
+	target_link_libraries(${test_name} openkl_lib proxy_lib shim_lib)
         if (${testing} STREQUAL "true")
 	    if (OPENKL_CMAKE_TRACE)
                 message(STATUS "testing: ${test_name} ${RUNTIME_OUTPUT_DIRECTORY}/${test_name}")
@@ -169,8 +169,15 @@ else()
     message(FATAL_ERROR "Not supported system type. Options: UNIX or WIN32.")
 endif()
 
-add_subdirectory("source")
+# build the libraries
+add_subdirectory("source/openkl")
+add_subdirectory("source/proxy")
+add_subdirectory("source/shims")
+
+# build test suites
 add_subdirectory("tests")
+
+# build demo programs
 add_subdirectory("applications/krylov")
 add_subdirectory("demos")
 

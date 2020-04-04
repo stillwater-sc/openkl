@@ -7,7 +7,7 @@
 // Authors: Peter Gottschling (peter.gottschling@simunova.com)
 //          Theodore Omtzigt  (theo@stillwater-sc.com)
 #include <iostream>
-#include <openkl/shims/smp.hpp>
+#include <openkl/shims/smp/smp.hpp>
 
 namespace openkl {	namespace shim {
 

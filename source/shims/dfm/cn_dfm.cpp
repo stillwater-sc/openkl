@@ -1,4 +1,4 @@
-// cloud_native_cgdfm.cpp: device shim to functionally model a Cloud-Native Coarse-grain Data Flow Machine
+// cn_dfm.cpp: device shim to functionally model a Cloud-Native Coarse-grain Data Flow Machine
 // Created: 2020-03-29
 //
 // Copyright (C) 2020-present: Stillwater Supercomputing, Inc. & SimuNova UG
@@ -7,7 +7,7 @@
 // Authors: Peter Gottschling (peter.gottschling@simunova.com)
 //          Theodore Omtzigt  (theo@stillwater-sc.com)
 #include <iostream>
-#include <openkl/shims/cloud_native_cgdfm.hpp>
+#include <openkl/shims/dfm/cn_dfm.hpp>
 
 namespace openkl {	namespace shim {
 

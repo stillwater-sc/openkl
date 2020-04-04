@@ -1,4 +1,4 @@
-// cloud_native_dmm.hpp
+// cn_dmm.hpp
 // Created: 2020-03-29
 //
 // Copyright (C) 2020-present: Stillwater Supercomputing, Inc. & SimuNova UG

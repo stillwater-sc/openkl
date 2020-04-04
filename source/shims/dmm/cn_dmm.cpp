@@ -1,4 +1,4 @@
-// cloud_native_dmm.cpp: device shim to functionally model a Cloud-Native Distributed Memory Machine cluster
+// cn_dmm.cpp: device shim to functionally model a Cloud-Native Distributed Memory Machine cluster
 // Created: 2020-03-29
 //
 // Copyright (C) 2020-present: Stillwater Supercomputing, Inc. & SimuNova UG
@@ -7,7 +7,7 @@
 // Authors: Peter Gottschling (peter.gottschling@simunova.com)
 //          Theodore Omtzigt  (theo@stillwater-sc.com)
 #include <iostream>
-#include <openkl/shims/cloud_native_dmm.hpp>
+#include <openkl/shims/dmm/cn_dmm.hpp>
 
 namespace openkl { namespace shim {
 

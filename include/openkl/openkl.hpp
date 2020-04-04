@@ -16,7 +16,7 @@
 #include <openkl/utilities/object_repo.hpp>
 #include <openkl/execenv.hpp>
 #include <openkl/proxy/proxy.hpp>
-#include <openkl/shims/kpu.hpp>
+#include <openkl/shims/kpu/kpu.hpp>
 
 namespace openkl {
 

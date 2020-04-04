@@ -7,8 +7,7 @@
 // Authors: Peter Gottschling (peter.gottschling@simunova.com)
 //          Theodore Omtzigt  (theo@stillwater-sc.com)
 #include <iostream>
-//#include <openkl/rm.hpp>
-#include <openkl/shims/kpu.hpp>
+#include <openkl/shims/kpu/kpu.hpp>
 
 /*
 A KPU consists of 
