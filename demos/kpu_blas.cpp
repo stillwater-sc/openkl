@@ -35,8 +35,7 @@ void ShowInventory(openkl::klComputeTargets& targets) {
 	std::cout << std::endl;
 }
 
-int main(int argc, char* argv[])
-try {
+void FinegrainControl() {
 	// first step: enumerate the target devices our program could use
 	openkl::klComputeTargets targets;
 	openkl::klExecutionEnvironment query = openkl::klExecutionEnvironment{
@@ -61,31 +60,100 @@ try {
 
 	ShowInventory(targets);
 
-	/*
-	std::cout << "posit<32,2> epsilon : " << std::numeric_limits< sw::unum::posit<32, 2> >::epsilon() << std::endl;
-	std::cout << "posit<32,2> minpos  : " << sw::unum::minpos<32, 2>() << std::endl;
-	*/
-
 	// second step: among the compute targets find a compute target matching your need
 	// we are going to look for a LOCAL_KPU target 
 	auto isLocalKpu = [](auto& target) { return target.procType == openkl::LOCAL_KPU; };
 	auto it = std::find_if(begin(targets), end(targets), isLocalKpu);
 	if (it == end(targets))
-            openkl::exit("Unable to find a LOCAL_KPU compute target: exiting");
-	openkl::klExecutionEnvironment target{*it};
+		openkl::exit("Unable to find a LOCAL_KPU compute target: exiting");
+	openkl::klExecutionEnvironment target{ *it };
 
 	std::cout << "Successfully selected a LOCAL_KPU target\n";
 	std::cout << attributes(target) << std::endl;
 
 	// third step: create an execution context on the device of your choice
 	openkl::klComputeContext ctx;
-	if (!openkl::createContext(target, ctx))
-            openkl::exit("Unable to create execution context on device " + target.id);
+//	if (!openkl::createContext(target, ctx))
+//		openkl::exit("Unable to create execution context on device " + target.id);
 
 	// fourth step: allocate resources using the context
 
 
 	// fifth step: compute
+}
+
+void C_calling_sequence() {
+	// first step: bind this application to the OpenKL environment
+	openkl::klEnvironment env;
+	if (!openkl::attach(env)) {
+		openkl::exit("unable to attach to an OpenKL environment: exiting");
+	}
+
+	// second step: bind to a compute target to work with
+	openkl::klComputeContext localKPU;
+	if (!env.bind(openkl::klComputeResourceType::LOCAL_KPU, localKPU)) {
+		openkl::exit("unable to find a LOCAL_KPU compute target to bind to: exiting");
+	}
+
+	// third step: set up a computation
+
+
+	// --- step: unbind a compute target
+	if (!env.release(localKPU)) {
+		openkl::exit("unable to release a LOCAL_KPU compute target: exiting");
+	}
+
+	// last step: release the application from the OpenKL environment
+	if (!openkl::detach(env)) {
+		openkl::exit("unable to detach from an OpenKL context: exiting");
+	}
+}
+
+int main(int argc, char* argv[])
+try {
+	// bind this application to the OpenKL environment
+	openkl::klEnvironment env;
+
+	// obtain an execution context
+	openkl::klComputeContext localKPU;
+	if (!env.bind(openkl::klComputeResourceType::LOCAL_KPU, localKPU)) {
+		openkl::exit("unable to find a LOCAL_KPU compute target to bind to: exiting");
+	}
+
+	// allocate memory blocks
+	openkl::object_id a_v, b_v, c_v;
+	openkl::object_id alpha, d;
+
+	using DataType = float;
+	size_t DataSize = sizeof(DataType);
+	// allocate a vector of size N of type Data
+	size_t N = 32;
+	a_v = localKPU.claim(N * DataSize);
+	b_v = localKPU.claim(N * DataSize);
+	c_v = localKPU.claim(N * DataSize);
+
+	// allocate a scalar
+	alpha = localKPU.claim(DataSize);
+	d     = localKPU.claim(DataSize);
+
+	// copy or create data on the target
+	// how do we assign 2.5 literal to alpha?
+
+	// compute
+	openkl::klInstruction cmd;
+	cmd.scale(a_v, alpha, a_v);
+	localKPU.execute(cmd);
+	cmd.add(c_v, a_v, b_v);
+	localKPU.execute(cmd);
+	cmd.fdp(d, c_v, a_v);  // if a and b are at 45 degrees and the same length, c and a will be 90 degrees and dot product will be 0
+	localKPU.execute(cmd);
+
+	// --- step: unbind a compute target
+	if (!env.release(localKPU)) {
+		openkl::exit("unable to release a LOCAL_KPU compute target: exiting");
+	}
+
+	return EXIT_SUCCESS;
 }
 catch (const char* msg) {
 	std::cerr << "caught exception: " << msg << std::endl;
