@@ -39,3 +39,5 @@ build
 .kdev4
 .idea
 .vs
+cmake-build-release
+cmake-build-debug
