@@ -1,0 +1,32 @@
+import os
+env = Environment(ENV = os.environ)
+print "CC is: ", env['CC']
+EXTENV = env['ENV']
+STILLWATER_HOME = EXTENV['STILLWATER_HOME']
+print "STILLWATER_HOME is: ", STILLWATER_HOME
+
+#dict = env.Dictionary()
+#keys = dict.keys()
+#keys.sort()
+#for key in keys:
+#    print "'%s' = '%s'" % (key,dict[key])
+
+
+SOURCES = Split("""
+		Memory.cpp
+		MemoryDescriptor.cpp
+		MemoryObject.cpp
+		MobMemory.cpp
+		Page.cpp
+		""")
+
+INCLUDES = Split("""
+		.
+		""")
+
+INCLUDES.append(STILLWATER_HOME)
+
+print INCLUDES
+
+env.StaticLibrary('memory', build_dir='build', source = SOURCES, CPPPATH = INCLUDES )
+
