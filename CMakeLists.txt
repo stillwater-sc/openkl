@@ -132,9 +132,9 @@ message(STATUS "The COMMON INCLUDE DIR is " ${COMMON_INCLUDE_DIR})
 
 ####
 # Configure the compiler options
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-message(STATUS "C++14 support has been enabled by default")
+message(STATUS "C++17 support has been enabled by default")
 
 macro (compile_all testing prefix folder)
     # cycle through the sources
