@@ -11,7 +11,7 @@
 
 /*
 A KPU consists of 
-  - DMA front-end
+  - front-end consisting of DMA and cmd queues
   - Notification, Interrupt, and Panic controller
   - memory controller(s)
   - memory modules organized in concurrent channels

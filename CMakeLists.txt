@@ -122,9 +122,13 @@ include_directories(${UNIVERSAL_INCLUDE_DIRS})
 message(STATUS "The UNIVERSAL INCLUDE DIR is " ${UNIVERSAL_INCLUDE_DIRS})
 
 # Set openkl include directory
-set(OPENKL_INCLUDE_DIR "./include")
+set(OPENKL_INCLUDE_DIR "include")
 include_directories(${OPENKL_INCLUDE_DIR})
 message(STATUS "The OPENKL INCLUDE DIR is " ${OPENKL_INCLUDE_DIR})
+
+# set common include directory
+set(COMMON_INCLUDE_DIR "common/include")
+message(STATUS "The COMMON INCLUDE DIR is " ${COMMON_INCLUDE_DIR})
 
 ####
 # Configure the compiler options
@@ -170,9 +174,10 @@ else()
 endif()
 
 # build the libraries
+add_subdirectory("common/src/libraries")
 add_subdirectory("source/openkl")
 add_subdirectory("source/proxy")
-add_subdirectory("source/shims")
+add_subdirectory("source/shims/kpu")
 
 # build test suites
 add_subdirectory("tests")
