@@ -20,6 +20,3 @@ add_test(common_diagnostics ${EXECUTABLE_OUTPUT_PATH}/test_common_diagnostics)
 #		--build-project test_common_diagnostics
 #		--test-command ${CMAKE_CURRENT_BINARY_DIR}/test_common_diagnostics
 #		)
-
-
-

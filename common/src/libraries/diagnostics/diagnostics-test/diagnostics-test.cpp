@@ -72,7 +72,7 @@ int main(int argc, char* argv[]) {
 	DIAG_WARN(i < 5)(i);
 	DIAG_ERROR(i < 0)(i);
 	DIAG_FATAL(i < 1)(i);
-	DIAG_INFO("Hello");
+	DIAG_INFO("diagnostics-test starting");
 	DIAG_DEBUG("Debug this");
 
 	auto startTime = chrono::steady_clock::now();
@@ -104,6 +104,7 @@ int main(int argc, char* argv[]) {
 	timeMonitor.stop("Loop2", "1-main");
 	cout << timeMonitor;
 
+	DIAG_INFO("diagnostics-test finished");
 	return 0;
 }
 
