@@ -24,6 +24,9 @@
 #ifndef STILLWATER_SUMMARY_STATISTIC_INCLUDED
 #define STILLWATER_SUMMARY_STATISTIC_INCLUDED
 
+#include <array>
+#include <numeric>
+
 NS_STILLWATER_STATISTICS_BEGIN
 
 constexpr uint8_t SUMMARY_MIN = 0;
@@ -42,16 +45,16 @@ class SummaryStatistic : public std::array<Real,5> {
 using const_it = typename std::vector<Real>::const_iterator;
 public:
 	SummaryStatistic(const std::string& name = "undefined", const std::string& dimension = "unknown") 
-		: m_name(name),m_dimension(dimension),m_e1(0.0), m_e2(0.0), m_s(0.0) {
-		fill(this->begin(), this->end(), static_cast<T>(0) );
+		: m_name(name),m_dimension(dimension),m_e1(Real(0)), m_e2(Real(0)), m_s(Real(0)) {
+		fill(static_cast<Real>(0) );
 	}
 	virtual ~SummaryStatistic() { 
 		m_name.erase(); m_dimension.erase();
-		fill(this->begin(), this->end(), static_cast<T>(0) );
+		fill(static_cast<Real>(0) );
 	}
 	// reset the statistics values
 	void clear() {	
-		fill(this->begin(), this->end(), static_cast<T>(0) );
+		fill(static_cast<Real>(0) );
 		m_e1 = m_e2 = m_s = 0;
 		// but leave m_name/m_dimension alone
 	}
@@ -64,11 +67,11 @@ public:
 		this->at(SUMMARY_Q2) = Real(copy[copy.size()/2]);
 		this->at(SUMMARY_Q3) = Real(copy[3*copy.size()/4]);
 		this->at(SUMMARY_MAX) = Real(copy[copy.size()-1]);
-		m_e1 = accumulate(copy.begin(), copy.end(), 0.0)/copy.size();
+		m_e1 = std::accumulate(copy.begin(), copy.end(), Real(0))/copy.size();
 
 		// second moment: 1 over N-1 times sum of (x - xbar)^2
 		// TODO: figure out how to do this with accumulate()
-		m_s	= m_e2 = 0.0;
+		m_s	= m_e2 = Real(0);
 		if (copy.size () > 1) {
 			const_it statIter = copy.begin();
 			while (statIter != copy.end ()) {
@@ -76,10 +79,10 @@ public:
 				++statIter;
 			}
 			m_e2 /= (copy.size () - 1);
-			m_s = sqrt(m_e2);
+			m_s = (Real)sqrt(m_e2);
 		}
 		else {
-			m_s = m_e2 = 0.0;
+			m_s = m_e2 = Real(0);
 		}
 	}
 	// \brief provide complete summary statistics report

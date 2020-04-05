@@ -6,8 +6,8 @@ file (GLOB LIB_SOURCES *.cpp)
 # collect the include files
 file (GLOB LIB_INCLUDES "${STILLWATER_STATISTICS_INCLUDE_DIR}/*.hpp")
 
-# However, remember that includes refer to these files as
-# #include <stillwater/diagnostics/Logger.hpp> and thus the include
+# Remember that source files refer to these files as
+# #include <stillwater/statistics/histogram.hpp> and thus the include
 # directory to use for the compiler is COMMON
 include_directories ("${CMAKE_SOURCE_DIR}/${COMMON_INCLUDE_DIR}")
 
