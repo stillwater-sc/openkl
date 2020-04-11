@@ -23,8 +23,7 @@
  */
 // STL includes
 #include <deque>
-// BOOST includes
-#include <boost/shared_ptr.hpp>
+#include <memory>
 // STILLWATER includes
 #include <stillwater/baseTypes.hpp>
 #include <stillwater/exceptions.hpp>
@@ -32,19 +31,19 @@
 #include <stillwater/diagnostics.hpp>
 #include <stillwater/automation.hpp>
 // STILLWATER SLM components
-#include <Stillwater/arch/src/Libraries/slm/baseTypes/slmBaseTypes_nsmacro.hpp>
-#include <Stillwater/arch/src/Libraries/slm/baseTypes/Request.hpp>
+#include <Stillwater/arch/baseTypes/slmBaseTypes_nsmacro.hpp>
+#include <Stillwater/arch/baseTypes/Request.hpp>
 // SLM Cache library includes
 #include "./memory_nsmacro.hpp"	// centralized namespace definition
 #include "./Cache.hpp"
 
 using namespace stillwater::slm;
 
-Cache::Cache(uint32 sizeInBytes, uint32 associativity, uint32 lineSizeInBytes, const CacheWritePolicy& writePolicy, uint32 nrOfVictimBuffers) :
+Cache::Cache(uint32_t sizeInBytes, uint32_t associativity, uint32_t lineSizeInBytes, const CacheWritePolicy& writePolicy, uint32_t nrOfVictimBuffers) :
 	m_pData(NULL), m_tags(NULL), m_lineStates(NULL),
 	m_sizeInBytes(sizeInBytes), m_associativity(associativity), m_lineSizeInBytes(lineSizeInBytes),m_writePolicy(writePolicy),m_nrOfVictimBuffers(nrOfVictimBuffers),
-	m_reads("reads", "read ops"), m_writes("writes", "write_ops"),
-	m_bytesRead("bytesRead", "bytes"), m_bytesWritten("bytesWritten", "bytes")
+	m_reads("default", "reads", "read ops"), m_writes("default", "writes", "write_ops"),
+	m_bytesRead("default", "bytesRead", "bytes"), m_bytesWritten("default", "bytesWritten", "bytes")
 {
 	// double check to see if cache and line size are powers of 2
 	// and if not, fix them up to the next largest power of 2
@@ -77,7 +76,7 @@ Cache::Cache(uint32 sizeInBytes, uint32 associativity, uint32 lineSizeInBytes, c
 	m_tags = new Address[m_nrOfLines];
 	m_lineStates = new CacheLineState[m_nrOfLines];
 	m_victimBuffer = new char[m_lineSizeInBytes*m_nrOfVictimBuffers];
-	for (uint32 lineNr = 0; lineNr < m_nrOfLines; ++lineNr) {
+	for (uint32_t lineNr = 0; lineNr < m_nrOfLines; ++lineNr) {
 		m_tags[lineNr] = 0x1;	// the tags will always be the top bits of an address and thus this equates to no line
 		m_lineStates[lineNr] = CACHE_LINE_CLEAN;
 	}
@@ -136,14 +135,14 @@ bool Cache::isPresent(const Address& address) const {
 void Cache::allocate(const Address& address) {
 	// construct the tag
 	Address tag = address & m_tagMask;
-	uint32 lineNr = getLineNr(address);
+	uint32_t lineNr = getLineNr(address);
 	m_tags[lineNr] = tag;
 	m_lineStates[lineNr] = CACHE_LINE_CLEAN;
 }
 
 void Cache::evict(const Address& address) {
 	PRECONDITION(getAvailableVictimBuffers() > 0);
-	uint32 offset = (uint32)m_victimLines.size()*m_lineSizeInBytes;	// calc offset in victim buffer
+	uint32_t offset = (uint32_t)m_victimLines.size()*m_lineSizeInBytes;	// calc offset in victim buffer
 	memcpy(&m_victimBuffer[offset],getCacheLine(address),m_lineSizeInBytes); // copy the line from the cache to the victim buffer
 	// store the base address and FIFO ptr
 	m_victimLines.push_back(&m_victimBuffer[offset]);
@@ -155,18 +154,18 @@ void Cache::retireOldestVictim() {
 	m_victimBaseAddresses.pop_front();
 }
 
-void Cache::read(const Address& address, uint32 sizeInBytes, void* pData) const {
+void Cache::read(const Address& address, uint32_t sizeInBytes, void* pData) const {
 	PRECONDITION(isPresent(address));
-	uint32 offset = (uint32)(address & m_offsetMask);
+	uint32_t offset = (uint32_t)(address & m_offsetMask);
 	memcpy(pData,getCacheLine(address)+offset,sizeInBytes);
 }
 
-void Cache::write(const Address& address, uint32 sizeInBytes, const void* pData) {
+void Cache::write(const Address& address, uint32_t sizeInBytes, const void* pData) {
 	PRECONDITION(isPresent(address));
 	Address tag = address & m_tagMask;
-	uint32 lineNr = getLineNr(address);
+	uint32_t lineNr = getLineNr(address);
 	m_lineStates[lineNr] = CACHE_LINE_MODIFIED;
-	uint32 offset = (uint32)(address & m_offsetMask);
+	uint32_t offset = (uint32_t)(address & m_offsetMask);
 	memcpy(getCacheLine(address)+offset, pData,sizeInBytes);
 }
 

@@ -181,6 +181,7 @@ add_subdirectory("source/shims/kpu")
 
 # build test suites
 add_subdirectory("tests")
+add_subdirectory("source/shims/kpu/memory/test_bench")
 
 # build demo programs
 add_subdirectory("applications/krylov")

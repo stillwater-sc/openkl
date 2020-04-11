@@ -25,7 +25,6 @@
 #include <iomanip>
 #include <vector>
 #include <map>
-#if 0
 // STILLWATER includes
 #include <stillwater/baseTypes.hpp>
 #include <stillwater/exceptions.hpp>
@@ -33,9 +32,8 @@
 #include <stillwater/diagnostics.hpp>
 #include <stillwater/automation.hpp>
 // STILLWATER SLM components
-#include <Stillwater/arch/src/Libraries/slm/baseTypes/slmBaseTypes_nsmacro.hpp>
-#include <Stillwater/arch/src/Libraries/slm/baseTypes/Request.hpp>
-#endif
+#include <stillwater/arch/baseTypes/slmBaseTypes_nsmacro.hpp>
+#include <stillwater/arch/baseTypes/Request.hpp>
 // memory library includes
 #include "./memory_nsmacro.hpp"	// centralized namespace definition
 #include "./Page.hpp"

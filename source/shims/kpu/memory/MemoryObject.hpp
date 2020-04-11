@@ -51,7 +51,7 @@ public:
 	 * MemoryDescriptor is the minimum information
 	 * needed to initiate the read operation.
 	 */
-	MemoryObject(uint64 nrOfElements, MemoryElementType elementType) :
+	MemoryObject(uint64_t nrOfElements, MemoryElementType elementType) :
 		MemoryDescriptor(nrOfElements, elementType) {
 		m_sizeInBytes = m_nrOfElements*m_sizeOfElement;
 		m_pBlob = new char[static_cast<size_t>(m_sizeInBytes)];
@@ -67,7 +67,7 @@ public:
 	 * including the data blob is the minimum information
 	 * needed to initiate the write operation.
 	 */
-	MemoryObject(uint64 nrOfElements, MemoryElementType elementType, const void* pData) :
+	MemoryObject(uint64_t nrOfElements, MemoryElementType elementType, const void* pData) :
 		MemoryDescriptor(nrOfElements, elementType) {
 		m_sizeInBytes = m_nrOfElements*m_sizeOfElement;
 		m_pBlob = new char[static_cast<size_t>(m_sizeInBytes)];
@@ -100,7 +100,7 @@ public:
 	 * \param index the index of the element of interest in the blob
 	 * \return ostr reference
 	 */
-	std::ostream& printElement(std::ostream& ostr, uint64 index) const;
+	std::ostream& printElement(std::ostream& ostr, uint64_t index) const;
 
 protected:
 	// member variables

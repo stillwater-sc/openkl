@@ -64,7 +64,7 @@ public:
 	 * Subsequent calls to next will generate a Request structure with
 	 * the attributes of the next request
 	 */
-	void initialize(const RequestType& type, const Address& startAddress, const Address& stride, uint32 m_requestSizeInBytes, uint32 requestCount);
+	void initialize(const RequestType& type, const Address& startAddress, const Address& stride, uint32_t m_requestSizeInBytes, uint32_t requestCount);
 
 	/**
 	 * \brief test if there are still requests to be generated
@@ -109,15 +109,15 @@ protected:
 	/**
 	 * request size in bytes
 	 */
-	uint32				m_requestSizeInBytes;
+	uint32_t			m_requestSizeInBytes;
 	/**
 	 * repeat count of the stream
 	 */
-	uint32				m_requestCount;
+	uint32_t			m_requestCount;
 	/**
 	 * the actual request generated count
 	 */
-	uint32				m_count;
+	uint32_t			m_count;
 
 	// helpers
 

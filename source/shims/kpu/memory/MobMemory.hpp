@@ -36,18 +36,18 @@ class MemoryObject;
 class MobMemory : public Memory {
 public:
 	/**
-		* \brief default constructor
-		* \param sizeInBytes size of memory block in bytes
-		* \param startAddress byte address of the first byte of the memory block in the overall memory map
-		* \param pageSizeInBytes size in bytes of the uniform page size for this memory
-		*
-		*/
-	MobMemory(uint64 sizeInBytes, Address startAddress, uint64 pageSizeInBytes) 
+	 * \brief default constructor
+	 * \param sizeInBytes size of memory block in bytes
+	 * \param startAddress byte address of the first byte of the memory block in the overall memory map
+	 * \param pageSizeInBytes size in bytes of the uniform page size for this memory
+	 *
+	 */
+	MobMemory(uint64_t sizeInBytes, Address startAddress, uint64_t pageSizeInBytes) 
 		: Memory(sizeInBytes, startAddress, pageSizeInBytes) {}
 	
 	/**
-	* destructor ~MobMemory()
-	*/
+	 * destructor ~MobMemory()
+	 */
 	~MobMemory(void) {}
 
 	// operators
@@ -74,13 +74,13 @@ public:
 	/**
 		* \brief lower level block access API
 		*/
-	void read(Address baseAddress, uint64 sizeInBytes, void* pData) const {
+	void read(Address baseAddress, uint64_t sizeInBytes, void* pData) const {
 		Memory::read(baseAddress, sizeInBytes, pData);
 	}
 
 // modifiers
 	/**
-		* write(uint64 baseAddress, MemoryObject& mob)
+		* write(uint64_t baseAddress, MemoryObject& mob)
 		* \param baseAddress the base address of the memory block to write to
 		* \param mob reference to a MemoryObject containing the data
 		* \throw PageException can throw a page exception
@@ -89,7 +89,7 @@ public:
 	/**
 		* \brief lower level block access API
 		*/
-	void write(Address baseAddress, uint64 sizeInBytes, const void* pData) {
+	void write(Address baseAddress, uint64_t sizeInBytes, const void* pData) {
 		Memory::write(baseAddress, sizeInBytes, pData);
 	}
 

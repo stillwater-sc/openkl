@@ -41,7 +41,7 @@ std::ostream& operator<<(std::ostream& ostr, const MemoryObject& rhs) {
 		<< ","
 		<< rhs.sizeOfElement()
 		<< ") : [";
-	for ( uint64 i = 0; i < rhs.nrOfElements()-1; i++ ) {
+	for ( uint64_t i = 0; i < rhs.nrOfElements()-1; i++ ) {
 		rhs.printElement(ostr, i) << "," ;
 	}
 	rhs.printElement(ostr, rhs.nrOfElements()-1) << "]" << std::endl;
@@ -59,36 +59,36 @@ MemoryObject::~MemoryObject(void)
 	}
 }
 
-std::ostream& MemoryObject::printElement(std::ostream& ostr, uint64 index) const {
+std::ostream& MemoryObject::printElement(std::ostream& ostr, uint64_t index) const {
 	if (index < this->m_nrOfElements) {
 		switch(this->m_elementType) {
 		case	MET_UINT8:
-			ostr << ((uint8*) this->m_pBlob)[index];
+			ostr << ((uint8_t*) this->m_pBlob)[index];
 			break;
 		case	MET_UINT16:
-			ostr << ((uint16*) this->m_pBlob)[index];
+			ostr << ((uint16_t*) this->m_pBlob)[index];
 			break;		
 		case	MET_UINT32:
-			ostr << ((uint32*) this->m_pBlob)[index];
+			ostr << ((uint32_t*) this->m_pBlob)[index];
 			break;
 		case	MET_UINT64:
-			ostr << ((uint64*) this->m_pBlob)[index];
+			ostr << ((uint64_t*) this->m_pBlob)[index];
 			break;
 		case	MET_UINT128:
 		case	MET_UINT256:
 			ostr << "128 and 256 bit ints not supported yet";
 			break;
 		case	MET_INT8:
-			ostr << ((int8*) this->m_pBlob)[index];
+			ostr << ((int8_t*) this->m_pBlob)[index];
 			break;
 		case	MET_INT16:
-			ostr << ((int16*) this->m_pBlob)[index];
+			ostr << ((int16_t*) this->m_pBlob)[index];
 			break;		
 		case	MET_INT32:
-			ostr << ((int32*) this->m_pBlob)[index];
+			ostr << ((int32_t*) this->m_pBlob)[index];
 			break;
 		case	MET_INT64:
-			ostr << ((int64*) this->m_pBlob)[index];
+			ostr << ((int64_t*) this->m_pBlob)[index];
 			break;
 		case	MET_INT128:
 		case	MET_INT256:
@@ -98,10 +98,10 @@ std::ostream& MemoryObject::printElement(std::ostream& ostr, uint64 index) const
 			ostr << "16 bit reals not supported yet";
 			break;
 		case	MET_REAL32:
-			ostr << ((real32*) this->m_pBlob)[index];
+			ostr << ((float*) this->m_pBlob)[index];
 			break;
 		case	MET_REAL64:
-			ostr << ((real64*) this->m_pBlob)[index];
+			ostr << ((double*) this->m_pBlob)[index];
 			break;
 		case	MET_REAL80:
 		case	MET_REAL128:

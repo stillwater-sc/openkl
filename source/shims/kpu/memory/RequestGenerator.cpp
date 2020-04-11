@@ -24,8 +24,7 @@
 // STL includes
 #include <vector>
 #include <map>
-// BOOST includes
-#include <boost/shared_ptr.hpp>
+#include <memory>
 // STILLWATER includes
 #include <stillwater/baseTypes.hpp>
 #include <stillwater/exceptions.hpp>
@@ -33,8 +32,8 @@
 #include <stillwater/diagnostics.hpp>
 #include <stillwater/automation.hpp>
 // STILLWATER SLM components
-#include <Stillwater/arch/src/Libraries/slm/baseTypes/slmBaseTypes_nsmacro.hpp>
-#include <Stillwater/arch/src/Libraries/slm/baseTypes/Request.hpp>
+#include <stillwater/arch/baseTypes/slmBaseTypes_nsmacro.hpp>
+#include <stillwater/arch/baseTypes/Request.hpp>
 // SLM Cache library includes
 #include "./memory_nsmacro.hpp"	// centralized namespace definition
 #include "./RequestGenerator.hpp"
@@ -48,7 +47,7 @@ RequestGenerator::~RequestGenerator() {
 }
 
 void RequestGenerator::initialize(const RequestType& type, const Address& startAddress, const Address& stride, 
-								  uint32 requestSizeInBytes, uint32 requestCount) {
+								  uint32_t requestSizeInBytes, uint32_t requestCount) {
 	m_type					= type;
 	m_startAddress			= startAddress;
 	m_address				= startAddress;
