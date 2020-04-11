@@ -7,6 +7,7 @@ file (GLOB INCLUDES *.hpp *.h)
 
 # include directories we need
 include_directories(${CMAKE_SOURCE_DIR}/${COMMON_INCLUDE_DIR})
+message(STATUS "test_common_automation " ${CMAKE_SOURCE_DIR})
 
 # add a library target
 add_executable(test_common_automation ${SOURCES} ${INCLUDES})

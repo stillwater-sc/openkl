@@ -61,11 +61,11 @@ public:
 	 * stored and thus the lookup strategy.
 	 * Both the cache size and line size need to be powers of 2.
 	 */
-	Cache(uint32 sizeInBytes, 
-		uint32 associativity = 1, 
-		uint32 lineSizeInBytes = SIZE_256, 
+	Cache(uint32_t sizeInBytes, 
+		uint32_t associativity = 1, 
+		uint32_t lineSizeInBytes = SIZE_256, 
 		const CacheWritePolicy& writePolicy = CACHE_WRITE_ALLOCATE,
-		uint32 nrOfVictimBuffers = 1);
+		uint32_t nrOfVictimBuffers = 1);
 	
 	/**
 	 * destructor 
@@ -91,7 +91,7 @@ public:
 	/**
 	 * \brief check victim buffer availability
 	 */
-	uint32 getAvailableVictimBuffers() const { return m_nrOfVictimBuffers - m_victimLines.size(); }
+	uint32_t getAvailableVictimBuffers() const { return m_nrOfVictimBuffers - m_victimLines.size(); }
 	/**
 	 * \brief get the line base address given a byte address
 	 */
@@ -101,8 +101,8 @@ public:
 	/**
 	 * \brief get the line nr
 	 */
-	uint32 getLineNr(const Address& address) const {
-		return (uint32)((address & m_lineMask) >> m_lineNrShift);
+	uint32_t getLineNr(const Address& address) const {
+		return (uint32_t)((address & m_lineMask) >> m_lineNrShift);
 	}
 	/**
 	 * \brief get a pointer to the raw storage for the associated line
@@ -131,7 +131,7 @@ public:
 	 *
 	 * The read request can address sub-line size elements, but not larger elements. 
 	 */
-	void read(const Address& baseAddress, uint32 sizeInBytes, void* pData) const;
+	void read(const Address& baseAddress, uint32_t sizeInBytes, void* pData) const;
 	// modifiers
 	/**
 	 * \brief allocate a tag in the tag ram
@@ -143,7 +143,7 @@ public:
 	 * \param sizeInBytes size in bytes of the block we want to write to memory
 	 * \param pData pointer to the data block containing sufficient bytes (>sizeInBytes)
 	 */
-	void write(const Address& baseAddress, uint32 sizeInBytes, const void* pData);
+	void write(const Address& baseAddress, uint32_t sizeInBytes, const void* pData);
 	/**
 	 * \brief take a dirty line and move it out into a victim buffer
 	 */
@@ -173,15 +173,15 @@ protected:
 	 * when 32bits is no longer enough to represent caches? I felt
 	 * it not reasonable so I selected 32bits. Future will tell... ETLO
 	 */
-	uint32				m_sizeInBytes;
+	uint32_t				m_sizeInBytes;
 	/**
 	 * associativity of the cache
 	 */
-	uint32				m_associativity;
+	uint32_t				m_associativity;
 	/**
 	 * line size in bytes
 	 */
-	uint32				m_lineSizeInBytes;
+	uint32_t				m_lineSizeInBytes;
 	/**
 	 * the write policy of the cache
 	 */
@@ -197,7 +197,7 @@ protected:
 	/**
 	 * calculated value of the size of the tag/lineState stores
 	 */
-	uint32				m_nrOfLines;
+	uint32_t				m_nrOfLines;
 	/**
 	 * the raw data store: this is a 1D array of bytes
 	 * with the cache line offset calculation as a
@@ -216,7 +216,7 @@ protected:
 	/**
 	 * the max number of victim buffers for this cache
 	 */
-	uint32				m_nrOfVictimBuffers;
+	uint32_t				m_nrOfVictimBuffers;
 	/**
 	 * the actual victim buffer storage
 	 */
@@ -233,7 +233,7 @@ protected:
 	 * the shift amount of the line offset so that we obtain
 	 * a line number
 	 */
-	uint32				m_lineNrShift;
+	uint32_t			m_lineNrShift;
 	/**
 	 * the mask used to calculate the offset in the line
 	 */

@@ -47,7 +47,7 @@ class Memory {
 
 public:
 	/**
-	 * default constructor Memory(uint64 sizeInBytes)
+	 * default constructor Memory(uint64_t sizeInBytes)
 	 * \param sizeInBytes size of memory block in bytes
 	 * \param startAddress byte address of the first byte of the memory block in the overall memory map
 	 * \param pageSizeInBytes size in bytes of the uniform page size for this memory
@@ -59,7 +59,7 @@ public:
 	 * memory spaces need to be present: all is
 	 * managed on demand.
 	 */
-	Memory(Address sizeInBytes, Address startAddress, uint64 pageSizeInBytes, const std::string& instanceName = "Memory") : 
+	Memory(Address sizeInBytes, Address startAddress, uint64_t pageSizeInBytes, const std::string& instanceName = "Memory") : 
 		m_instanceName(instanceName),
 	    m_sizeInBytes(0), m_bLogging(true),
 		m_startAddress(0),
@@ -83,25 +83,25 @@ public:
 
 	// operators
 	// none
-	// potentially, operator[uint64] but not decided yet
+	// potentially, operator[uint64_t] but not decided yet
 
 	// selectors, use const to enforce non-modification
 	/**
 	 * \brief obtain the first address of the memory range
-	 * \return uint64 base memory address
+	 * \return uint64_t base memory address
 	 */
 	Address getStartAddress() const { return m_startAddress; }
 	/**
 	 * \brief obtain the last address of the memory range
-	 * \return uint64 end memory address
+	 * \return uint64_t end memory address
 	 */
 	Address getEndAddress() const { return m_endAddress; }
 	/**
-	 * \return uint64 size in bytes
+	 * \return uint64_t size in bytes
 	 */
 	uint64_t getSizeInBytes() const { return m_sizeInBytes; }
 	/**
-	 * \return uint64 page size in bytes
+	 * \return uint64_t page size in bytes
 	 */
 	uint64_t getPageSizeInBytes() const { return m_pageSizeInBytes; }
 
@@ -244,8 +244,8 @@ protected:
 	PageMap m_pages;
 
 	// statistics
-//	mutable stillwater::automation::gauges::EventCount m_reads, m_writes;
-//	mutable stillwater::automation::gauges::EventCount m_bytesRead, m_bytesWritten;
+	mutable stillwater::automation::gauges::EventCount m_reads, m_writes;
+	mutable stillwater::automation::gauges::EventCount m_bytesRead, m_bytesWritten;
 };
 
 

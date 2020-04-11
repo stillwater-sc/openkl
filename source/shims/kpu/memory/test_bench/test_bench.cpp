@@ -1,22 +1,44 @@
-// test_bench.cpp : Defines the entry point for the console application.
+// test_bench.cpp : unit level test bench for the memory resource management library
 //
 
-#include "stdafx.h"
+// STL headers
+#include <iostream>
+#include <iomanip>
+#include <map>
+#include <tchar.h>
+// STILLWATER headers
+#include <stillwater/baseTypes.hpp>
+#include <stillwater/exceptions.hpp>
+#include <interfaces/MemoryTypeEnums.hpp>		// ETLO 2/23/07 This is an odd dependency on the namespace definition TODO fix this if you can
+// diagnostic services
+#define STILLWATER_DIAGNOSTICS
+#include <stillwater/diagnostics.hpp>
+#include <stillwater/automation.hpp>
+// STILLWATER SLM components
+#include <stillwater/arch/baseTypes/slmBaseTypes_nsmacro.hpp>
+#include <stillwater/arch/baseTypes/Request.hpp>
+// Library headers and supporting types
+#include "../memory_nsmacro.hpp"	// centralized namespace definition
+#include "../Page.hpp"
+#include "../Memory.hpp"
+#include "../MemoryDescriptor.hpp"
+#include "../MemoryObject.hpp"
+#include "../MobMemory.hpp"
+
 
 using namespace std;
-using namespace STILLWATER;
-using namespace SLM;
+using namespace stillwater::slm;
 
-int _tmain(int argc, _TCHAR* argv[])
+int main(int argc, char* argv[])
 {
 	/**
 	 * this simple test bench creates a Memory object and goes
 	 * through the collaboration of reserving, allocating, and
 	 * releasing memory.
 	 */
-	uint64 memSize = 0ll;
-	uint64 baseAddress = 0ll;
-	uint64 endAddress = 0ll;
+	uint64_t memSize = 0ll;
+	uint64_t baseAddress = 0ll;
+	uint64_t endAddress = 0ll;
 	if (argc != 2) {
 		cout << "Usage: test_bench memSizeInMBytes" << endl;
 		cout << "Using default 16MBytes" << endl;
@@ -25,15 +47,16 @@ int _tmain(int argc, _TCHAR* argv[])
 	else {
 		memSize = atoi(argv[1])*1024*1024;
 	}
-	endAddress = baseAddress + memSize;
-	MobMemory memory(memSize, baseAddress, endAddress, SIZE_4K);
+//	endAddress = baseAddress + memSize;
+//	MobMemory memory(memSize, baseAddress, endAddress, SIZE_4K);
+	MobMemory memory(memSize, baseAddress, SIZE_4K);
 
 	// reserve a couple 1M blocks
-	uint64 base1 = SIZE_1M;
+	uint64_t base1 = SIZE_1M;
 	if (!memory.reserve(SIZE_1M, SIZE_1M)) {
 		throw "trouble reserving a memory block";
 	}
-	uint64 base2 = 5*SIZE_1M;
+	uint64_t base2 = 5*SIZE_1M;
 	if (!memory.reserve(base2, SIZE_1M)) {
 		throw "trouble reserving the second memory block";
 	}
@@ -44,17 +67,18 @@ int _tmain(int argc, _TCHAR* argv[])
 		MemoryObject mob(sizeof(data)/sizeof(data[0]), MET_REAL64, data);
 		memory.write(base1, mob);
 		memory.write(base2, mob);
-		memory.dumpPages();
+		memory.dumpPages(std::cout);
 		MemoryObject receivingMob(sizeof(data)/sizeof(data[0]), MET_REAL64);
-		if (memory.read(base1, receivingMob)) {
-			cout << "Memory Object: " << receivingMob << endl;
-		}
+//		if (memory.read(base1, receivingMob)) {
+//			cout << "Memory Object: " << receivingMob << endl;
+//		}
+		memory.read(base1, receivingMob);
 		// release the blocks
 		memory.release(base1);
 		memory.release(base2);
 	}
 	catch (PageException& e) {
-		cerr << "Caught PageException: " << e.getMessage() << endl;
+		cerr << "Caught PageException: " << e.what() << endl;
 	}
 	catch (...) {
 		cerr << "Caught unexpected error" << endl;

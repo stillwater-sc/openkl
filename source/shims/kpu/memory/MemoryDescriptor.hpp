@@ -43,9 +43,9 @@ NS_STILLWATER_SLM_MEMORY_BEGIN
  */
 class MemoryDescriptor {
 public:
-	MemoryDescriptor(uint64 nrOfElements, MemoryElementType elementType) :
+	MemoryDescriptor(uint64_t nrOfElements, MemoryElementType elementType) :
 		m_nrOfElements(nrOfElements), m_elementType(elementType) {
-		m_sizeOfElement = static_cast<uint64>(elementType) & 0xFF;
+		m_sizeOfElement = static_cast<uint64_t>(elementType) & 0xFF;
 		m_sizeInBytes = m_nrOfElements*m_sizeOfElement;
 	}
 	virtual ~MemoryDescriptor() {
@@ -54,15 +54,15 @@ public:
 		m_sizeOfElement = 0;
 	}
 
-	uint64 size() const { return m_sizeInBytes; }
-	uint64 nrOfElements() const { return m_nrOfElements; }
+	uint64_t size() const { return m_sizeInBytes; }
+	uint64_t nrOfElements() const { return m_nrOfElements; }
 	MemoryElementType elementType() const { return m_elementType; }
-	uint64 sizeOfElement() const { return m_sizeOfElement; }
+	uint64_t sizeOfElement() const { return m_sizeOfElement; }
 protected:
-	uint64 m_nrOfElements;
+	uint64_t m_nrOfElements;
 	MemoryElementType m_elementType;
-	uint64 m_sizeOfElement;
-	uint64 m_sizeInBytes;
+	uint64_t m_sizeOfElement;
+	uint64_t m_sizeInBytes;
 };
 
 // global ostream operators

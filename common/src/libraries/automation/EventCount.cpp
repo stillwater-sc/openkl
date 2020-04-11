@@ -28,7 +28,6 @@
 #include <vector>
 #include <map>
 
-//#include <boost/variant.hpp>
 // Stillwater includes
 #include <stillwater/baseTypes.hpp>
 #include <stillwater/exceptions.hpp>

@@ -28,15 +28,15 @@
 #include <vector>
 #include <map>
 // BOOST includes
-#include <boost/shared_ptr.hpp>
+//#include <boost/shared_ptr.hpp>
 // STILLWATER includes
 #include <stillwater/baseTypes.hpp>
 #include <stillwater/exceptions.hpp>
 #include <stillwater/diagnostics.hpp>
 #include <stillwater/automation.hpp>
 // STILLWATER SLM components
-#include <Stillwater/arch/src/Libraries/slm/baseTypes/slmBaseTypes_nsmacro.hpp>
-#include <Stillwater/arch/src/Libraries/slm/baseTypes/Request.hpp>
+#include <stillwater/arch/baseTypes/slmBaseTypes_nsmacro.hpp>
+#include <stillwater/arch/baseTypes/Request.hpp>
 // memory library includes
 #include "./memory_nsmacro.hpp"	// centralized namespace definition
 #include <interfaces/MemoryTypeEnums.hpp>	// this is shared but the translation mechanism is in this library TODO fix me ETLO 2/23/07

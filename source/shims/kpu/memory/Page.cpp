@@ -36,9 +36,9 @@
 
 using namespace stillwater::slm;
 
-uint8 Page::calcPageSize2LogN(uint64 pageSizeInBytes) {
+uint8_t Page::calcPageSize2LogN(uint64_t pageSizeInBytes) {
 	// check to see if page size is a power of 2, throw if not
-	uint64 bits = pageSizeInBytes; uint8 shifts = 0;
+	uint64_t bits = pageSizeInBytes; uint8_t shifts = 0;
 	while (bits) {
 		if (bits & 0x1) {
 			if ((bits >>= 1) != 0) {
@@ -52,9 +52,9 @@ uint8 Page::calcPageSize2LogN(uint64 pageSizeInBytes) {
 	return shifts;
 }
 
-bool Page::read(uint64 offset, size_t sizeInBytes, void* pData) const {
+bool Page::read(uint64_t offset, size_t sizeInBytes, void* pData) const {
 	bool bSuccess = false;
-	if (offset < static_cast<uint64>(1 << m_pageSize2LogN) &&
+	if (offset < static_cast<uint64_t>(1 << m_pageSize2LogN) &&
 		sizeInBytes <= static_cast<size_t>(1 << m_pageSize2LogN)) {
 		memcpy(pData, (char*)m_pData+offset, sizeInBytes);
 		bSuccess = true;
@@ -62,9 +62,9 @@ bool Page::read(uint64 offset, size_t sizeInBytes, void* pData) const {
 	return bSuccess;
 }
 
-bool Page::write(uint64 offset, size_t sizeInBytes, const void* pData) {
+bool Page::write(uint64_t offset, size_t sizeInBytes, const void* pData) {
 	bool bSuccess = false;
-	if (offset < static_cast<uint64>(1 << m_pageSize2LogN) &&
+	if (offset < static_cast<uint64_t>(1 << m_pageSize2LogN) &&
 		sizeInBytes <= static_cast<size_t>(1 << m_pageSize2LogN)) {
 		memcpy((char*)m_pData+offset, pData, sizeInBytes);
 		bSuccess = true;
@@ -74,5 +74,5 @@ bool Page::write(uint64 offset, size_t sizeInBytes, const void* pData) {
 
 // create a hex dump of this page
 void Page::dump(std::ostream& ostr) const {
-	dumpBufferInHex(ostr,m_pData,(uint32)getPageSizeInBytes());
+	dumpBufferInHex(ostr,m_pData,(uint32_t)getPageSizeInBytes());
 }
