@@ -18,6 +18,8 @@
 #include <openkl/openkl_fwd.hpp>
 #include <openkl/utilities/object.hpp>
 #include <openkl/execenv.hpp>
+// hook into the proxy predefined shims
+//#include <openkl/shims/kpu/kpu.hpp>
 
 namespace openkl {
 
@@ -42,6 +44,10 @@ public:
 private:
 	static std::unique_ptr<proxy> instance;
 	proxy() {
+		// get the KPU from the PCIe device inventory 
+		// (which we emulate with an instance in kpu_shim_lib)
+//		shim::KnowledgeProcessingUnit* localKpu = shim::KnowledgeProcessingUnit::getInstance();
+		/*
 		add(klExecutionEnvironment{
 			"Intel i7 7500u",
 			LOCAL_CPU,
@@ -72,6 +78,7 @@ private:
 			1024 * 32,
 			32,
 			4 });
+		*/
 	}
 	std::vector<klExecutionEnvironment> resources;
 };

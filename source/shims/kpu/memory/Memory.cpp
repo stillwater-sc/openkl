@@ -28,7 +28,7 @@
 // STILLWATER includes
 #include <stillwater/baseTypes.hpp>
 #include <stillwater/exceptions.hpp>
-//#define STILLWATER_DIAGNOSTICS	// define macro to enable the diagnostics functionality
+#define STILLWATER_DIAGNOSTICS	// define macro to enable the diagnostics functionality
 #include <stillwater/diagnostics.hpp>
 #include <stillwater/automation.hpp>
 // STILLWATER SLM components
@@ -228,8 +228,8 @@ void Memory::write(uint64_t baseAddress, uint64_t sizeInBytes, const void* pData
 			// never seen this page, so we need to allocate it
 			m_pages[page.getAnchor()] = PagePointer(new Page(m_pageSizeInBytes));
 		}
-		uint64_t start = page.startOffset();
-		uint64_t end	 = page.endOffset();
+		uint64_t start     = page.startOffset();
+		uint64_t end	   = page.endOffset();
 		size_t sizeInBytes = static_cast<size_t>(end - start);
 		// operator[] will allocate on a new page
 		m_pages[page.getAnchor()]->write(start, sizeInBytes, pSource); 
@@ -268,6 +268,7 @@ void Memory::write(uint64_t baseAddress, uint64_t sizeInBytes, const void* pData
 bool Memory::isCovered(uint64_t startAddress, uint64_t endAddress) const {
 	bool bIsCovered = false;
 	// not implemented yet
+	if (m_bLogging) DIAG_DEBUG("Memory::isCovered")(hexint(startAddress))(endAddress);
 	return bIsCovered;
 }
 
@@ -285,10 +286,19 @@ void Memory::dumpPages(std::ostream& ostr) const {
 	ostr << std::endl << "Page Dump:" << std::endl;
 	PageMap::const_iterator iter = m_pages.begin();
 	while (iter != m_pages.end()) {
-		ostr << hexint(iter->first) << std::endl;
+		ostr << hexint(iter->first) << '\n';
 		++iter;
 	}
 	ostr << "End of Page Dump" << std::endl;
+}
+
+void Memory::dumpMemoryContents(std::ostream& ostr) const {
+	ostr << std::endl << "Memory Content Dump:" << std::endl;
+	PageMap::const_iterator iter = m_pages.begin();
+	while (iter != m_pages.end()) {
+		dumpPageContents(ostr, iter->first);
+		++iter;
+	}
 }
 
 void Memory::dumpPageContents(std::ostream& ostr, const PageNumber& pageNr) const {

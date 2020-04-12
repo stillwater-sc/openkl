@@ -56,24 +56,24 @@ public:
 // selectors, use const to enforce non-modification
 
 	/**
-		* \brief read a MemoryObject from
-		* \param baseAddress base address of the memory block
-		* \param mob reference to a MemoryObject with its MemoryDescriptor filled in
-		* \throw PageException can throw a page 
-		*			exception when the parameters 
-		*			of the MemoryDescriptor are bad
-		*
-		* The MobMemory object uses a block oriented
-		* request interface. The MemoryObject needs 
-		* to have its MemoryDescriptor parameters set,
-		* and the read method will fill in the data blob by 
-		* copying the contents of the Memory to the mob.
-		*/
+	 * \brief read a MemoryObject from
+	 * \param baseAddress base address of the memory block
+	 * \param mob reference to a MemoryObject with its MemoryDescriptor filled in
+	 * \throw PageException can throw a page 
+	 *			exception when the parameters 
+	 *			of the MemoryDescriptor are bad
+	 *
+	 * The MobMemory object uses a block oriented
+	 * request interface. The MemoryObject needs 
+	 * to have its MemoryDescriptor parameters set,
+	 * and the read method will fill in the data blob by 
+	 * copying the contents of the Memory to the mob.
+	 */
 	void read(Address baseAddress, MemoryObject& mob) const;
 
 	/**
-		* \brief lower level block access API
-		*/
+	 * \brief lower level block access API
+	 */
 	void read(Address baseAddress, uint64_t sizeInBytes, void* pData) const {
 		Memory::read(baseAddress, sizeInBytes, pData);
 	}

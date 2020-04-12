@@ -21,12 +21,10 @@
  * disclosed to third parties without the written consent of Stillwater
  * Supercomputing, Inc.
  */
-// STL includes
+// STD includes
 #include <iostream>
 #include <iomanip>
 #include <map>
-// BOOST includes
-// none
 // STILLWATER includes
 #include <stillwater/baseTypes.hpp>
 #include <stillwater/exceptions.hpp>
@@ -54,8 +52,8 @@ uint8_t Page::calcPageSize2LogN(uint64_t pageSizeInBytes) {
 
 bool Page::read(uint64_t offset, size_t sizeInBytes, void* pData) const {
 	bool bSuccess = false;
-	if (offset < static_cast<uint64_t>(1 << m_pageSize2LogN) &&
-		sizeInBytes <= static_cast<size_t>(1 << m_pageSize2LogN)) {
+	if (offset < static_cast<uint64_t>(uint64_t(1) << m_pageSize2LogN) &&
+		sizeInBytes <= static_cast<size_t>(size_t(1) << m_pageSize2LogN)) {
 		memcpy(pData, (char*)m_pData+offset, sizeInBytes);
 		bSuccess = true;
 	}
@@ -64,8 +62,8 @@ bool Page::read(uint64_t offset, size_t sizeInBytes, void* pData) const {
 
 bool Page::write(uint64_t offset, size_t sizeInBytes, const void* pData) {
 	bool bSuccess = false;
-	if (offset < static_cast<uint64_t>(1 << m_pageSize2LogN) &&
-		sizeInBytes <= static_cast<size_t>(1 << m_pageSize2LogN)) {
+	if (offset < static_cast<uint64_t>(uint64_t(1) << m_pageSize2LogN) &&
+		sizeInBytes <= static_cast<size_t>(size_t(1) << m_pageSize2LogN)) {
 		memcpy((char*)m_pData+offset, pData, sizeInBytes);
 		bSuccess = true;
 	}
