@@ -22,32 +22,28 @@
 namespace openkl {
 namespace shim {
 
-class kpu : public ProxyShim {
+class KnowledgeProcessingUnit : public ProxyShim {
 public:
-	using self = kpu;
+	static KnowledgeProcessingUnit* getInstance() {
+		return instance.get();
+	}
 
-	kpu(size_t processingElements, size_t memSize, size_t nrChannels) {
+	KnowledgeProcessingUnit(size_t processingElements, size_t memSize, size_t nrChannels) {
 		std::stringstream ss;
 		
 		ss << "Stillwater KPU T-" << processingElements << 'x' << nrChannels;
 		
-		/*
-		env.id = ss.str();
-		env.procType = LOCAL_KPU;
-		env.cores    = processingElements;
-		env.freq     = 100;
-		env.memType  = STATIC_MEM;
-		env.size     = memSize;
-		env.channels = nrChannels;
-		env.pageSize = 4;
-		*/
+		id = ss.str();
+		procType = LOCAL_KPU;
+		cores    = processingElements;
+		freq     = 100;
+		memType  = STATIC_MEM;
+		size     = memSize;
+		channels = nrChannels;
+		pageSize = 1;
 	}
 	
-	//openkl::klExecutionEnvironment getEnv() const {
-	//	return env;
-	//}
-
-    friend std::ostream& operator<<(std::ostream& os, const self& dfa) noexcept
+    friend std::ostream& operator<<(std::ostream& os, const KnowledgeProcessingUnit& dfa) noexcept
     {
 		os << '{';
 		os << "Fine-grain Domain Flow Architecture";
@@ -58,8 +54,17 @@ public:
 //    virtual void content(std::ostream& os) const noexcept override { os << *this; }
     
 private:
-	//klExecutionEnvironment env;
-    std::unique_ptr<uint8_t> memory;
+	static std::unique_ptr<KnowledgeProcessingUnit> instance;
+
+	std::string             id;
+	klComputeResourceType   procType;
+	size_t                  cores;
+	size_t                  threads;
+	size_t                  freq;     // core frequency in MHz
+	klMemoryResourceType    memType;
+	size_t					size;     // memory size in MBytes
+	size_t                  channels; // number of channels of memory
+	size_t                  pageSize; // page size in KBytes
 };
 
 } // namespace shim

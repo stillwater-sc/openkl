@@ -21,8 +21,7 @@ namespace openkl {
 namespace shim {
 
 	// base class for shims
-class ProxyShim 
-{
+class ProxyShim {
 public:
 
 private:

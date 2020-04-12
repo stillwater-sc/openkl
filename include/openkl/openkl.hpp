@@ -20,7 +20,6 @@
 
 namespace openkl {
 
-
 // database of execution environments
 using klComputeTargets = std::vector<klExecutionEnvironment>;
 
@@ -31,6 +30,8 @@ class klEnvironment {
 public:
 	klEnvironment() {
 		// constructor that attaches an application to the OpenKL environment
+		proxy* registry = proxy::getInstance();
+		std::cout << registry->nrTargets() << " compute resource targets found\n";
 	}
 	~klEnvironment() {
 		// destructor that detaches an application from the OpenKL environment

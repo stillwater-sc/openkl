@@ -25,10 +25,9 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
+#include <memory>
 #include <vector>
 #include <map>
-// BOOST includes
-//#include <boost/shared_ptr.hpp>
 // STILLWATER includes
 #include <stillwater/baseTypes.hpp>
 #include <stillwater/exceptions.hpp>
@@ -64,7 +63,7 @@ using namespace stillwater::slm;
  * data from memory. To avoid this, the machine could cache
  * the blobs when they get allocated/reserved. To support
  * that idea, we can separate the descriptors from the data.
- * This makes streaming to and from memory much more efficiet
+ * This makes streaming to and from memory much more efficient
  * since the descriptors are small, and the blobs are structured
  * and relatively large. So you could stream the descriptors
  * into a cache and work/retrieve them from there without 
@@ -79,7 +78,7 @@ using namespace stillwater::slm;
  * object.
  *
  * The rest of the implementation is based on a page-oriented
- * allocation mechanism. When we see a read to an uninitialized
+ * allocation on write. When we see a read to an uninitialized
  * memory, we'll flag that as an error.
  */
 void MobMemory::read(Address baseAddress, MemoryObject& mob) const {

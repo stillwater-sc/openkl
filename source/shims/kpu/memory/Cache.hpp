@@ -91,7 +91,7 @@ public:
 	/**
 	 * \brief check victim buffer availability
 	 */
-	uint32_t getAvailableVictimBuffers() const { return m_nrOfVictimBuffers - m_victimLines.size(); }
+	size_t getAvailableVictimBuffers() const { return m_nrOfVictimBuffers - m_victimLines.size(); }
 	/**
 	 * \brief get the line base address given a byte address
 	 */

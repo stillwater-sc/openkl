@@ -21,8 +21,13 @@ A KPU consists of
   */
 
 
-namespace openkl {	namespace shim {
+namespace openkl {	
+namespace shim {
 
+// create a local KPU functional model of a hw KPU
+std::unique_ptr<KnowledgeProcessingUnit> KnowledgeProcessingUnit::instance{ 
+	new KnowledgeProcessingUnit(64, 16 * 1024 * 1024, 4) 
+};
 
 
 } // namespace shim

@@ -150,13 +150,19 @@ public:
 	void initializeWithByteOrder(const Address& startAddress, const Address& endAddress);
 
 	/**
-	 * \brief debug helper to dump the page data structures to an ostream
-	 * \param ostr reference to the ostr to dump to
+	 * \brief debug helper to write the complete memory contents to an ostream
+	 * \param ostr reference to the ostr to write to
+	 */
+	void dumpMemoryContents(std::ostream& ostr) const;
+
+	/**
+	 * \brief debug helper to write the page data structures to an ostream
+	 * \param ostr reference to the ostr to write to
 	 */
 	void dumpPages(std::ostream& ostr) const;
 
 	/**
-	 * \brief debug helper to dump the contents of a page
+	 * \brief debug helper to write the contents of a page to an ostream
 	 */
 	void dumpPageContents(std::ostream& ostr, const PageNumber& pageNr) const;
 
