@@ -13,10 +13,8 @@
 #include <vector>
 
 #include <openkl/openkl_fwd.hpp>
-#include <openkl/utilities/object_repo.hpp>
-#include <openkl/execenv.hpp>
-#include <openkl/proxy/proxy.hpp>
-#include <openkl/shims/kpu/kpu.hpp>
+//#include <openkl/utilities/object_repo.hpp>
+#include <openkl/target.hpp>
 
 namespace openkl {
 
