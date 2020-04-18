@@ -22,7 +22,7 @@
 namespace openkl {
 namespace shim {
 
-class KnowledgeProcessingUnit : public ProxyShim {
+class KnowledgeProcessingUnit : public Shim {
 public:
 	static KnowledgeProcessingUnit* getInstance() {
 		return instance.get();
@@ -33,14 +33,15 @@ public:
 		
 		ss << "Stillwater KPU T-" << processingElements << 'x' << nrChannels;
 		
-		id = ss.str();
-		procType = LOCAL_KPU;
-		cores    = processingElements;
-		freq     = 100;
-		memType  = STATIC_MEM;
-		size     = memSize;
-		channels = nrChannels;
-		pageSize = 1;
+		_id          = ss.str();
+		_procType    = LOCAL_KPU;
+		_cores       = processingElements;
+		_threads     = 1;
+		_mhz         = 100;
+		_memoryType  = STATIC_MEM;
+		_memorySize  = memSize;
+		_channels    = nrChannels;
+		_pageSize    = 1;
 	}
 	
     friend std::ostream& operator<<(std::ostream& os, const KnowledgeProcessingUnit& dfa) noexcept
@@ -56,15 +57,6 @@ public:
 private:
 	static std::unique_ptr<KnowledgeProcessingUnit> instance;
 
-	std::string             id;
-	klComputeResourceType   procType;
-	size_t                  cores;
-	size_t                  threads;
-	size_t                  freq;     // core frequency in MHz
-	klMemoryResourceType    memType;
-	size_t					size;     // memory size in MBytes
-	size_t                  channels; // number of channels of memory
-	size_t                  pageSize; // page size in KBytes
 };
 
 } // namespace shim
