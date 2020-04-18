@@ -182,6 +182,7 @@ add_subdirectory("source/shims/kpu")
 # build test suites
 add_subdirectory("tests")
 add_subdirectory("source/shims/kpu/memory/test_bench")
+add_subdirectory("source/shims/kpu/test_bench")
 add_subdirectory("source/proxy/test_bench")
 
 # build demo programs
