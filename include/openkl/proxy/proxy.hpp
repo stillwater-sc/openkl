@@ -19,7 +19,7 @@
 #include <openkl/utilities/object.hpp>
 #include <openkl/execenv.hpp>
 // hook into the proxy predefined shims
-//#include <openkl/shims/kpu/kpu.hpp>
+#include <openkl/shims/kpu/kpu.hpp>
 
 namespace openkl {
 
