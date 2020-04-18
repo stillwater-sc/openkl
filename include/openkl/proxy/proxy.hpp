@@ -46,7 +46,10 @@ private:
 	proxy() {
 		// get the KPU from the PCIe device inventory 
 		// (which we emulate with an instance in kpu_shim_lib)
-//		shim::KnowledgeProcessingUnit* localKpu = shim::KnowledgeProcessingUnit::getInstance();
+		shim::KnowledgeProcessingUnit* localKpu = shim::KnowledgeProcessingUnit::getInstance();
+		if (localKpu == 0) {
+			std::cerr << "no KPU yet\n";
+		}
 		/*
 		add(klExecutionEnvironment{
 			"Intel i7 7500u",
