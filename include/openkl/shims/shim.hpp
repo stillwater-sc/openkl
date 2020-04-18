@@ -18,6 +18,23 @@
 #include <openkl/utilities/object.hpp>
 
 namespace openkl {
+
+	constexpr size_t SIZE_1G = 1073741824ll;
+	constexpr size_t SIZE_2G = 2147483648ll;
+	constexpr size_t SIZE_3G = 3221225472ll;
+	constexpr size_t SIZE_4G = 4294967296ll;
+	constexpr size_t SIZE_5G = 5368709120ll;
+	constexpr size_t SIZE_6G = 6442450944ll;
+	constexpr size_t SIZE_7G = 7516192768ll;
+	constexpr size_t SIZE_8G = 8589934592ll;
+	constexpr size_t SIZE_16G = 17179869184ll;
+	constexpr size_t SIZE_32G = 34359738368ll;
+	constexpr size_t SIZE_64G = 68719476736ll;
+	constexpr size_t SIZE_128G = 137438953472ll;
+	constexpr size_t SIZE_256G = 274877906944ll;
+	constexpr size_t SIZE_512G = 549755813888ll;
+	constexpr size_t SIZE_1T = 1009511627776ll;
+
 namespace shim {
 
 	// base class for shims

@@ -20,6 +20,29 @@
 
 using namespace std;
 
+std::string attributes(openkl::klExecutionEnvironment& target) {
+	std::stringstream ss;
+	ss << "+-----\n"
+		<< " target             : " << target.id << '\n'
+		<< " compute class      : " << openkl::klComputeResourceTypeString[target.procType] << '\n'
+		<< " cores              : " << target.cores << '\n'
+		<< " threads            : " << target.threads << '\n'
+		<< " core frequency     : " << target.freq << '\n'
+		<< " memory class       : " << openkl::klMemoryResourceTypeString[target.memType] << '\n'
+		<< " memory size        : " << target.size << " MBytes\n"
+		<< " memory channels    : " << target.channels << '\n'
+		<< " memory page size   : " << target.pageSize << " kBytes";
+	return ss.str();
+}
+
+void ShowInventory(openkl::klComputeTargets& targets) {
+	std::cout << "\nInventory of compute resource targets\n";
+	for (int i = 0; i < targets.size(); ++i) {
+		std::cout << attributes(targets[i]) << std::endl;
+	}
+	std::cout << std::endl;
+}
+
 int main(int argc, char* argv[])
 try {
 	// set up the logger
@@ -32,7 +55,9 @@ try {
 	// get a hold of the proxy
 	openkl::proxy* proxy = openkl::proxy::getInstance();
 	cout << "Nr of targets found: " << proxy->nrTargets() << endl;
-
+	for (int i = 0; i < proxy->nrTargets(); ++i) {
+		std::cout << attributes(proxy->getTarget(i)) << std::endl;
+	}
 	return EXIT_SUCCESS;
 }
 catch (std::runtime_error& e) {

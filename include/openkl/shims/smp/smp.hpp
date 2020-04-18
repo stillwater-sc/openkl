@@ -13,17 +13,34 @@
 #include <ostream>
 #include <algorithm>
 
-#include <openkl/openkl_fwd.hpp>
+//#include <openkl/openkl_fwd.hpp>
+#include <openkl/base_types.h>
+#include <openkl/shims/shim.hpp>
 #include <openkl/utilities/object.hpp>
 
 namespace openkl {
 namespace shim {
 
-template <typename Value>
-class smp
+class SymmetricMultiProcessor : public Shim
 {
-    using self= smp<Value>;
-    
+    using self= SymmetricMultiProcessor;
+public:
+	static SymmetricMultiProcessor* getInstance() {
+		return instance.get();
+	}
+
+	SymmetricMultiProcessor(const std::string& id, size_t cores, size_t threads, size_t mhz, size_t memSize, size_t nrChannels) {
+		_id = id;
+		_procType = LOCAL_CPU;
+		_cores = cores;
+		_threads = threads;
+		_mhz = mhz;
+		_memoryType = VIRTUAL_MEM;
+		_memorySize = memSize;
+		_channels = nrChannels;
+		_pageSize = 4;
+	}
+
     friend std::ostream& operator<<(std::ostream& os, const self& server) noexcept
     {
         os << '{';
@@ -35,8 +52,7 @@ class smp
 //    virtual void content(std::ostream& os) const noexcept override { os << *this; }
     
 private:
-    size_t nr, nc;
-    std::unique_ptr<Value[]> data;
+	static std::unique_ptr<SymmetricMultiProcessor> instance;
 };
 
 } // namespace shim

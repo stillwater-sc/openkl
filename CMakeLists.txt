@@ -177,6 +177,7 @@ endif()
 add_subdirectory("common/src/libraries")
 add_subdirectory("source/openkl")
 add_subdirectory("source/proxy")
+add_subdirectory("source/shims/smp")
 add_subdirectory("source/shims/kpu")
 
 # build test suites

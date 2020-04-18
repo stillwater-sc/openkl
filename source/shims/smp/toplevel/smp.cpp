@@ -9,7 +9,13 @@
 #include <iostream>
 #include <openkl/shims/smp/smp.hpp>
 
-namespace openkl {	namespace shim {
+namespace openkl {	
+namespace shim {
+
+// create a local cpu model
+std::unique_ptr<SymmetricMultiProcessor> SymmetricMultiProcessor::instance{
+	new SymmetricMultiProcessor("Intel i7 7500u", 8, 16, 2600, SIZE_32G, 6)
+};
 
 } // namespace shim
 } // namespace openkl
