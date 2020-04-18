@@ -1,4 +1,4 @@
-// execenv.hpp: definition of an OpenKL execution environment
+// target.hpp: definition of an OpenKL execution targets
 // Created: 2020-03-24
 //
 // Copyright (C) 2020-present: Stillwater Supercomputing, Inc. & SimuNova UG
@@ -30,7 +30,7 @@ namespace openkl {
 	 */
 
 
-// Attributes of the execution environment
+// Attributes of the execution target
 struct klExecutionEnvironment {
 	std::string             id;
 	klComputeResourceType   procType;
@@ -43,7 +43,7 @@ struct klExecutionEnvironment {
 	size_t                  pageSize; // page size in KBytes
 };
 
-// database of execution environments
+// database of execution targets
 using klComputeTargets = std::vector<klExecutionEnvironment>;
 
 } // namespace openkl

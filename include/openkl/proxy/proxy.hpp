@@ -17,7 +17,7 @@
 
 #include <openkl/openkl_fwd.hpp>
 #include <openkl/utilities/object.hpp>
-#include <openkl/execenv.hpp>
+#include <openkl/target.hpp>
 // hook into the proxy predefined shims
 #include <openkl/shims/kpu/kpu.hpp>
 
