@@ -14,8 +14,8 @@
 #include <sstream>
 #include <algorithm>
 
-#include <openkl/openkl_fwd.hpp>
-#include <openkl/openkl.hpp>
+//#include <openkl/openkl_fwd.hpp>
+#include <openkl/base_types.h>
 #include <openkl/shims/shim.hpp>
 #include <openkl/utilities/object.hpp>
 
