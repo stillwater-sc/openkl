@@ -119,10 +119,15 @@ void ComputeVectorAngles(openkl::klComputeContext& localKPU) {
 
 	// allocate a vector of size N of type Data
 	size_t N = 32;
-	a_v = localKPU.claim(N * DataSize);
+	a_v = localKPU.claim(N * DataSize);  // <---- equivalent to create_dense_vector in Peter's API
 	b_v = localKPU.claim(N * DataSize);
 	c_v = localKPU.claim(N * DataSize);
 	d_v = localKPU.claim(N * DataSize);
+	
+	// claim is just the memory allocation of a block, it is devoid of any type
+	// create_dense_vector<Value>(size), and 
+	// create_dense_vector<value>(size, initial_value), both carry information
+	// about the object (= a dense vector), and the element type (template argument <Value>)
 
 	// allocate a scalar
 	alpha = localKPU.claim(DataSize);
@@ -154,8 +159,63 @@ void ComputeVectorAngles(openkl::klComputeContext& localKPU) {
 
 int main(int argc, char* argv[])
 try {
+	// Conceptually, the OpenKL environment is a collection of compute targets.
+	// When the OpenKL proxy is spoken to, it will generate that collection.
+	// Why? the remote target environments may change, if you point it to
+	// different cloud/remote accounts. Mmmmmm, that would imply that the proxy
+	// needs to maintain credentials: is that a security issue?
+
+	// When we create the environment we potentially need to provide it with
+	// remote credentials.
 	// bind this application to the OpenKL environment
 	openkl::klEnvironment env;
+	// Optional step: connect to remote targets
+	//   The idea is that you can connect to remote systems that may have more
+	//   powerful hardware acceleration using the same application program. 
+	//   Before OpenKL, you create a program for each target and then you send
+	//   that program to the remote target for execution.
+	//   Otherwise stated, you are not yet creating distributed systems to solve
+	//   the execution problem you may have. 
+	//   OpenKL makes no assumption about where the 'orchestration' program runs,
+	//   it just provides this main as the abstract orchestration, realizing that
+	//   most remote execution in HPC are well defined remote procedure calls
+	//   on remote data. These RPCs are BLAS, constraint solvers, eigen-value solvers, etc.
+	//   This architecture allows other developers to create a fancy eigen-value 
+	//   solver in the context of an OpenKL set of abstractions (MTL5), and 
+	//   'publish' it as an OpenKL remote target.
+	// Do we need new languages or compilation steps to accomplish that?
+	// Don't know yet, but I want to be able to do this third party expansion
+	// of functionality without any new languages are compilers. That is, avoid
+	// the OpenGL/D3D HLSL and OpenCL C99 kernel compiler steps.
+
+	// what is the connection tunnel you would need here?
+	// Simple tunnels: SSH, TLS:
+	// - SSH is attractive, following the same pattern as Ansible, but frequently
+	//   in enterprise environments, this port/app is closed. Not so for simple
+	//   kick the tires experiments, SSH would be perfect as all that infrastructure
+	//   tends to be available.
+	// Complex tunnels: HTTPS, grpc, capnproto
+	// - HTTPS would be the simplest secure protocol, not efficient for binary data
+	// - grpc is HTTP2.0: has a packet compiler step that tightly couples client and server
+	// - capnproto uses promises/lazy exec: also has a packet compiler
+	// - these types of connections will come and go, and thus
+	//   this aspect of the architecture needs to be adaptive -> maybe use plugins?
+	// - we will be talking to a remote OpenKL RPC server, not an arbitrary remote
+	//   target, so we have some control
+	// If we call the connection info struct something with RPC then we cover 
+	// correctly the operations we will be issuing.
+	// We can connect to multiple targets
+	// MMMMM, we can't set up hop-and-forward pipelines.... is that a problem?
+	// we could if we added other connections to the klRpcConnection struct
+	// But then you would need to have a topology capability to define the graph
+	// of computation you would like to set up.  MMMMMMM, do we want to bite that off?
+	std::string url;
+	url = "grpc::simunova.com/openkl/perf/10T";
+	openkl::klRpcConnection target1(url);  // how do we do credentials?
+	env.connect(target1);
+	url = "grpc::stillwater-sc.com/openkl/perf/1T";
+	openkl::klRpcConnection target2(url);  // how do we do credentials?
+	env.connect(target2);
 
 	// obtain an execution context
 	openkl::klComputeContext localKPU;
