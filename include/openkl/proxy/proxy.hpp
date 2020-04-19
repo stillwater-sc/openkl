@@ -44,11 +44,15 @@ public:
 		return resources[i];
 	}
 
+	bool createContextOnTarget(size_t i) {
+//		if (i < resources.size()) {
+//			contexts.push_back(shims[i]->createContext());
+//		}
+	}
 private:
 	static std::unique_ptr<proxy> instance;
 	proxy() {
-		// get the KPU from the PCIe device inventory 
-		// (which we emulate with a set of shims
+		// get the KPU from the PCIe device inventory, which we emulate with a set of shims
 		shims.push_back(new shim::SymmetricMultiProcessor("Intel i7 7500u", 8, 16, 2600, SIZE_32G, 6));
 		shims.push_back(new shim::KnowledgeProcessingUnit(64, 16 * 1024 * 1024, 4));
 		shims.push_back(new shim::KnowledgeProcessingUnit(1024, SIZE_32G, 32));
@@ -70,6 +74,10 @@ private:
 	}
 	std::vector<klExecutionEnvironment> resources;
 	std::vector<shim::Shim*> shims;
+
+	// is this structure just a result of providing emulation services
+	// or is this pattern required?
+	std::vector<klComputeContext*> contexts;
 };
 
 } // namespace openkl

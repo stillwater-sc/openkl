@@ -7,7 +7,6 @@
 // Authors: Peter Gottschling (peter.gottschling@simunova.com)
 //          Theodore Omtzigt  (theo@stillwater-sc.com)
 #include <iostream>
-#include <openkl/shims/kpu/kpu.hpp>
 
 /*
 A KPU consists of 
@@ -24,11 +23,10 @@ A KPU consists of
 namespace openkl {	
 namespace shim {
 
-// create a local KPU functional model of a hw KPU
-std::unique_ptr<KnowledgeProcessingUnit> KnowledgeProcessingUnit::instance{ 
-	new KnowledgeProcessingUnit(64, 16 * 1024 * 1024, 4) 
-};
-
+	// KPU model semantic version
+	static size_t KPU_MAJOR = 0;
+	static size_t KPU_MINOR = 0;
+	static size_t KPU_PATCH = 1;
 
 } // namespace shim
 } // namespace openkl

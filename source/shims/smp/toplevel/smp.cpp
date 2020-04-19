@@ -7,15 +7,14 @@
 // Authors: Peter Gottschling (peter.gottschling@simunova.com)
 //          Theodore Omtzigt  (theo@stillwater-sc.com)
 #include <iostream>
-#include <openkl/shims/smp/smp.hpp>
 
 namespace openkl {	
 namespace shim {
 
-// create a local cpu model
-std::unique_ptr<SymmetricMultiProcessor> SymmetricMultiProcessor::instance{
-	new SymmetricMultiProcessor("Intel i7 7500u", 8, 16, 2600, SIZE_32G, 6)
-};
+	// SMP model semantic version
+	static size_t SMP_MAJOR = 0;
+	static size_t SMP_MINOR = 0;
+	static size_t SMP_PATCH = 1;
 
 } // namespace shim
 } // namespace openkl

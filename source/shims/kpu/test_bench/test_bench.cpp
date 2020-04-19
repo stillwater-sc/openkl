@@ -18,6 +18,8 @@
 #include <stillwater/arch/baseTypes/slmBaseTypes_nsmacro.hpp>
 #include <stillwater/arch/baseTypes/Request.hpp>
 // Library headers and supporting types
+#include <openkl/instruction.hpp>
+#include <openkl/context.hpp>
 #include "openkl/shims/kpu/kpu.hpp"
 
 
@@ -33,8 +35,8 @@ try {
 	logger.addLogTarget(new FileLogTarget());
 	DIAG_INFO("kpu shim testbench starting");
 
-	// gain access the default KPU shim
-	openkl::shim::KnowledgeProcessingUnit* kpu = openkl::shim::KnowledgeProcessingUnit::getInstance();
+	// create a KPU shim
+	openkl::shim::KnowledgeProcessingUnit* kpu = new openkl::shim::KnowledgeProcessingUnit(64, SIZE_128M, 4);
 	if (kpu == 0) {
 		return EXIT_FAILURE;
 	}

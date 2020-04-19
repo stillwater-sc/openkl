@@ -6,6 +6,8 @@
 // This file is part of the OpenKL project, which is released under an MIT Open Source license.
 // Authors: Peter Gottschling (peter.gottschling@simunova.com)
 //          Theodore Omtzigt  (theo@stillwater-sc.com)
+
+#define PROXY_DISPATCH_CLASS_FOR_CONTEXT
 #include <openkl/openkl.hpp>
 #include <openkl/utilities/exit.hpp>
 
@@ -72,7 +74,7 @@ void FinegrainControl() {
 	std::cout << attributes(target) << std::endl;
 
 	// third step: create an execution context on the device of your choice
-	openkl::klComputeContext ctx;
+//	openkl::klComputeContext ctx;
 //	if (!openkl::createContext(target, ctx))
 //		openkl::exit("Unable to create execution context on device " + target.id);
 
@@ -82,6 +84,7 @@ void FinegrainControl() {
 	// fifth step: compute
 }
 
+#ifdef TODO
 void C_calling_sequence() {
 	// first step: bind this application to the OpenKL environment
 	openkl::klEnvironment env;
@@ -90,7 +93,7 @@ void C_calling_sequence() {
 	}
 
 	// second step: bind to a compute target to work with
-	openkl::klComputeContext localKPU;
+	openkl::klComputeContext* localKPU;
 	if (!env.bind(openkl::klComputeResourceType::LOCAL_KPU, localKPU)) {
 		openkl::exit("unable to find a LOCAL_KPU compute target to bind to: exiting");
 	}
@@ -108,7 +111,59 @@ void C_calling_sequence() {
 		openkl::exit("unable to detach from an OpenKL context: exiting");
 	}
 }
+#endif
 
+#ifdef ABSTRACT_BASE_CLASS_FOR_CONTEXT
+void ComputeVectorAngles(openkl::klComputeContext* localKPU) {
+	// allocate memory blocks
+	openkl::object_id a_v, b_v, c_v, d_v;
+	openkl::object_id alpha, d;
+
+	using DataType = float;
+	size_t DataSize = sizeof(DataType);
+
+	// allocate a vector of size N of type Data
+	size_t N = 32;
+	a_v = localKPU->claim(N * DataSize);  // <---- equivalent to create_dense_vector in Peter's API
+	b_v = localKPU->claim(N * DataSize);
+	c_v = localKPU->claim(N * DataSize);
+	d_v = localKPU->claim(N * DataSize);
+	
+	// claim is just the memory allocation of a block, it is devoid of any type
+	// create_dense_vector<Value>(size), and 
+	// create_dense_vector<value>(size, initial_value), both carry information
+	// about the object (= a dense vector), and the element type (template argument <Value>)
+
+	// allocate a scalar
+	alpha = localKPU->claim(DataSize);
+	d = localKPU->claim(DataSize);
+
+	// copy or create data on the target
+	// how do we assign 2.5 literal to alpha?
+
+	// compute
+	openkl::klInstruction cmd;
+	cmd.scale(b_v, alpha, a_v);
+	localKPU->execute(cmd);
+	cmd.add(d_v, b_v, c_v);
+	localKPU->execute(cmd);
+	cmd.fdp(d, b_v, c_v);  // if a and c are at 45 degrees and the same length, b and c will be 90 degrees and dot product will be 0
+	localKPU->execute(cmd);
+
+	// do we want to introduce the cmd queue here?
+	// we can also create a 'program' by writing instructions in a block of memory
+	// and writing that to the accelerator.
+
+	// QUESTION: cmd queue vs program memory block
+	// pros cmd queue: simple, sequential execution, natural state boundaries
+	// pros program mem: can create a looping structure, for example to orchestrate CG
+
+	// wait for completion
+	// execute is blocking by default, so we have all state updated we need at this point
+}
+#endif
+
+#ifdef PROXY_DISPATCH_CLASS_FOR_CONTEXT
 void ComputeVectorAngles(openkl::klComputeContext& localKPU) {
 	// allocate memory blocks
 	openkl::object_id a_v, b_v, c_v, d_v;
@@ -123,7 +178,7 @@ void ComputeVectorAngles(openkl::klComputeContext& localKPU) {
 	b_v = localKPU.claim(N * DataSize);
 	c_v = localKPU.claim(N * DataSize);
 	d_v = localKPU.claim(N * DataSize);
-	
+
 	// claim is just the memory allocation of a block, it is devoid of any type
 	// create_dense_vector<Value>(size), and 
 	// create_dense_vector<value>(size, initial_value), both carry information
@@ -156,6 +211,7 @@ void ComputeVectorAngles(openkl::klComputeContext& localKPU) {
 	// wait for completion
 	// execute is blocking by default, so we have all state updated we need at this point
 }
+#endif
 
 int main(int argc, char* argv[])
 try {
@@ -216,14 +272,37 @@ try {
 	url = "grpc::stillwater-sc.com/openkl/perf/1T";
 	openkl::klRpcConnection target2(url);  // how do we do credentials?
 	env.connect(target2);
+	if (!env.enumerate()) {
+		openkl::exit("OpenKL enumeration yielded no targets: exiting");
+	}
 
+	// at this point, the OpenKL environment has a set of compute targets that
+	// this application can select from. The application needs to decide which
+	// targets it is going to use. This can be relatively static as in 'give me
+	// the local kpu', or dynamic where the application tries to construct a
+	// more complex distributed form and will try to build a distributed system.
+	// The dynamic use case is particularly powerful when setting up pipelines
+	// of services. Need to test that use case and what the alternatives are
+	// for accomplishing these type of distributed systems. TODO
+
+	// first: static compute target of a single KPU hw accelerator
 	// obtain an execution context
+#ifdef PROXY_DISPATCH_CLASS_FOR_CONTEXT
 	openkl::klComputeContext localKPU;
+	if (!env.bind(openkl::klComputeResourceType::LOCAL_KPU, localKPU)) {
+		openkl::exit("unable to find a LOCAL_KPU compute target to bind to: exiting");
+}
+
+	ComputeVectorAngles(localKPU);
+#else
+	openkl::klComputeContext* localKPU = 0;
 	if (!env.bind(openkl::klComputeResourceType::LOCAL_KPU, localKPU)) {
 		openkl::exit("unable to find a LOCAL_KPU compute target to bind to: exiting");
 	}
 
 	ComputeVectorAngles(localKPU);
+#endif
+
 
 	// --- step: unbind a compute target
 	if (!env.release(localKPU)) {

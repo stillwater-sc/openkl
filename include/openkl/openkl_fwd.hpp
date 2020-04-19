@@ -34,4 +34,8 @@ namespace openkl {
 
 	class proxy;
 
+
+	class klComputeContext;
+	class klInstruction;
+
 } // namespace openkl
