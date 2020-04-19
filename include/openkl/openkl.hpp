@@ -20,6 +20,7 @@
 #include <openkl/instruction.hpp>
 #include <openkl/context.hpp>
 #include <openkl/target.hpp>
+#include <openkl/connect.hpp>
 // The OpenKL portal to interact with execution targets
 #include <openkl/environment.hpp>
 

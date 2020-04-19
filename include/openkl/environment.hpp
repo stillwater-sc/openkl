@@ -27,6 +27,10 @@ public:
 	~klEnvironment() {
 		// destructor that detaches an application from the OpenKL environment
 	}
+
+	/////////////////////////////////////////////////////////////////////////////
+	//             SETUP and TEARDOWN an OpenKL environment
+
 	// bind an application to a compute target
 	int bind(const klComputeResourceType type, klComputeContext& ctx) {
 
@@ -39,6 +43,16 @@ public:
 		return 1;
 	}
 
+	/////////////////////////////////////////////////////////////////////////////
+	//             SETUP and TEARDOWN RPC connections
+	int connect(klRpcConnection& tunnel) {
+		return 1;
+	}
+
+private:
+	/////////
+	// RPC connections
+	std::vector<klRpcConnection> connections;
 };
 
 // bind an application to the OpenKL environment
@@ -60,7 +74,7 @@ int enumerateTargets(const klExecutionEnvironment& query, klComputeTargets& devi
 	std::cout << registry->nrTargets() << " compute resource targets found\n";
 	if (registry->nrTargets() == 0) return 0;
 	for (size_t i = 0; i < registry->nrTargets(); ++i) {
-		devices.push_back(registry->getEnv(i));
+		devices.push_back(registry->getTarget(i));
 	}
 	return 1;
 } 
