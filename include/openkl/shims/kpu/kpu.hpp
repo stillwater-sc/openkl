@@ -14,19 +14,21 @@
 #include <sstream>
 #include <algorithm>
 
-//#include <openkl/openkl_fwd.hpp>
+#include <openkl/openkl_fwd.hpp>
 #include <openkl/base_types.h>
 #include <openkl/shims/shim.hpp>
 #include <openkl/utilities/object.hpp>
 
+
+
 namespace openkl {
+
+
+
 namespace shim {
 
 class KnowledgeProcessingUnit : public Shim {
 public:
-	static KnowledgeProcessingUnit* getInstance() {
-		return instance.get();
-	}
 
 	KnowledgeProcessingUnit(size_t processingElements, size_t memSize, size_t nrChannels) {
 		std::stringstream ss;
@@ -44,6 +46,31 @@ public:
 		_pageSize    = 1;
 	}
 	
+
+	/////////////////////////////////////////////////////////////////
+	/// RESOURCE MANAGEMENT
+	bool create() {
+		// create a KPU functional simulator
+		return false;
+	}
+
+	// claim a memory block of bytes nr of bytes
+	object_id claim(size_t bytes) {
+		object_id hndl;
+
+		return hndl;
+	}
+	// release a previous claim
+	void release(object_id& hndl) {
+	}
+
+	/////////////////////////////////////////////////////////////////
+	/// EXECUTION MANAGEMENT
+	void execute(const klInstruction& cmd) {
+
+	}
+
+	/// ostream
     friend std::ostream& operator<<(std::ostream& os, const KnowledgeProcessingUnit& dfa) noexcept
     {
 		os << '{';
@@ -55,7 +82,6 @@ public:
 //    virtual void content(std::ostream& os) const noexcept override { os << *this; }
     
 private:
-	static std::unique_ptr<KnowledgeProcessingUnit> instance;
 
 };
 

@@ -17,6 +17,7 @@
 #include <openkl/base_types.h>
 #include <openkl/shims/shim.hpp>
 #include <openkl/utilities/object.hpp>
+#include <openkl/utilities/object_id.hpp>
 
 namespace openkl {
 namespace shim {
@@ -25,9 +26,6 @@ class SymmetricMultiProcessor : public Shim
 {
     using self= SymmetricMultiProcessor;
 public:
-	static SymmetricMultiProcessor* getInstance() {
-		return instance.get();
-	}
 
 	SymmetricMultiProcessor(const std::string& id, size_t cores, size_t threads, size_t mhz, size_t memSize, size_t nrChannels) {
 		_id = id;
@@ -41,6 +39,30 @@ public:
 		_pageSize = 4;
 	}
 
+	/////////////////////////////////////////////////////////////////
+	/// RESOURCE MANAGEMENT
+	bool create() {
+		// create a Symmetric Multi Processor functional simulator
+		return false;
+	}
+
+	// claim a memory block of bytes nr of bytes
+	object_id claim(size_t bytes) {
+		object_id hndl;
+
+		return hndl;
+	}
+	// release a previous claim
+	void release(object_id& hndl) {
+	}
+
+	/////////////////////////////////////////////////////////////////
+	/// EXECUTION MANAGEMENT
+	void execute(const klInstruction& cmd) {
+
+	}
+
+	/// ostream
     friend std::ostream& operator<<(std::ostream& os, const self& server) noexcept
     {
         os << '{';
@@ -52,7 +74,7 @@ public:
 //    virtual void content(std::ostream& os) const noexcept override { os << *this; }
     
 private:
-	static std::unique_ptr<SymmetricMultiProcessor> instance;
+	// none
 };
 
 } // namespace shim

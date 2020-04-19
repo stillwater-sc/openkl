@@ -21,8 +21,7 @@ class klEnvironment {
 public:
 	klEnvironment() {
 		// constructor that attaches an application to the OpenKL environment
-		proxy* registry = proxy::getInstance();
-		std::cout << registry->nrTargets() << " compute resource targets found\n";
+		registry = 0;
 	}
 	~klEnvironment() {
 		// destructor that detaches an application from the OpenKL environment
@@ -33,7 +32,15 @@ public:
 
 	// bind an application to a compute target
 	int bind(const klComputeResourceType type, klComputeContext& ctx) {
-
+		// cycle through the registry to find a matching resource type
+		// how to make this more modern C++? make the proxy a collection type?
+		if (registry == 0) return 0;
+		for (size_t i = 0; i < registry->nrTargets(); ++i) {
+			if (registry->getTarget(i).procType == type) {
+				// how do you create a compute context in a general way?
+				// factory pattern
+			}
+		}
 		return 1;
 	}
 
@@ -49,10 +56,20 @@ public:
 		return 1;
 	}
 
+	bool enumerate() {
+		registry = proxy::getInstance();
+		if (registry->nrTargets() == 0) return false;
+		std::cout << registry->nrTargets() << " compute resource targets found\n";
+		return true;
+	}
+
 private:
-	/////////
+	////////////////////////////////////////////////////////
 	// RPC connections
 	std::vector<klRpcConnection> connections;
+
+	// registry of compute targets this OpenKL environment has access to
+	proxy* registry;
 };
 
 // bind an application to the OpenKL environment

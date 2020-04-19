@@ -13,7 +13,7 @@
 #include <vector>
 
 #include <openkl/openkl_fwd.hpp>
-//#include <openkl/utilities/object_repo.hpp>
+#include <openkl/utilities/object_repo.hpp>
 #include <openkl/target.hpp>
 
 namespace openkl {
@@ -30,18 +30,18 @@ object_id NOARG;
 // independent of type.
 
 // BLAS L1 instructions
-uint32_t KL_BLAS_VSCALE  = 0x00001000;  // scale a vector
-uint32_t KL_BLAS_VADD    = 0x00001001;  // sum of two vectors element-wise
-uint32_t KL_BLAS_AXPY    = 0x00001002;  // scale and sum
-uint32_t KL_BLAS_DOT     = 0x00001003;  // regular dot
-uint32_t KL_BLAS_FDP     = 0x00001004;  // fused dot
-uint32_t KL_BLAS_VMUL    = 0x00001005;  // multiply two vectors element-wise
-uint32_t KL_BLAS_L1NORM  = 0x00001006;  // sum of absolute values
-uint32_t KL_BLAS_L2NORM  = 0x00001007;  // sqrt of sum of squares
+constexpr uint32_t KL_BLAS_VSCALE  = 0x00001000;  // scale a vector
+constexpr uint32_t KL_BLAS_VADD    = 0x00001001;  // sum of two vectors element-wise
+constexpr uint32_t KL_BLAS_AXPY    = 0x00001002;  // scale and sum
+constexpr uint32_t KL_BLAS_DOT     = 0x00001003;  // regular dot
+constexpr uint32_t KL_BLAS_FDP     = 0x00001004;  // fused dot
+constexpr uint32_t KL_BLAS_VMUL    = 0x00001005;  // multiply two vectors element-wise
+constexpr uint32_t KL_BLAS_L1NORM  = 0x00001006;  // sum of absolute values
+constexpr uint32_t KL_BLAS_L2NORM  = 0x00001007;  // sqrt of sum of squares
 
 // BLAS L2 instructions 
-uint32_t KL_BLAS_MSCALE  = 0x00002000;
-uint32_t KL_BLAS_MV      = 0x00002001;
+constexpr uint32_t KL_BLAS_MSCALE  = 0x00002000;
+constexpr uint32_t KL_BLAS_MV      = 0x00002001;
 
 // the multi-argument OpenKL instruction descriptor
 class klInstruction {

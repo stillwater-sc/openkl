@@ -44,11 +44,20 @@ public:
 	Shim(const Shim&) = default;
 	Shim& operator=(const Shim&) = default;
 
+	~Shim() {
+
+	}
+
+	/////////////////////////////////////////////////////////////////
+	/// RESOURCE MANAGEMENT
+	virtual bool create() = 0;
+
+	// reusable base functionality 
 	void set(const std::string& id,
-		     klComputeResourceType procType, size_t cores, size_t threads, size_t mhz, 
-		     klMemoryResourceType memType, size_t memSize, size_t memChannels, size_t pageSize) {
+		klComputeResourceType procType, size_t cores, size_t threads, size_t mhz,
+		klMemoryResourceType memType, size_t memSize, size_t memChannels, size_t pageSize) {
 		_id = id;
-		
+
 		// processing component
 		_procType = procType;
 		_cores = cores;
