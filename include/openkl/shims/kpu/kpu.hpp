@@ -28,8 +28,8 @@ namespace shim {
 class KnowledgeProcessingUnit : public Shim {
 public:
 
-	KnowledgeProcessingUnit(size_t processingElements, size_t memorySize, size_t pageSize, size_t nrChannels) 
-		: kpu(memorySize, nrChannels, pageSize)
+	KnowledgeProcessingUnit(size_t processingElements, size_t memorySize, size_t pageSizeInBytes, size_t nrChannels) 
+		: kpu(memorySize, pageSizeInBytes, nrChannels)
 	{
 		std::stringstream ss;
 		
@@ -43,7 +43,7 @@ public:
 		_memoryType  = STATIC_MEM;
 		_memorySize  = memorySize;
 		_channels    = nrChannels;
-		_pageSize    = pageSize;
+		_pageSize    = pageSizeInBytes;
 	}
 	
 

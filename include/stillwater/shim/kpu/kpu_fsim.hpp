@@ -20,11 +20,11 @@ namespace slm {
 // Functional model of the KPU
 class KpuFsim {
 public:
-    KpuFsim(size_t memorySize, size_t nrChannels, size_t pageSize)
-		: _memorySize(memorySize), _nrChannels(nrChannels), _pageSize(pageSize) {
+    KpuFsim(size_t memorySize, size_t pageSizeInBytes, size_t nrChannels)
+		: _memorySize(memorySize), _nrChannels(nrChannels), _pageSize(pageSizeInBytes) {
 		_TOM = _nrChannels * _memorySize;
 		for (size_t i = 0; i < nrChannels; ++i) {
-			_mem.push_back(std::make_unique<MobMemory>(memorySize, 0, pageSize));
+			_mem.push_back(std::make_unique<MobMemory>(memorySize, i * memorySize, pageSizeInBytes));
 		}
     }
 

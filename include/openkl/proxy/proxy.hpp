@@ -54,8 +54,8 @@ private:
 	proxy() {
 		// get the KPU from the PCIe device inventory, which we emulate with a set of shims
 		shims.push_back(new shim::SymmetricMultiProcessor("Intel i7 7500u", 8, 16, 2600, SIZE_32G, 6));
-		shims.push_back(new shim::KnowledgeProcessingUnit(64, 16 * 1024 * 1024, 4));
-		shims.push_back(new shim::KnowledgeProcessingUnit(1024, SIZE_32G, 32));
+		shims.push_back(new shim::KnowledgeProcessingUnit(64, 16 * 1024 * 1024, 2048, 4));
+		shims.push_back(new shim::KnowledgeProcessingUnit(1024, SIZE_1G, 4096, 32));
 
 		// generate the simplified execution target specs for the app
 		for (auto s : shims) {

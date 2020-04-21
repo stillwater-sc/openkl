@@ -39,9 +39,9 @@ try {
 	using kpushim = openkl::shim::KnowledgeProcessingUnit;
 	constexpr size_t PROCS = 64;
 	constexpr size_t MEMSIZE = SIZE_128M; // size of the channel DRAM
-	constexpr size_t PAGESIZE = 4;
+	constexpr size_t PAGESIZEINBYTES = 4096;
 	constexpr size_t NRCHAN = 4;
-	kpushim* kpu = new kpushim(PROCS, MEMSIZE, NRCHAN, PAGESIZE);
+	auto kpu = std::make_unique<kpushim>(PROCS, MEMSIZE, PAGESIZEINBYTES, NRCHAN);  // <-- a little error-prone to define this
 	if (kpu == 0) {
 		return EXIT_FAILURE;
 	}
@@ -62,8 +62,6 @@ try {
 	kpu->release(b);
 	kpu->release(c);
 	kpu->report(std::cout);
-
-	delete kpu;
 
 	return EXIT_SUCCESS;
 }
