@@ -37,13 +37,13 @@
 #include <stillwater/arch/baseTypes/slmBaseTypes_nsmacro.hpp>
 #include <stillwater/arch/baseTypes/Request.hpp>
 // memory library includes
-#include "./memory_nsmacro.hpp"	// centralized namespace definition
+#include <stillwater/shim/kpu/memory/memory_nsmacro.hpp>	// centralized namespace definition
 #include <interfaces/MemoryTypeEnums.hpp>	// this is shared but the translation mechanism is in this library TODO fix me ETLO 2/23/07
-#include "./Page.hpp"
-#include "./Memory.hpp"
-#include "./MemoryDescriptor.hpp"
-#include "./MemoryObject.hpp"
-#include "./MobMemory.hpp"
+#include <stillwater/shim/kpu/memory/Page.hpp>
+#include <stillwater/shim/kpu/memory/Memory.hpp>
+#include <stillwater/shim/kpu/memory/MemoryDescriptor.hpp>
+#include <stillwater/shim/kpu/memory/MemoryObject.hpp>
+#include <stillwater/shim/kpu/memory/MobMemory.hpp>
 
 using namespace std;
 using namespace stillwater::slm;

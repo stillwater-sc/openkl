@@ -35,9 +35,9 @@
 #include <stillwater/arch/baseTypes/slmBaseTypes_nsmacro.hpp>
 #include <stillwater/arch/baseTypes/Request.hpp>
 // memory library includes
-#include "./memory_nsmacro.hpp"	// centralized namespace definition
-#include "./Page.hpp"
-#include "./Memory.hpp"
+#include <stillwater/shim/kpu/memory/memory_nsmacro.hpp>	// centralized namespace definition
+#include <stillwater/shim/kpu/memory/Page.hpp>
+#include <stillwater/shim/kpu/memory/Memory.hpp>
 
 using namespace stillwater::slm;
 

@@ -18,13 +18,12 @@
 #include <stillwater/arch/baseTypes/slmBaseTypes_nsmacro.hpp>
 #include <stillwater/arch/baseTypes/Request.hpp>
 // Library headers and supporting types
-#include "../memory_nsmacro.hpp"	// centralized namespace definition
-#include "../Page.hpp"
-#include "../Memory.hpp"
-#include "../MemoryDescriptor.hpp"
-#include "../MemoryObject.hpp"
-#include "../MobMemory.hpp"
-
+#include <stillwater/shim/kpu/memory/memory_nsmacro.hpp>	// centralized namespace definition
+#include <stillwater/shim/kpu/memory/Page.hpp>
+#include <stillwater/shim/kpu/memory/Memory.hpp>
+#include <stillwater/shim/kpu/memory/MemoryDescriptor.hpp>
+#include <stillwater/shim/kpu/memory/MemoryObject.hpp>
+#include <stillwater/shim/kpu/memory/MobMemory.hpp>
 
 using namespace std;
 using namespace stillwater::slm;

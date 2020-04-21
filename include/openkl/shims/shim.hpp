@@ -51,6 +51,8 @@ public:
 	/////////////////////////////////////////////////////////////////
 	/// RESOURCE MANAGEMENT
 	virtual bool create() = 0;
+	/// simulation statistic reporting
+	virtual void report(std::ostream& ostr) = 0;
 
 	// reusable base functionality 
 	void set(const std::string& id,

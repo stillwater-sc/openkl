@@ -35,8 +35,8 @@
 #include <stillwater/arch/baseTypes/slmBaseTypes_nsmacro.hpp>
 #include <stillwater/arch/baseTypes/Request.hpp>
 // SLM Cache library includes
-#include "./memory_nsmacro.hpp"	// centralized namespace definition
-#include "./RequestGenerator.hpp"
+#include <stillwater/shim/kpu/memory/memory_nsmacro.hpp>	// centralized namespace definition
+#include <stillwater/shim/kpu/memory/RequestGenerator.hpp>
 
 using namespace stillwater::slm;
 

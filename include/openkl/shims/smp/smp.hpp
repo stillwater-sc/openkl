@@ -62,6 +62,12 @@ public:
 
 	}
 
+	/////////////////////////////////////////////////////////////////
+/// simulation statistic reporting
+	void report(std::ostream& ostr) {
+		ostr << *this << std::endl;
+	}
+
 	/// ostream
     friend std::ostream& operator<<(std::ostream& os, const self& server) noexcept
     {

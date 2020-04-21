@@ -2,7 +2,7 @@ project(kpu_shim_lib)
 
 # The files in the KPU shim library are organized in their own functional blocks
 # frontend, memory, and fabric
-file (GLOB LIB_SOURCES "*/*.cpp")
+file (GLOB LIB_SOURCES "toplevel/*.cpp" "frontend/*.cpp" "memory/*.cpp" "fabric/*.cpp")
 
 message(STATUS "The library sources are ${LIB_SOURCES}") # just for testing
 
