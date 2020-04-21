@@ -51,10 +51,10 @@ public:
 	 * MemoryDescriptor is the minimum information
 	 * needed to initiate the read operation.
 	 */
-	MemoryObject(uint64_t nrOfElements, MemoryElementType elementType) :
+	MemoryObject(size_t nrOfElements, MemoryElementType elementType) :
 		MemoryDescriptor(nrOfElements, elementType) {
 		m_sizeInBytes = m_nrOfElements*m_sizeOfElement;
-		m_pBlob = new char[static_cast<size_t>(m_sizeInBytes)];
+		m_pBlob = new char[m_sizeInBytes];
 	}
 	/**
 	 * \brief constructor for writing operations.
@@ -67,11 +67,11 @@ public:
 	 * including the data blob is the minimum information
 	 * needed to initiate the write operation.
 	 */
-	MemoryObject(uint64_t nrOfElements, MemoryElementType elementType, const void* pData) :
+	MemoryObject(size_t nrOfElements, MemoryElementType elementType, const void* pData) :
 		MemoryDescriptor(nrOfElements, elementType) {
 		m_sizeInBytes = m_nrOfElements*m_sizeOfElement;
-		m_pBlob = new char[static_cast<size_t>(m_sizeInBytes)];
-		memcpy(m_pBlob, pData, static_cast<size_t>(m_sizeInBytes));
+		m_pBlob = new char[m_sizeInBytes];
+		memcpy(m_pBlob, pData, m_sizeInBytes);
 	}
 	/**
 	 * \brief default destructor cleans the blob

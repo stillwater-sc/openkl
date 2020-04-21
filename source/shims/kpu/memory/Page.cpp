@@ -29,8 +29,8 @@
 #include <stillwater/baseTypes.hpp>
 #include <stillwater/exceptions.hpp>
 // memory library includes
-#include "./memory_nsmacro.hpp"	// centralized namespace definition
-#include "./Page.hpp"
+#include <stillwater/shim/kpu/memory/memory_nsmacro.hpp>	// centralized namespace definition
+#include <stillwater/shim/kpu/memory/Page.hpp>
 
 using namespace stillwater::slm;
 

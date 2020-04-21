@@ -28,9 +28,9 @@
 // STILLWATER includes
 #include <stillwater/baseTypes.hpp>
 // memory library includes
-#include "./memory_nsmacro.hpp"	// centralized namespace definition
+#include <stillwater/shim/kpu/memory/memory_nsmacro.hpp>	// centralized namespace definition
 #include <interfaces/MemoryTypeEnums.hpp>		// ETLO 2/23/07 This is an odd dependency on the namespace definition TODO fix this if you can
-#include "./MemoryDescriptor.hpp"
+#include <stillwater/shim/kpu/memory/MemoryDescriptor.hpp>
 
 using namespace stillwater::slm;
 

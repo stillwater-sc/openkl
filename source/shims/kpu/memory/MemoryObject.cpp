@@ -27,11 +27,11 @@
 // none
 // STILLWATER includes
 #include <stillwater/baseTypes.hpp>
-#include "./memory_nsmacro.hpp"	// centralized namespace definition
+#include <stillwater/shim/kpu/memory/memory_nsmacro.hpp>	// centralized namespace definition
 #include <interfaces/MemoryTypeEnums.hpp>
 // memory library includes
-#include "./MemoryDescriptor.hpp"
-#include "./MemoryObject.hpp"
+#include <stillwater/shim/kpu/memory/MemoryDescriptor.hpp>
+#include <stillwater/shim/kpu/memory/MemoryObject.hpp>
 
 NS_STILLWATER_SLM_MEMORY_BEGIN
 
