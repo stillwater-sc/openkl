@@ -1,4 +1,7 @@
 # openkl
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/28b588921aa34231869a034f6283fdf9)](https://app.codacy.com/gh/stillwater-sc/openkl?utm_source=github.com&utm_medium=referral&utm_content=stillwater-sc/openkl&utm_campaign=Badge_Grade_Dashboard)
+
 Virtual Machine for Cloud-Native Supercomputing
 
 one new concept we would like to exploit in OpenKL versus OpenCL is unifying compute resources
