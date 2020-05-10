@@ -12,7 +12,6 @@
 #include <openkl/utilities/exit.hpp>
 
 #include <universal/posit/posit>
-//#include <universal/posit/posit.hpp>
 
 std::string attributes(openkl::klExecutionEnvironment& target) {
 	std::stringstream ss;

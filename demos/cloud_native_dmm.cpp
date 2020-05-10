@@ -6,13 +6,16 @@
 // This file is part of the OpenKL project, which is released under an MIT Open Source license.
 // Authors: Peter Gottschling (peter.gottschling@simunova.com)
 //          Theodore Omtzigt  (theo@stillwater-sc.com)
+
+#define PROXY_DISPATCH_CLASS_FOR_CONTEXT
 #include <openkl/openkl.hpp>
+#include <openkl/utilities/exit.hpp>
 
 #include <universal/posit/posit>
-//#include <universal/posit/posit.hpp>
 
 int main(int argc, char* argv[])
 try {
+	openkl::klEnvironment env;
 }
 catch (const char* msg) {
 	std::cerr << "caught exception: " << msg << std::endl;
