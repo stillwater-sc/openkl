@@ -11,6 +11,7 @@ include_directories(${CMAKE_SOURCE_DIR}/${COMMON_INCLUDE_DIR})
 # add a library target
 add_executable(test_common_statistics ${SOURCES} ${INCLUDES})
 target_link_libraries(test_common_statistics common_diagnostics_lib common_statistics_lib)
+set_target_properties(test_common_statistics PROPERTIES FOLDER "Tests/common")
 
 add_test(common_statistics ${EXECUTABLE_OUTPUT_PATH}/test_common_statistics)
 #add_test(common_statistics ${CMAKE_CTEST_COMMAND}

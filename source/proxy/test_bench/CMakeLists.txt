@@ -14,3 +14,4 @@ add_executable(test_proxy ${SOURCES} ${INCLUDES})
 target_link_libraries(test_proxy proxy_lib cpu_shim_lib kpu_shim_lib common_automation_lib common_diagnostics_lib)
 
 add_test(test_proxy ${EXECUTABLE_OUTPUT_PATH}/test_proxy)
+set_target_properties(test_proxy PROPERTIES FOLDER "Tests/components")

@@ -11,3 +11,4 @@ include_directories(${CMAKE_SOURCE_DIR}/${COMMON_INCLUDE_DIR})
 message(STATUS "kpu_shim_lib " ${CMAKE_SOURCE_DIR})
 
 add_library(kpu_shim_lib ${LIB_SOURCES})
+set_target_properties(kpu_shim_lib PROPERTIES FOLDER "Libraries/shims")

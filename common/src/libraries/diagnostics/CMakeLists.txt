@@ -12,3 +12,4 @@ file (GLOB LIB_INCLUDES "${STILLWATER_DIAGNOSTICS_INCLUDE_DIR}/*.hpp")
 include_directories("${CMAKE_SOURCE_DIR}/${COMMON_INCLUDE_DIR}")
 
 add_library(common_diagnostics_lib ${LIB_SOURCES} ${LIB_INCLUDES})
+set_target_properties(common_diagnostics_lib PROPERTIES FOLDER "Libraries/common")

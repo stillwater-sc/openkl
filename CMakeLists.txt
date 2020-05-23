@@ -121,6 +121,10 @@ include_directories(${UNIVERSAL_INCLUDE_DIRS})
     
 message(STATUS "The UNIVERSAL INCLUDE DIR is " ${UNIVERSAL_INCLUDE_DIRS})
 
+#The package protobuf:x64-windows provides CMake targets:
+#find_package(protobuf CONFIG REQUIRED)
+#target_link_libraries(main PRIVATE protobuf::libprotoc protobuf::libprotobuf protobuf::libprotobuf-lite)
+
 # Set openkl include directory
 set(OPENKL_INCLUDE_DIR "include")
 include_directories(${OPENKL_INCLUDE_DIR})
@@ -146,8 +150,8 @@ macro (compile_all testing prefix folder)
         set(test_name ${prefix}_${test})
         message(STATUS "Add test ${test_name} from source ${new_source}.")
         add_executable (${test_name} ${new_source})
-	set_target_properties(${test_name} PROPERTIES FOLDER ${folder})
-	target_link_libraries(${test_name} openkl_lib proxy_lib kpu_shim_lib)
+		set_target_properties(${test_name} PROPERTIES FOLDER ${folder})
+		target_link_libraries(${test_name} openkl_lib proxy_lib kpu_shim_lib)
         if (${testing} STREQUAL "true")
 	    if (OPENKL_CMAKE_TRACE)
                 message(STATUS "testing: ${test_name} ${RUNTIME_OUTPUT_DIRECTORY}/${test_name}")
@@ -185,6 +189,9 @@ add_subdirectory("tests")
 add_subdirectory("source/shims/kpu/memory/test_bench")
 add_subdirectory("source/shims/kpu/test_bench")
 add_subdirectory("source/proxy/test_bench")
+
+# build the cloud-native container-based distributed memory machine
+add_subdirectory("cdmm")
 
 # build demo programs
 add_subdirectory("applications/krylov")

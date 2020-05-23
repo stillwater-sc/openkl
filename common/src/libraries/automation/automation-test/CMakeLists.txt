@@ -12,6 +12,7 @@ message(STATUS "test_common_automation " ${CMAKE_SOURCE_DIR})
 # add a library target
 add_executable(test_common_automation ${SOURCES} ${INCLUDES})
 target_link_libraries(test_common_automation common_diagnostics_lib common_automation_lib)
+set_target_properties(test_common_automation PROPERTIES FOLDER "Tests/common")
 
 add_test(common_automation ${EXECUTABLE_OUTPUT_PATH}/test_common_automation)
 #add_test(common_automation ${CMAKE_CTEST_COMMAND}

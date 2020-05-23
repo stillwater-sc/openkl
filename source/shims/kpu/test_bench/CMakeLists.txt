@@ -14,3 +14,4 @@ add_executable(test_shim_kpu ${SOURCES} ${INCLUDES})
 target_link_libraries(test_shim_kpu kpu_shim_lib common_automation_lib common_diagnostics_lib)
 
 add_test(test_shim_kpu ${EXECUTABLE_OUTPUT_PATH}/test_shim_kpu)
+set_target_properties(test_shim_kpu PROPERTIES FOLDER "Tests/components")

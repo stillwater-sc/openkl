@@ -14,3 +14,4 @@ add_executable(test_memory ${SOURCES} ${INCLUDES})
 target_link_libraries(test_memory kpu_shim_lib common_automation_lib common_diagnostics_lib)
 
 add_test(test_memory ${EXECUTABLE_OUTPUT_PATH}/test_memory)
+set_target_properties(test_memory PROPERTIES FOLDER "Tests/components")
