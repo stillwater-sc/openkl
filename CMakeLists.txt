@@ -36,6 +36,11 @@ project (openkl
 	VERSION "${OPENKL_VERSION_MAJOR}.${OPENKL_VERSION_MINOR}.${OPENKL_VERSION_PATCH}"
 	LANGUAGES C CXX ASM)
 
+# C++ package manager configuration
+# set the vcpkg-root
+set(VCPKG_ROOT "" CACHE PATH "Root directory of the vcpkg manager's database of installed C++ environments")
+set(CMAKE_TOOL_CHAIN_FILE "" CACHE PATH "Full path to the vcpkg.cmake file, typically under VCPKG-ROOT/scripts/buildsystem/vcpkg.cmake")
+
 ####
 # Change default build type to Release
 #
@@ -124,6 +129,10 @@ message(STATUS "The UNIVERSAL INCLUDE DIR is " ${UNIVERSAL_INCLUDE_DIRS})
 #The package protobuf:x64-windows provides CMake targets:
 #find_package(protobuf CONFIG REQUIRED)
 #target_link_libraries(main PRIVATE protobuf::libprotoc protobuf::libprotobuf protobuf::libprotobuf-lite)
+
+find_package(gRPC "1.29.1" CONFIG REQUIRED)
+#add_executable(my_exe my_exe.cpp)
+#target_link_libraries(my_exe gRPC::grpc++)
 
 # Set openkl include directory
 set(OPENKL_INCLUDE_DIR "include")
