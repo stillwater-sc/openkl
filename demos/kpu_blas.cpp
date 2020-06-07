@@ -220,8 +220,9 @@ try {
 	// different cloud/remote accounts. Mmmmmm, that would imply that the proxy
 	// needs to maintain credentials: is that a security issue?
 
-	// When we create the environment we potentially need to provide it with
-	// remote credentials.
+	// When we create the environment we potentially 
+	// need to provide it with remote credentials.
+
 	// bind this application to the OpenKL environment
 	openkl::klEnvironment env;
 	// Optional step: connect to remote targets
@@ -271,6 +272,7 @@ try {
 	url = "grpc::stillwater-sc.com/openkl/perf/1T";
 	openkl::klRpcConnection target2(url);  // how do we do credentials?
 	env.connect(target2);
+
 	if (!env.enumerate()) {
 		openkl::exit("OpenKL enumeration yielded no targets: exiting");
 	}
